@@ -9,7 +9,7 @@ import survivor.models.Castaway;
 import java.util.List;
 
 @RestController
-@RequestMapping("/castaway")
+@RequestMapping("/api/castaway")
 public class CastawayController {
 
     private final CastawayService service;

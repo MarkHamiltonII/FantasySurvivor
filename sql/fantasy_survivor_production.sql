@@ -2,6 +2,31 @@ drop database if exists fantasy_survivor;
 create database fantasy_survivor;
 use fantasy_survivor;
 
+create table app_user (
+	user_id int primary key auto_increment,
+    username varchar(125) not null unique,
+    password_hash varchar(2048) not null,
+    disabled bit not null default(0)
+);
+
+create table app_roles (
+	role_id int primary key auto_increment,
+    `role` varchar(25) not null
+);
+
+create table app_user_roles (
+	user_id int not null,
+	role_id int not null,
+    constraint pk_app_user_role
+        primary key (user_id, role_id),
+	constraint fk_app_user_roles_user_id
+		foreign key (user_id)
+        references app_user(user_id),
+	constraint fk_app_user_roles_role_id
+		foreign key (role_id)
+        references app_roles(role_id) 
+);
+
 create table castaway (
 	castaway_id int primary key auto_increment,
     first_name varchar(100) not null,
@@ -12,6 +37,29 @@ create table castaway (
     icon_url varchar(2048) not null,
     page_url varchar(2048) not null
 );
+
+insert into app_user (username, password_hash, disabled) values
+	('diablo','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa',0),
+    ('mork','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa',0),
+    ('joj','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa',0),
+    ('kennedy','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa',0),
+    ('shaggy','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa',0),
+    ('jt','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa',0),
+    ('lil lady','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa',0);
+
+insert into app_roles (`role`) values 
+	('USER'),
+    ('LEAGUE_OWNER'),
+    ('ADMIN');
+    
+insert into app_user_roles values
+	(1,3),
+    (2,3),
+    (3,1),
+    (4,1),
+    (5,1),
+    (6,1),
+    (7,1);
 
 insert into castaway (first_name, last_name, age, current_residence, occupation, icon_url, page_url) values
 	('Chanelle', 'Howell', 29, 'Hamden, CT', 'Executive Recruiter', 'https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_02_800x1000.jpg', 'https://www.cbs.com/shows/survivor/cast/216607/'),
