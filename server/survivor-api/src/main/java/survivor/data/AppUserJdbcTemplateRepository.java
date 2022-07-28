@@ -25,14 +25,14 @@ public class AppUserJdbcTemplateRepository {
     @Transactional
     public List<AppUser> findAllAppUsers() {
         final String sql = "select user_id, username, password_hash, disabled from app_user;";
-        return jdbcTemplate.query(sql, new AppUserMapper(List.of("ROLE_USER")));
+        return jdbcTemplate.query(sql, new AppUserMapper(List.of("USER")));
     }
 
     @Transactional
     public AppUser findAppUserByUsername(String username) {
         List<String> roles = getRolesByUsername(username);
 
-        final String sql = "select app_user_id, username, password_hash, disabled "
+        final String sql = "select user_id, username, password_hash, disabled "
                 + "from app_user "
                 + "where username = ?;";
 
@@ -45,7 +45,7 @@ public class AppUserJdbcTemplateRepository {
     public AppUser findAppUserById(int id) {
         List<String> roles = getRolesByUserId(id);
 
-        final String sql = "select user_id, username, password_hash, disabled, "
+        final String sql = "select user_id, username, password_hash, disabled "
                 + "from app_user "
                 + "where user_id = ?;";
 

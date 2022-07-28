@@ -54,6 +54,10 @@ insert into app_roles (`role`) values
     
 insert into app_user_roles values
 	(1,3),
+    (1,2),
+    (1,1),
+    (2,1),
+    (2,2),
     (2,3),
     (3,1),
     (4,1),
