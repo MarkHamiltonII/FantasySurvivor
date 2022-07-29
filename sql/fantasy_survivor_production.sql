@@ -39,8 +39,7 @@ create table castaway (
 );
 
 create table season (
-	season_id int primary key auto_increment,
-    season_number int not null,
+	season_id int primary key,
     `name` varchar(1024) not null
 );
 
@@ -55,6 +54,60 @@ create table season_castaway (
 	constraint fk_season_castaway_castaway_id
 		foreign key (castaway_id)
         references castaway(castaway_id) 
+);
+
+create table league (
+	league_id int primary key auto_increment,
+    `name` varchar(1024) not null,
+    season_id int not null,
+    constraint fk_league_season
+		foreign key (season_id)
+        references season(season_id)
+);
+
+create table tribal (
+	tribal_id int primary key auto_increment,
+	tribal_number int,
+    season_id int not null,
+    castaway_id int not null,
+    constraint fk_tribal_season_id
+		foreign key (season_id)
+        references season(season_id),
+    constraint fk_tribal_castaway_id
+		foreign key (castaway_id)
+        references castaway(castaway_id)
+);
+
+create table league_app_user (
+	id int primary key auto_increment,
+    rating int not null,
+    castaway_id int not null,
+    league_id int not null,
+    user_id int not null,
+    constraint fk_castaway_id
+		foreign key (castaway_id)
+        references castaway(castaway_id),
+    constraint fk_league_id
+		foreign key (league_id)
+        references league(league_id),
+	constraint fk_user_id
+		foreign key (user_id)
+        references app_user(user_id),
+	unique key uniq_key (user_id, league_id, rating)
+);
+
+create table league_app_user_tribal (
+	laut_id int primary key auto_increment,
+    tribal_points int not null,
+    points_to_date int not null,
+    lau_id int not null,
+    tribal_id int not null,
+    constraint fk_lau_id 
+		foreign key (lau_id)
+        references league_app_user(id),
+	constraint fk_tribal_id
+		foreign key (tribal_id)
+        references tribal(tribal_id)
 );
 
 insert into app_user (username, password_hash, disabled) values
@@ -104,26 +157,69 @@ insert into castaway (first_name, last_name, age, current_residence, occupation,
     ('Tori', 'Meehan', 25, 'Tulsa, OK', 'Therapist', 'https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_14_800x1000.jpg', 'https://www.cbs.com/shows/survivor/cast/216623/'),
     ('Zach', 'Wurtenberger', 22, 'St. Louis, MO', 'Student', 'https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_18_800x1000.jpg', 'https://www.cbs.com/shows/survivor/cast/216624/');
     
-insert into season (`name`, season_number) values
-	('Season 42', 42);
+insert into season(season_id, `name`) values
+	(42, 'Season 42');
     
 insert into season_castaway values
-	(1,1),
-    (1,2),
-    (1,3),
-    (1,4),
-    (1,5),
-    (1,6),
-    (1,7),
-    (1,8),
-    (1,9),
-    (1,10),
-    (1,11),
-    (1,12),
-    (1,13),
-    (1,14),
-    (1,15),
-    (1,16),
-    (1,17),
-    (1,18);
+	(42,1),
+    (42,2),
+    (42,3),
+    (42,4),
+    (42,5),
+    (42,6),
+    (42,7),
+    (42,8),
+    (42,9),
+    (42,10),
+    (42,11),
+    (42,12),
+    (42,13),
+    (42,14),
+    (42,15),
+    (42,16),
+    (42,17),
+    (42,18);
     
+insert into league(`name`, season_id) values
+	('Our first league', 42);
+    
+    -- kennedy's list 
+insert into league_app_user(rating,castaway_id,league_id,user_id) values
+	(11,1,1,4),
+    (14,2,1,4),
+    (6,3,1,4),
+    (7,4,1,4),
+    (10,6,1,4),
+    (12,7,1,4),
+    (15,8,1,4),
+    (9,9,1,4),
+    (16,10,1,4),
+    (4,11,1,4),
+    (5,12,1,4),
+    (3,13,1,4),
+    (2,14,1,4),
+    (1,15,1,4),
+    (13,16,1,4),
+    (8,17,1,4);
+    
+insert into tribal(tribal_number,season_id, castaway_id) values
+	(1,42,1),
+    (1,42,2),
+    (1,42,3),
+    (1,42,4),
+    (1,42,5),
+    (1,42,6),
+    (1,42,7),
+    (1,42,8),
+    (1,42,9),
+    (1,42,11),
+    (1,42,12),
+    (1,42,13),
+    (1,42,14),
+    (1,42,15),
+    (1,42,16),
+    (1,42,17),
+    (1,42,18);
+    
+insert into league_app_user_tribal(tribal_points, points_to_date, lau_id, tribal_id) values
+	(93,193,1,1);
