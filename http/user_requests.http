@@ -1,6 +1,6 @@
 @url = http://localhost:8080/api
 
-###
+### - admin can log in
 
 POST {{url}}/authenticate HTTP/1.1
 Content-Type: application/json
@@ -10,8 +10,30 @@ Content-Type: application/json
     "password": "P@ssw0rd!"
 }   
 
-###
+### - admin can see all users
 
 GET {{url}}/users HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXcta2lkcy1vbi10aGUtcm9jayIsInN1YiI6ImRpYWJsbyIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTiIsImV4cCI6MTY1OTA0NDY5MH0.kRtMe5R3vtR6sy1xADnk-XcaJRSQXNKd5vh2kXuNiJo
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXcta2lkcy1vbi10aGUtcm9jayIsInN1YiI6ImRpYWJsbyIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTixST0xFX0xFQUdVRV9PV05FUixST0xFX1VTRVIiLCJleHAiOjE2NTkwNDUwMzV9.fh4C2okr12aCOsmfttfaw_gSBMqVz3Ns_SLgOIQ0A8g
+
+### - admin can see user details
+
+GET {{url}}/users/2 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXcta2lkcy1vbi10aGUtcm9jayIsInN1YiI6ImRpYWJsbyIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTixST0xFX0xFQUdVRV9PV05FUixST0xFX1VTRVIiLCJleHAiOjE2NTkwNDUwMzV9.fh4C2okr12aCOsmfttfaw_gSBMqVz3Ns_SLgOIQ0A8g
+
+### - user can log in
+
+POST {{url}}/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "joj",
+    "password": "P@ssw0rd!"
+}
+
+### - joj can see own details
+
+GET {{url}}/users/3 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXcta2lkcy1vbi10aGUtcm9jayIsInN1YiI6ImpvaiIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjU5MDQ1MTY3fQ.at0zfOrBSGJBpnB_d93yXgGXVvs-7PmPzuIRmo7u89E

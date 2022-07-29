@@ -30,9 +30,10 @@ public class CastawayJdbcTemplateRepository {
     public List<Castaway> findCastawayBySeason(int id){
 
         final String sql = "select c.castaway_id, c.first_name, c.last_name, c.age, c.current_residence, c.occupation, "
-                + "c.icon_url, page_url from castaway c"
+                + "c.icon_url, page_url from castaway c "
                 + "inner join season_castaway sc on c.castaway_id = sc.castaway_id "
-                + "where sc.season_id = ?;";
+                + "inner join season s on sc.season_id = s.season_id "
+                + "where s.season_number = ?;";
 
         List<Castaway> castaways = jdbcTemplate.query(sql, new CastawayMapper(), id);
         return castaways;

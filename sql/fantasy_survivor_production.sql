@@ -40,6 +40,7 @@ create table castaway (
 
 create table season (
 	season_id int primary key auto_increment,
+    season_number int not null,
     `name` varchar(1024) not null
 );
 
@@ -103,8 +104,8 @@ insert into castaway (first_name, last_name, age, current_residence, occupation,
     ('Tori', 'Meehan', 25, 'Tulsa, OK', 'Therapist', 'https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_14_800x1000.jpg', 'https://www.cbs.com/shows/survivor/cast/216623/'),
     ('Zach', 'Wurtenberger', 22, 'St. Louis, MO', 'Student', 'https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_18_800x1000.jpg', 'https://www.cbs.com/shows/survivor/cast/216624/');
     
-insert into season (`name`) values
-	('Season 42');
+insert into season (`name`, season_number) values
+	('Season 42', 42);
     
 insert into season_castaway values
 	(1,1),
