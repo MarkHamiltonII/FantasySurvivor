@@ -44,4 +44,44 @@ public class CastawayService {
 
         return result;
     }
+
+    public Result<?> createTribal(int seasonId, int tribalNumber, List<Castaway> castaways){
+        Result<?> result = validateTribal(seasonId,tribalNumber,castaways);
+
+        if (!result.isSuccess()){
+            return result;
+        }
+        
+        List<Castaway> oldTribal = repository.findCastawayByTribal(seasonId, tribalNumber);
+        if (oldTribal.size() != 0){
+            result.addMessage("Tribal number already exists", ResultType.INVALID);
+            return result;
+        }
+
+        if (!repository.createTribal(seasonId,tribalNumber,castaways)){
+            result.addMessage("Tribal could not be created", ResultType.INVALID);
+        }
+
+        return result;
+    }
+
+    /////////////////////////////////// Validation Methods //////////////////////////////////////////
+
+    public Result<?> validateTribal(int seasonId, int tribalNumber, List<Castaway> castaways){
+        Result<?> result = new Result<>();
+
+        List<Castaway> season = repository.findCastawayBySeason(seasonId);
+        if (season.size() == 0) {
+            result.addMessage("Season not in system", ResultType.INVALID);
+            return result;
+        }
+
+        for (Castaway c : castaways){
+            if (!season.contains(c)){
+                result.addMessage("Invalid Castaway for Season", ResultType.INVALID);
+                return result;
+            }
+        }
+        return result;
+    }
 }

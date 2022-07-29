@@ -50,4 +50,16 @@ public class CastawayJdbcTemplateRepository {
         return castaways;
     }
 
+    @Transactional
+    public boolean createTribal(int seasonId, int tribalNumber, List<Castaway> castaways){
+        final String sql = "insert into tribal(tribal_number, season_id, castaway_id) values (?, ?, ?);";
+        int rowsUpdated = 0;
+
+        for (Castaway c : castaways){
+            rowsUpdated = jdbcTemplate.update(sql, tribalNumber, seasonId, c.getId());
+        }
+
+        return rowsUpdated > 0;
+    }
+
 }

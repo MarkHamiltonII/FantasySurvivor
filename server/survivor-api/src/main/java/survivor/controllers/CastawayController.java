@@ -2,10 +2,7 @@ package survivor.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import survivor.domain.CastawayService;
 import survivor.domain.Result;
 import survivor.models.Castaway;
@@ -41,6 +38,15 @@ public class CastawayController {
         Result<List<Castaway>> result = service.findCastawaysByTribal(seasonId, tribalNumber);
         if (result.isSuccess()){
             return new ResponseEntity<>(result.getPayload(), HttpStatus.OK);
+        }
+        return ErrorResponse.build(result);
+    }
+
+    @PostMapping("/season{seasonId}/tribal{tribalNumber}")
+    public ResponseEntity<?> createTribal(@PathVariable int seasonId, @PathVariable int tribalNumber, @RequestBody List<Castaway> castaways) {
+        Result<?> result = service.createTribal(seasonId, tribalNumber, castaways);
+        if (result.isSuccess()){
+            return new ResponseEntity<>(HttpStatus.CREATED);
         }
         return ErrorResponse.build(result);
     }
