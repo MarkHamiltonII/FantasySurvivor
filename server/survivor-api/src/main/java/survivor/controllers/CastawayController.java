@@ -1,9 +1,13 @@
 package survivor.controllers;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import survivor.domain.CastawayService;
+import survivor.domain.Result;
 import survivor.models.Castaway;
 
 import java.util.List;
@@ -21,5 +25,14 @@ public class CastawayController {
     @GetMapping("/all")
     public List<Castaway> findAllCastaways() {
         return service.findAllCastaways();
+    }
+
+    @GetMapping("/season/{id}")
+    public ResponseEntity<?> findAllCastaways(@PathVariable int id) {
+        Result<List<Castaway>> result = service.findCastawaysBySeason(id);
+        if (result.isSuccess()){
+            return new ResponseEntity<>(result.getPayload(), HttpStatus.OK);
+        }
+        return ErrorResponse.build(result);
     }
 }

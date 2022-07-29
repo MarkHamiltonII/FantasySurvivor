@@ -18,4 +18,17 @@ public class CastawayService {
     public List<Castaway> findAllCastaways(){
         return repository.findAllCastaways();
     }
+
+    public Result<List<Castaway>> findCastawaysBySeason(int id) {
+        List<Castaway> castaways = repository.findCastawayBySeason(id);
+        Result<List<Castaway>> result = new Result<>();
+        if (castaways.size() == 0){
+            result.addMessage("Season not found", ResultType.INVALID);
+            return result;
+        }
+
+        result.setPayload(castaways);
+
+        return result;
+    }
 }

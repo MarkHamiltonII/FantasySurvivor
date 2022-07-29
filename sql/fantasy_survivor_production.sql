@@ -38,6 +38,24 @@ create table castaway (
     page_url varchar(2048) not null
 );
 
+create table season (
+	season_id int primary key auto_increment,
+    `name` varchar(1024) not null
+);
+
+create table season_castaway (
+	season_id int not null,
+	castaway_id int not null,
+    constraint pk_season_castaway
+        primary key (season_id, castaway_id),
+	constraint fk_season_castaway_season_id
+		foreign key (season_id)
+        references season(season_id),
+	constraint fk_season_castaway_castaway_id
+		foreign key (castaway_id)
+        references castaway(castaway_id) 
+);
+
 insert into app_user (username, password_hash, disabled) values
 	('diablo','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa',0),
     ('mork','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa',0),
@@ -84,3 +102,27 @@ insert into castaway (first_name, last_name, age, current_residence, occupation,
     ('Swati', 'Goel', 19, 'Palo Alto, Ca', 'Ivy League Student', 'https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_15_800x1000.jpg', 'https://www.cbs.com/shows/survivor/cast/216622/'),
     ('Tori', 'Meehan', 25, 'Tulsa, OK', 'Therapist', 'https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_14_800x1000.jpg', 'https://www.cbs.com/shows/survivor/cast/216623/'),
     ('Zach', 'Wurtenberger', 22, 'St. Louis, MO', 'Student', 'https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_18_800x1000.jpg', 'https://www.cbs.com/shows/survivor/cast/216624/');
+    
+insert into season (`name`) values
+	('Season 42');
+    
+insert into season_castaway values
+	(1,1),
+    (1,2),
+    (1,3),
+    (1,4),
+    (1,5),
+    (1,6),
+    (1,7),
+    (1,8),
+    (1,9),
+    (1,10),
+    (1,11),
+    (1,12),
+    (1,13),
+    (1,14),
+    (1,15),
+    (1,16),
+    (1,17),
+    (1,18);
+    
