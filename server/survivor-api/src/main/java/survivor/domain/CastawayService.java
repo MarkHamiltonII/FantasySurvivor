@@ -31,4 +31,17 @@ public class CastawayService {
 
         return result;
     }
+
+    public Result<List<Castaway>> findCastawaysByTribal(int seasonId, int tribalNumber) {
+        List<Castaway> castaways = repository.findCastawayByTribal(seasonId, tribalNumber);
+        Result<List<Castaway>> result = new Result<>();
+        if (castaways.size() == 0){
+            result.addMessage("Tribal not found", ResultType.INVALID);
+            return result;
+        }
+
+        result.setPayload(castaways);
+
+        return result;
+    }
 }

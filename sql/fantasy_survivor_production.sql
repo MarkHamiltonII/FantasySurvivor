@@ -207,7 +207,6 @@ insert into tribal(tribal_number,season_id, castaway_id) values
     (1,42,2),
     (1,42,3),
     (1,42,4),
-    (1,42,5),
     (1,42,6),
     (1,42,7),
     (1,42,8),

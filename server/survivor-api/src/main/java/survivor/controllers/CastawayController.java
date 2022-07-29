@@ -27,9 +27,18 @@ public class CastawayController {
         return service.findAllCastaways();
     }
 
-    @GetMapping("/season/{id}")
-    public ResponseEntity<?> findAllCastaways(@PathVariable int id) {
+    @GetMapping("/season{id}")
+    public ResponseEntity<?> findCastawaysBySeason(@PathVariable int id) {
         Result<List<Castaway>> result = service.findCastawaysBySeason(id);
+        if (result.isSuccess()){
+            return new ResponseEntity<>(result.getPayload(), HttpStatus.OK);
+        }
+        return ErrorResponse.build(result);
+    }
+
+    @GetMapping("/season{seasonId}/tribal{tribalNumber}")
+    public ResponseEntity<?> findCastawaysByTribal(@PathVariable int seasonId, @PathVariable int tribalNumber) {
+        Result<List<Castaway>> result = service.findCastawaysByTribal(seasonId, tribalNumber);
         if (result.isSuccess()){
             return new ResponseEntity<>(result.getPayload(), HttpStatus.OK);
         }

@@ -7,10 +7,20 @@ Content-Type: application/json
 
 ### - Should not get future season
 
-GET {{url}}/castaway/season/69 HTTP/1.1
+GET {{url}}/castaway/season69 HTTP/1.1
 Content-Type: application/json
 
 ### - Should get castaway by season
 
-GET {{url}}/castaway/season/42 HTTP/1.1
+GET {{url}}/castaway/season42 HTTP/1.1
+Content-Type: application/json
+
+### - Should get castaway by tribal (no Marya or Jackson)
+
+GET {{url}}/castaway/season42/tribal1 HTTP/1.1
+Content-Type: application/json
+
+### - Should Not get future tribal
+
+GET {{url}}/castaway/season42/tribal100 HTTP/1.1
 Content-Type: application/json
