@@ -3,13 +3,10 @@ package survivor.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
+import survivor.models.AppUser;
 
 import java.security.Key;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,27 +17,28 @@ public class JwtConverter {
     // 1. Signing key
     private Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     // 2. "Configurable" constants
-    private final String ISSUER = "new-kids-on-the-rock";
+    private final String ISSUER = "fantasy-survivor";
     private final int EXPIRATION_MINUTES = 15;
     private final int EXPIRATION_MILLIS = EXPIRATION_MINUTES * 60 * 1000;
 
-    public String getTokenFromUser(User user) {
+    public String getTokenFromUser(AppUser appUser) {
 
-        String authorities = user.getAuthorities().stream()
+        String authorities = appUser.getAuthorities().stream()
                 .map(i -> i.getAuthority())
                 .collect(Collectors.joining(","));
 
         // 3. Use JJWT classes to build a token.
         return Jwts.builder()
                 .setIssuer(ISSUER)
-                .setSubject(user.getUsername())
+                .setSubject(appUser.getUsername())
                 .claim("authorities", authorities)
+                .claim("appUserId", appUser.getAppUserId())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_MILLIS))
                 .signWith(key)
                 .compact();
     }
 
-    public User getUserFromToken(String token) {
+    public AppUser getUserFromToken(String token) {
 
         if (token == null || !token.startsWith("Bearer ")) {
             return null;
@@ -56,11 +54,14 @@ public class JwtConverter {
 
             String username = jws.getBody().getSubject();
             String authStr = (String) jws.getBody().get("authorities");
-            List<GrantedAuthority> authorities = Arrays.stream(authStr.split(","))
-                    .map(i -> new SimpleGrantedAuthority(i))
-                    .collect(Collectors.toList());
+            List<String> authorities = List.of(authStr.split(","));
+//            List<GrantedAuthority> authorities = Arrays.stream(authStr.split(","))
+//                    .map(i -> new SimpleGrantedAuthority(i))
+//                    .collect(Collectors.toList());
 
-            return new User(username, username, authorities);
+            int appUserId = (int) jws.getBody().get("appUserId");
+
+            return new AppUser(appUserId, username, username, false, authorities);
 
         } catch (JwtException e) {
             // 5. JWT failures are modeled as exceptions.
