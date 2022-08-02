@@ -1,5 +1,10 @@
 @url = http://localhost:8080/api
 
+### - no details if not logged in
+
+GET {{url}}/users/3 HTTP/1.1
+Content-Type: application/json
+
 ### - admin can log in
 
 POST {{url}}/authenticate HTTP/1.1
@@ -14,7 +19,7 @@ Content-Type: application/json
 
 GET {{url}}/users HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXcta2lkcy1vbi10aGUtcm9jayIsInN1YiI6ImRpYWJsbyIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTixST0xFX0xFQUdVRV9PV05FUixST0xFX1VTRVIiLCJleHAiOjE2NTkwNDUwMzV9.fh4C2okr12aCOsmfttfaw_gSBMqVz3Ns_SLgOIQ0A8g
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXcta2lkcy1vbi10aGUtcm9jayIsInN1YiI6ImRpYWJsbyIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTixST0xFX0xFQUdVRV9PV05FUixST0xFX1VTRVIiLCJleHAiOjE2NTkxMzA4MTh9.skQUK8JEXI6aqoOBsBhT62EYMt-kd_dNgX6D5cbdToU
 
 ### - admin can see user details
 
