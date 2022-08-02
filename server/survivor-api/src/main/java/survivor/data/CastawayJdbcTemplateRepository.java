@@ -62,4 +62,20 @@ public class CastawayJdbcTemplateRepository {
         return rowsUpdated > 0;
     }
 
+    @Transactional
+    public boolean deleteTribal(int seasonId, int tribalNumber){
+        final String sql = "delete from tribal where season_id = ? and tribal_number = ?;";
+
+        return jdbcTemplate.update(sql, seasonId, tribalNumber) > 0;
+    }
+
+    @Transactional
+    public boolean updateTribal(int seasonId, int tribalNumber, List<Castaway> castaways){
+        if (!deleteTribal(seasonId, tribalNumber)){
+            return false;
+        }
+
+        return createTribal(seasonId, tribalNumber, castaways);
+    }
+
 }

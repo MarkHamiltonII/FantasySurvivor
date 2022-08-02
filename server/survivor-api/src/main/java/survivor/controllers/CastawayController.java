@@ -50,4 +50,22 @@ public class CastawayController {
         }
         return ErrorResponse.build(result);
     }
+
+    @PutMapping("/season{seasonId}/tribal{tribalNumber}")
+    public ResponseEntity<?> updateTribal(@PathVariable int seasonId, @PathVariable int tribalNumber, @RequestBody List<Castaway> castaways) {
+        Result<?> result = service.updateTribal(seasonId, tribalNumber, castaways);
+        if (result.isSuccess()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ErrorResponse.build(result);
+    }
+
+    @DeleteMapping("/season{seasonId}/tribal{tribalNumber}")
+    public ResponseEntity<?> deleteTribal(@PathVariable int seasonId, @PathVariable int tribalNumber) {
+        Result<?> result = service.deleteTribal(seasonId, tribalNumber);
+        if (result.isSuccess()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ErrorResponse.build(result);
+    }
 }

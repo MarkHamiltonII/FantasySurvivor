@@ -1,6 +1,7 @@
 package survivor.domain;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import survivor.data.CastawayJdbcTemplateRepository;
 import survivor.models.Castaway;
 
@@ -51,7 +52,7 @@ public class CastawayService {
         if (!result.isSuccess()){
             return result;
         }
-        
+
         List<Castaway> oldTribal = repository.findCastawayByTribal(seasonId, tribalNumber);
         if (oldTribal.size() != 0){
             result.addMessage("Tribal number already exists", ResultType.INVALID);
@@ -60,6 +61,34 @@ public class CastawayService {
 
         if (!repository.createTribal(seasonId,tribalNumber,castaways)){
             result.addMessage("Tribal could not be created", ResultType.INVALID);
+        }
+
+        return result;
+    }
+
+    public Result<?> deleteTribal(int seasonId, int tribalNumber){
+        Result<?> result = new Result<>();
+        if (!repository.deleteTribal(seasonId, tribalNumber)){
+            result.addMessage("Tribal not found", ResultType.NOT_FOUND);
+        }
+        return result;
+    }
+
+    public Result<?> updateTribal(int seasonId, int tribalNumber, List<Castaway> castaways){
+        Result<?> result = validateTribal(seasonId,tribalNumber,castaways);
+
+        if (!result.isSuccess()){
+            return result;
+        }
+
+        List<Castaway> oldTribal = repository.findCastawayByTribal(seasonId, tribalNumber);
+        if (oldTribal.size() == 0){
+            result.addMessage("Tribal number does not exists, cannot update", ResultType.INVALID);
+            return result;
+        }
+
+        if (!repository.updateTribal(seasonId, tribalNumber, castaways)){
+            result.addMessage("Tribal could not be updated", ResultType.NOT_FOUND);
         }
 
         return result;
