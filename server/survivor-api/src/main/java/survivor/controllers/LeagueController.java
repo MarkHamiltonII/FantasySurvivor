@@ -64,7 +64,7 @@ public class LeagueController {
     }
 
     @DeleteMapping("/league{id}")
-    public ResponseEntity<?> deteleLeague(@PathVariable int id){
+    public ResponseEntity<?> deleteLeague(@PathVariable int id){
         Result<?> result = service.deleteLeagueById(id);
         if (result.isSuccess()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

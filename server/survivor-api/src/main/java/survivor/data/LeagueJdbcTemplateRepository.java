@@ -8,6 +8,7 @@ import survivor.data.mappers.LeagueMapper;
 import survivor.models.AppUser;
 import survivor.models.League;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 @Repository
@@ -87,9 +88,10 @@ public class LeagueJdbcTemplateRepository {
     }
 
     public boolean leagueIsEmpty(int league_id){
-        int rowsUpdated = jdbcTemplate.update(
+        List<Integer> rowsUpdated = jdbcTemplate.query(
                 "select id from league_app_user where league_id = ?;",
+                (rs, rowNum) -> rs.getInt("id"),
                 league_id);
-        return rowsUpdated == 0;
+        return rowsUpdated.size() == 0;
     }
 }
