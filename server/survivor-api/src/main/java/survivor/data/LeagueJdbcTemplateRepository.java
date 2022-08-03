@@ -55,6 +55,23 @@ public class LeagueJdbcTemplateRepository {
         return leagues;
     }
 
+    @Transactional
+    public boolean createLeague(League league){
+        final String sql = "insert into league(`name`, season_id) values (?, ?);";
+        return jdbcTemplate.update(sql, league.getName(), league.getSeasonId()) > 0;
+    }
+
+    @Transactional
+    public boolean updateLeague(League league){
+        final String sql = "update league set `name` = ? where league_id = ?;";
+        return jdbcTemplate.update(sql, league.getName(), league.getLeagueId()) > 0;
+    }
+
+    @Transactional
+    public boolean deleteLeagueById(int id){
+       return jdbcTemplate.update("delete from league where league_id = ?;", id) > 0;
+    }
+
 
     /////////////////////////// HELPER ADD METHODS /////////////////////////////////
     private void addAppUsers(League league){
@@ -67,5 +84,12 @@ public class LeagueJdbcTemplateRepository {
         List<AppUser> appUsers = jdbcTemplate.query(sql,
                 new AppUserMapper(List.of("USER")), league.getLeagueId());
         league.setAppUsers(appUsers);
+    }
+
+    public boolean leagueIsEmpty(int league_id){
+        int rowsUpdated = jdbcTemplate.update(
+                "select id from league_app_user where league_id = ?;",
+                league_id);
+        return rowsUpdated == 0;
     }
 }

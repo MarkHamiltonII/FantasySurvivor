@@ -1,4 +1,5 @@
 @url = http://localhost:8080/api
+@token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmYW50YXN5LXN1cnZpdm9yIiwic3ViIjoiZGlhYmxvIiwiYXV0aG9yaXRpZXMiOiJST0xFX0FETUlOLFJPTEVfTEVBR1VFX09XTkVSLFJPTEVfVVNFUiIsImFwcFVzZXJJZCI6MSwiZXhwIjoxNjU5NDc3MjM5fQ.fWfna7-hK9NMqUdK1QHWI-KfHMdYF9whlaRwjUFxzWk
 
 ### - Should get all castaways
 
@@ -29,7 +30,7 @@ Content-Type: application/json
 
 POST {{url}}/castaway/season42/tribal3 HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXcta2lkcy1vbi10aGUtcm9jayIsInN1YiI6ImRpYWJsbyIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTixST0xFX0xFQUdVRV9PV05FUixST0xFX1VTRVIiLCJleHAiOjE2NTk0NzEyMjV9.1wMQOVIr3tip1zlPKaCODPuJbsxdAhGxr724yMX3BLg
+Authorization: Bearer {{token}}
 
 [
   {
@@ -168,13 +169,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXcta2lkcy1vbi10aGUtcm9ja
 
 DELETE {{url}}/castaway/season42/tribal3 HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXcta2lkcy1vbi10aGUtcm9jayIsInN1YiI6ImRpYWJsbyIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTixST0xFX0xFQUdVRV9PV05FUixST0xFX1VTRVIiLCJleHAiOjE2NTk0NzEyMjV9.1wMQOVIr3tip1zlPKaCODPuJbsxdAhGxr724yMX3BLg
+Authorization: Bearer {{token}}
 
 ### - update a tribal
 
 PUT {{url}}/castaway/season42/tribal3 HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJuZXcta2lkcy1vbi10aGUtcm9jayIsInN1YiI6ImRpYWJsbyIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTixST0xFX0xFQUdVRV9PV05FUixST0xFX1VTRVIiLCJleHAiOjE2NTk0NzEyMjV9.1wMQOVIr3tip1zlPKaCODPuJbsxdAhGxr724yMX3BLg
+Authorization: Bearer {{token}}
 
 [
   {

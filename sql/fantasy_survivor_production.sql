@@ -58,11 +58,12 @@ create table season_castaway (
 
 create table league (
 	league_id int primary key auto_increment,
-    `name` varchar(1024) not null,
+    `name` varchar(256) not null,
     season_id int not null,
-    constraint fk_league_season
+    constraint fk_league_season_id
 		foreign key (season_id)
-        references season(season_id)
+        references season(season_id),
+	unique key league_uniq_key (season_id, `name`)
 );
 
 create table tribal (
