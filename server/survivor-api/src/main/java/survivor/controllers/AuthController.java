@@ -78,22 +78,20 @@ public class AuthController {
 
     @PostMapping("/create_account")
     public ResponseEntity<?> createAccount(@RequestBody Map<String, String> credentials) {
-        AppUser appUser = null;
-
         try {
             String username = credentials.get("username");
             String password = credentials.get("password");
 
-            appUser = appUserService.createAppUser(username, password);
+            AppUser appUser = appUserService.createAppUser(username, password);
+
+            return new ResponseEntity<>(appUser,HttpStatus.CREATED);
+
         } catch (ValidationException ex) {
             return new ResponseEntity<>(List.of(ex.getMessage()), HttpStatus.BAD_REQUEST);
         } catch (DuplicateKeyException ex) {
             return new ResponseEntity<>(List.of("The provided username already exists"), HttpStatus.BAD_REQUEST);
         }
 
-        HashMap<String, Integer> map = new HashMap<>();
-        map.put("appUserId", appUser.getAppUserId());
 
-        return new ResponseEntity<>(map,HttpStatus.CREATED);
     }
 }
