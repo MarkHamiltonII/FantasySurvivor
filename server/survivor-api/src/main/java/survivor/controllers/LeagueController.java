@@ -84,23 +84,26 @@ public class LeagueController {
         }
         return ErrorResponse.build(result);
     }
-
-    // TODO - NEED TO ADD USER NOT OWNER
+    
     @PostMapping("/league{leagueId}/user{userId}")
     public ResponseEntity<?> addAppUserToLeague(@PathVariable int leagueId, @PathVariable int userId, UsernamePasswordAuthenticationToken principal){
-        AppUser appUser = (AppUser) principal.getPrincipal();
-        Result<?> result = service.addAppUserToLeague(leagueId, userId, appUser.getAppUserId());
-        if (result.isSuccess()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        try {
+            AppUser appUser = (AppUser) principal.getPrincipal();
+            Result<?> result = service.addAppUserToLeague(leagueId, userId, appUser.getAppUserId());
+            if (result.isSuccess()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return ErrorResponse.build(result);
+        } catch (DuplicateKeyException ex){
+            return new ResponseEntity<>(List.of("User already in league"), HttpStatus.BAD_REQUEST);
         }
-        return ErrorResponse.build(result);
     }
 
-    @DeleteMapping("/league{leagueID}/user{userId}")
+    @DeleteMapping("/league{leagueId}/user{userId}")
     public ResponseEntity<?> removeAppUserFromLeague(@PathVariable int leagueId, @PathVariable int userId, UsernamePasswordAuthenticationToken principal){
         AppUser appUser = (AppUser) principal.getPrincipal();
         Result<?> result = service.removeAppUserFromLeague(leagueId, userId, appUser.getAppUserId());
-        if (result.isSuccess()){
+        if (result.isSuccess()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return ErrorResponse.build(result);

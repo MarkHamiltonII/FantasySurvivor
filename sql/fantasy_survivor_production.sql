@@ -92,7 +92,8 @@ create table league_app_user (
         references league(league_id),
 	constraint fk_user_id
 		foreign key (user_id)
-        references app_user(user_id)
+        references app_user(user_id),
+	unique key lau_uniq_key (league_id, user_id)
 );
 
 create table league_app_user_rating (
