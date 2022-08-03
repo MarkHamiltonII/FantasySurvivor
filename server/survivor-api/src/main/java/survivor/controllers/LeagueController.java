@@ -1,5 +1,6 @@
 package survivor.controllers;
 
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -47,20 +48,29 @@ public class LeagueController {
 
     @PostMapping("/new_league")
     public ResponseEntity<?> createLeague(@RequestBody League league){
-        Result<?> result = service.createLeague(league);
-        if (result.isSuccess()){
-            return new ResponseEntity<>(HttpStatus.CREATED);
+        try {
+            Result<?> result = service.createLeague(league);
+            if (result.isSuccess()) {
+                return new ResponseEntity<>(HttpStatus.CREATED);
+            }
+            return ErrorResponse.build(result);
         }
-        return ErrorResponse.build(result);
+        catch (DuplicateKeyException ex){
+            return new ResponseEntity<>(List.of("League name/season already exists"), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping("/change_league")
     public ResponseEntity<?> updateLeague(@RequestBody League league){
-        Result<?> result = service.updateLeague(league);
-        if (result.isSuccess()){
-            return new ResponseEntity<>(HttpStatus.CREATED);
+        try {
+            Result<?> result = service.updateLeague(league);
+            if (result.isSuccess()) {
+                return new ResponseEntity<>(HttpStatus.CREATED);
+            }
+            return ErrorResponse.build(result);
+        } catch (DuplicateKeyException ex){
+            return new ResponseEntity<>(List.of("League name/season already exists"), HttpStatus.BAD_REQUEST);
         }
-        return ErrorResponse.build(result);
     }
 
     @DeleteMapping("/league{id}")

@@ -1,6 +1,6 @@
 @url = http://localhost:8080/api
-@admintoken = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmYW50YXN5LXN1cnZpdm9yIiwic3ViIjoiZGlhYmxvIiwiYXV0aG9yaXRpZXMiOiJST0xFX0FETUlOLFJPTEVfTEVBR1VFX09XTkVSLFJPTEVfVVNFUiIsImFwcFVzZXJJZCI6MSwiZXhwIjoxNjU5NTQwNDU4fQ.WBxCCztUof5A8NSGHRvFqK-rtxvRbNH1DM11rSieMYU
-@usertoken = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmYW50YXN5LXN1cnZpdm9yIiwic3ViIjoia2VubmVkeSIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiYXBwVXNlcklkIjo0LCJleHAiOjE2NTk1NDA2NjF9.UnCpBnduuW0FDgM0My0DQJwRQtMADNSJbJAzGMRfbZQ
+@admintoken = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmYW50YXN5LXN1cnZpdm9yIiwic3ViIjoiZGlhYmxvIiwiYXV0aG9yaXRpZXMiOiJST0xFX0FETUlOLFJPTEVfTEVBR1VFX09XTkVSLFJPTEVfVVNFUiIsImFwcFVzZXJJZCI6MSwiZXhwIjoxNjU5NTUwNTU2fQ.BIHdvsH3TpBtt3Xiz4ePhAHwfTfvLNVOshMFRlFhNnY
+@usertoken = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmYW50YXN5LXN1cnZpdm9yIiwic3ViIjoia2VubmVkeSIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiYXBwVXNlcklkIjo0LCJleHAiOjE2NTk1NDkxOTN9.OaF0SptNsieRentWasSHA9tSKFSme9FuNo8EmYqhoc8
 
 ### - admin can log in
 
@@ -45,3 +45,44 @@ Authorization: Bearer {{admintoken}}
 GET {{url}}/leagues/user HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{usertoken}}
+
+### - Should Create League
+
+POST {{url}}/leagues/new_league HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{admintoken}}
+
+{
+    "name": "Our second league",
+    "seasonId": 42
+}
+
+### - Should Update League
+
+PUT {{url}}/leagues/change_league HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{admintoken}}
+
+{
+    "leagueId": 4,
+    "name": "Our first league",
+    "seasonId": 42
+}
+
+### - Cannot change season / season must be valid
+
+PUT {{url}}/leagues/change_league HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{admintoken}}
+
+{
+    "leagueId": 2,
+    "name": "Our second-ish league",
+    "seasonId": 69420
+}
+
+### - Delete league
+
+DELETE {{url}}/leagues/league4 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{admintoken}}
