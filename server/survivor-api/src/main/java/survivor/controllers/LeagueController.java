@@ -86,17 +86,23 @@ public class LeagueController {
     }
 
     // TODO - NEED TO ADD USER NOT OWNER
-    @PostMapping("/league{id}/user")
-    public ResponseEntity<?> addAppUserToLeague(@PathVariable int id, UsernamePasswordAuthenticationToken principal){
+    @PostMapping("/league{leagueId}/user{userId}")
+    public ResponseEntity<?> addAppUserToLeague(@PathVariable int leagueId, @PathVariable int userId, UsernamePasswordAuthenticationToken principal){
         AppUser appUser = (AppUser) principal.getPrincipal();
-        service.addAppUserToLeague(id, appUser.getAppUserId());
-        return new ResponseEntity<>(HttpStatus.OK);
+        Result<?> result = service.addAppUserToLeague(leagueId, userId, appUser.getAppUserId());
+        if (result.isSuccess()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ErrorResponse.build(result);
     }
 
-    @DeleteMapping("/league{id}/user")
-    public ResponseEntity<?> removeAppUserFromLeague(@PathVariable int id, UsernamePasswordAuthenticationToken principal){
+    @DeleteMapping("/league{leagueID}/user{userId}")
+    public ResponseEntity<?> removeAppUserFromLeague(@PathVariable int leagueId, @PathVariable int userId, UsernamePasswordAuthenticationToken principal){
         AppUser appUser = (AppUser) principal.getPrincipal();
-        service.removeAppUserFromLeague(id, appUser.getAppUserId());
-        return new ResponseEntity<>(HttpStatus.OK);
+        Result<?> result = service.removeAppUserFromLeague(leagueId, userId, appUser.getAppUserId());
+        if (result.isSuccess()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ErrorResponse.build(result);
     }
 }

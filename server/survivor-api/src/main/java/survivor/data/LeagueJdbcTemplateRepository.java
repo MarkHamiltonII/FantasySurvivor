@@ -63,7 +63,6 @@ public class LeagueJdbcTemplateRepository {
         return jdbcTemplate.update(sql, league.getName(), league.getSeasonId(), ownerId) > 0;
     }
 
-    // TODO add owner
     @Transactional
     public boolean updateLeague(League league){
         final String sql = "update league set `name` = ? where league_id = ?;";

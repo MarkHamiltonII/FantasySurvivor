@@ -56,16 +56,13 @@ public class LeagueService {
 
     public Result<?> updateLeague(League league, int ownerId){
         Result<?> result = validateLeague(league);
-
-        League oldLeague = repository.findLeagueById(league.getLeagueId());
-
-        if (oldLeague == null) {
-            result.addMessage("Cannot update null league", ResultType.INVALID);
+        if (!result.isSuccess()){
             return result;
         }
 
-        if (oldLeague.getOwnerId() != ownerId){
-            result.addMessage("You must own the league to update it", ResultType.INVALID);
+        League oldLeague = repository.findLeagueById(league.getLeagueId());
+        validateOldLeague(oldLeague, ownerId, result);
+        if (!result.isSuccess()){
             return result;
         }
 
@@ -84,13 +81,8 @@ public class LeagueService {
     public Result<?> deleteLeagueById(int leagueId, int ownerId){
         Result<?> result = new Result<>();
         League oldLeague = repository.findLeagueById(leagueId);
-        if (oldLeague == null){
-            result.addMessage("League not found", ResultType.NOT_FOUND);
-            return result;
-        }
-
-        if (oldLeague.getOwnerId() != ownerId){
-            result.addMessage("You must own the league to delete it", ResultType.INVALID);
+        validateOldLeague(oldLeague, ownerId, result);
+        if (!result.isSuccess()){
             return result;
         }
 
@@ -105,12 +97,30 @@ public class LeagueService {
         return result;
     }
 
-    public void addAppUserToLeague(int leagueId, int appUserId){
+    public Result<?> addAppUserToLeague(int leagueId, int appUserId, int ownerId){
+        Result<?> result = new Result<>();
+        League oldLeague = repository.findLeagueById(leagueId);
+        validateOldLeague(oldLeague, ownerId, result);
+
+        if (!result.isSuccess()){
+            return result;
+        }
+
         repository.addAppUserToLeague(leagueId,appUserId);
+        return result;
     }
 
-    public void removeAppUserFromLeague(int leagueId, int appUserId){
-        repository.removeAppUserFromLeague(leagueId, appUserId);
+    public Result<?> removeAppUserFromLeague(int leagueId, int appUserId, int ownerId){
+        Result<?> result = new Result<>();
+        League oldLeague = repository.findLeagueById(leagueId);
+        validateOldLeague(oldLeague, ownerId, result);
+
+        if (!result.isSuccess()){
+            return result;
+        }
+
+        repository.removeAppUserFromLeague(leagueId,appUserId);
+        return result;
     }
 
     /////////////////////////////// Validation Methods //////////////////////////////////
@@ -131,6 +141,18 @@ public class LeagueService {
             result.addMessage("League must be for valid season", ResultType.INVALID);
         }
 
+        return result;
+    }
+
+    private Result<?> validateOldLeague(League oldLeague, int ownerId, Result<?> result){
+        if (oldLeague == null) {
+            result.addMessage("Cannot update null league", ResultType.INVALID);
+            return result;
+        }
+
+        if (oldLeague.getOwnerId() != ownerId){
+            result.addMessage("You must own the league to update it", ResultType.INVALID);
+        }
         return result;
     }
 }
