@@ -39,6 +39,22 @@ public class LeagueJdbcTemplateRepository {
         return league;
     }
 
+    @Transactional
+    public List<League> findLeaguesByAppUserId(int appUserId){
+        final String sql = "select l.league_id, l.`name`, l.season_id from league l "
+                + "inner join league_app_user lau on l.league_id = lau.league_id "
+                + "where user_id = ?;";
+        List<League> leagues = jdbcTemplate.query(sql, new LeagueMapper(), appUserId);
+
+        if (leagues.size() > 0) {
+            for (League l : leagues){
+            addAppUsers(l);
+            }
+        }
+
+        return leagues;
+    }
+
 
     /////////////////////////// HELPER ADD METHODS /////////////////////////////////
     private void addAppUsers(League league){
