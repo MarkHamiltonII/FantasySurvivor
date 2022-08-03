@@ -80,20 +80,28 @@ create table tribal (
 
 create table league_app_user (
 	id int primary key auto_increment,
-    rating int not null,
-    castaway_id int not null,
     league_id int not null,
     user_id int not null,
-    constraint fk_castaway_id
-		foreign key (castaway_id)
-        references castaway(castaway_id),
     constraint fk_league_id
 		foreign key (league_id)
         references league(league_id),
 	constraint fk_user_id
 		foreign key (user_id)
-        references app_user(user_id),
-	unique key uniq_key (user_id, league_id, rating)
+        references app_user(user_id)
+);
+
+create table league_app_user_rating (
+	laur_id int primary key auto_increment,
+    rating int not null,
+    castaway_id int not null,
+	lau_id int not null,
+    constraint fk_laur_castaway_id
+		foreign key (castaway_id)
+        references castaway(castaway_id),
+	constraint fk_laur_lau_id
+		foreign key (lau_id)
+        references league_app_user(id),
+	unique key uniq_key (lau_id, rating)
 );
 
 create table league_app_user_tribal (
@@ -102,10 +110,10 @@ create table league_app_user_tribal (
     points_to_date int not null,
     lau_id int not null,
     tribal_id int not null,
-    constraint fk_lau_id 
+    constraint fk_laut_lau_id 
 		foreign key (lau_id)
         references league_app_user(id),
-	constraint fk_tribal_id
+	constraint fk_laut_id
 		foreign key (tribal_id)
         references tribal(tribal_id)
 );
@@ -183,24 +191,27 @@ insert into season_castaway values
 insert into league(`name`, season_id) values
 	('Our first league', 42);
     
+insert into league_app_user(league_id,user_id) values
+	(1,4);
+    
     -- kennedy's list 
-insert into league_app_user(rating,castaway_id,league_id,user_id) values
-	(11,1,1,4),
-    (14,2,1,4),
-    (6,3,1,4),
-    (7,4,1,4),
-    (10,6,1,4),
-    (12,7,1,4),
-    (15,8,1,4),
-    (9,9,1,4),
-    (16,10,1,4),
-    (4,11,1,4),
-    (5,12,1,4),
-    (3,13,1,4),
-    (2,14,1,4),
-    (1,15,1,4),
-    (13,16,1,4),
-    (8,17,1,4);
+insert into league_app_user_rating(rating,castaway_id,lau_id) values
+	(11,1,1),
+    (14,2,1),
+    (6,3,1),
+    (7,4,1),
+    (10,6,1),
+    (12,7,1),
+    (15,8,1),
+    (9,9,1),
+    (16,10,1),
+    (4,11,1),
+    (5,12,1),
+    (3,13,1),
+    (2,14,1),
+    (1,15,1),
+    (13,16,1),
+    (8,17,1);
     
 insert into tribal(tribal_number,season_id, castaway_id) values
 	(1,42,1),
@@ -221,4 +232,5 @@ insert into tribal(tribal_number,season_id, castaway_id) values
     (1,42,18);
     
 insert into league_app_user_tribal(tribal_points, points_to_date, lau_id, tribal_id) values
-	(93,193,1,1);
+	(100,100,1,1),
+	(93,193,1,2);
