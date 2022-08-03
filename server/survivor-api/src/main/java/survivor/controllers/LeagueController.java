@@ -84,7 +84,7 @@ public class LeagueController {
         }
         return ErrorResponse.build(result);
     }
-    
+
     @PostMapping("/league{leagueId}/user{userId}")
     public ResponseEntity<?> addAppUserToLeague(@PathVariable int leagueId, @PathVariable int userId, UsernamePasswordAuthenticationToken principal){
         try {
