@@ -60,9 +60,13 @@ create table league (
 	league_id int primary key auto_increment,
     `name` varchar(256) not null,
     season_id int not null,
+    owner_id int not null,
     constraint fk_league_season_id
 		foreign key (season_id)
         references season(season_id),
+	constraint fk_league_owner
+		foreign key (owner_id)
+        references app_user(user_id),
 	unique key league_uniq_key (season_id, `name`)
 );
 
@@ -189,8 +193,8 @@ insert into season_castaway values
     (42,17),
     (42,18);
     
-insert into league(`name`, season_id) values
-	('Our first league', 42);
+insert into league(`name`, season_id, owner_id) values
+	('Our first league', 42, 1);
     
 insert into league_app_user(league_id,user_id) values
 	(1,4);

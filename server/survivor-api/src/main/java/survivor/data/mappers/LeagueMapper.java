@@ -15,6 +15,7 @@ public class LeagueMapper implements RowMapper<League> {
         league.setLeagueId(rs.getInt("league_id"));
         league.setName(rs.getString("name"));
         league.setSeasonId(rs.getInt("season_id"));
+        league.setOwnerId(rs.getInt("owner_id"));
 
         return league;
     }

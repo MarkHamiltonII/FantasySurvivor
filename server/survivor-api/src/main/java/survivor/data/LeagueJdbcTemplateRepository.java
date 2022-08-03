@@ -22,14 +22,14 @@ public class LeagueJdbcTemplateRepository {
 
     @Transactional
     public List<League> findAllLeagues(){
-        final String sql = "select league_id, `name`, season_id from league order by season_id;";
+        final String sql = "select league_id, `name`, season_id, owner_id from league order by season_id;";
         List<League> leagues = jdbcTemplate.query(sql, new LeagueMapper());
         return leagues;
     }
 
     @Transactional
     public League findLeagueById(int leagueId){
-        final String sql = "select league_id, `name`, season_id from league where league_id = ?;";
+        final String sql = "select league_id, `name`, season_id, owner_id from league where league_id = ?;";
         League league = jdbcTemplate.query(sql, new LeagueMapper(), leagueId).stream()
                 .findFirst().orElse(null);
 
@@ -42,7 +42,7 @@ public class LeagueJdbcTemplateRepository {
 
     @Transactional
     public List<League> findLeaguesByAppUserId(int appUserId){
-        final String sql = "select l.league_id, l.`name`, l.season_id from league l "
+        final String sql = "select l.league_id, l.`name`, l.season_id, l.owner_id from league l "
                 + "inner join league_app_user lau on l.league_id = lau.league_id "
                 + "where user_id = ?;";
         List<League> leagues = jdbcTemplate.query(sql, new LeagueMapper(), appUserId);
@@ -56,12 +56,14 @@ public class LeagueJdbcTemplateRepository {
         return leagues;
     }
 
+
     @Transactional
-    public boolean createLeague(League league){
-        final String sql = "insert into league(`name`, season_id) values (?, ?);";
-        return jdbcTemplate.update(sql, league.getName(), league.getSeasonId()) > 0;
+    public boolean createLeague(League league, int ownerId){
+        final String sql = "insert into league(`name`, season_id, owner_id) values (?, ?, ?);";
+        return jdbcTemplate.update(sql, league.getName(), league.getSeasonId(), ownerId) > 0;
     }
 
+    // TODO add owner
     @Transactional
     public boolean updateLeague(League league){
         final String sql = "update league set `name` = ? where league_id = ?;";
@@ -71,6 +73,17 @@ public class LeagueJdbcTemplateRepository {
     @Transactional
     public boolean deleteLeagueById(int id){
        return jdbcTemplate.update("delete from league where league_id = ?;", id) > 0;
+    }
+
+    ///////////////////////////// Adjust Users ////////////////////////////////////////
+    @Transactional public void addAppUserToLeague(int leagueId, int appUserId){
+        final String sql = "insert into league_app_user(league_id, user_id) values (?, ?);";
+        jdbcTemplate.update(sql,leagueId, appUserId);
+    }
+
+    @Transactional public void removeAppUserFromLeague(int leagueId, int appUserId){
+        final String sql = "delete from league_app_user where league_id = ? and user_id = ?;";
+        jdbcTemplate.update(sql,leagueId, appUserId);
     }
 
 

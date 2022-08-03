@@ -47,9 +47,10 @@ public class LeagueController {
     }
 
     @PostMapping("/new_league")
-    public ResponseEntity<?> createLeague(@RequestBody League league){
+    public ResponseEntity<?> createLeague(@RequestBody League league, UsernamePasswordAuthenticationToken principal){
         try {
-            Result<?> result = service.createLeague(league);
+            AppUser appUser = (AppUser) principal.getPrincipal();
+            Result<?> result = service.createLeague(league, appUser.getAppUserId());
             if (result.isSuccess()) {
                 return new ResponseEntity<>(HttpStatus.CREATED);
             }
@@ -61,9 +62,10 @@ public class LeagueController {
     }
 
     @PutMapping("/change_league")
-    public ResponseEntity<?> updateLeague(@RequestBody League league){
+    public ResponseEntity<?> updateLeague(@RequestBody League league, UsernamePasswordAuthenticationToken principal){
         try {
-            Result<?> result = service.updateLeague(league);
+            AppUser appUser = (AppUser) principal.getPrincipal();
+            Result<?> result = service.updateLeague(league, appUser.getAppUserId());
             if (result.isSuccess()) {
                 return new ResponseEntity<>(HttpStatus.CREATED);
             }
@@ -74,11 +76,27 @@ public class LeagueController {
     }
 
     @DeleteMapping("/league{id}")
-    public ResponseEntity<?> deleteLeague(@PathVariable int id){
-        Result<?> result = service.deleteLeagueById(id);
+    public ResponseEntity<?> deleteLeague(@PathVariable int id, UsernamePasswordAuthenticationToken principal){
+        AppUser appUser = (AppUser) principal.getPrincipal();
+        Result<?> result = service.deleteLeagueById(id, appUser.getAppUserId());
         if (result.isSuccess()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return ErrorResponse.build(result);
+    }
+
+    // TODO - NEED TO ADD USER NOT OWNER
+    @PostMapping("/league{id}/user")
+    public ResponseEntity<?> addAppUserToLeague(@PathVariable int id, UsernamePasswordAuthenticationToken principal){
+        AppUser appUser = (AppUser) principal.getPrincipal();
+        service.addAppUserToLeague(id, appUser.getAppUserId());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/league{id}/user")
+    public ResponseEntity<?> removeAppUserFromLeague(@PathVariable int id, UsernamePasswordAuthenticationToken principal){
+        AppUser appUser = (AppUser) principal.getPrincipal();
+        service.removeAppUserFromLeague(id, appUser.getAppUserId());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

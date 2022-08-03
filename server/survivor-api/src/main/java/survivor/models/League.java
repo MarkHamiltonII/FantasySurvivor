@@ -8,25 +8,28 @@ public class League {
     private int leagueId;
     private String name;
     private int seasonId;
-
+    private int ownerId;
     private List<AppUser> appUsers;
 
-    public League(int leagueId, String name, int seasonId, List<AppUser> appUsers) {
+    public League(int leagueId, String name, int seasonId, int ownerId, List<AppUser> appUsers) {
         this.leagueId = leagueId;
         this.name = name;
         this.seasonId = seasonId;
+        this.ownerId = ownerId;
         this.appUsers = appUsers;
     }
 
-    public League(int leagueId, String name, int seasonId) {
+    public League(int leagueId, String name, int seasonId, int ownerId) {
         this.leagueId = leagueId;
         this.name = name;
         this.seasonId = seasonId;
+        this.ownerId = ownerId;
     }
 
     public League(String name, int seasonId) {
         this.name = name;
         this.seasonId = seasonId;
+        this.ownerId = 0;
     }
 
     public League(){
@@ -58,6 +61,14 @@ public class League {
 
     public List<AppUser> getAppUsers() {
         return appUsers;
+    }
+
+    public int getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
     }
 
     public void setAppUsers(List<AppUser> appUsers) {

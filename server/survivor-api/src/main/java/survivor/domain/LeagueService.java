@@ -38,29 +38,34 @@ public class LeagueService {
         List<League> leagues = repository.findLeaguesByAppUserId(appUserId);
         if (leagues.size() == 0){
             result.addMessage("Leagues not found", ResultType.INVALID);
-            return  result;
+            return result;
         }
         result.setPayload(leagues);
         return result;
     }
 
-    public Result<?> createLeague(League league){
+    public Result<?> createLeague(League league, int ownerId){
         Result<?> result = validateLeague(league);
 
-        if (!repository.createLeague(league)){
+        if (!repository.createLeague(league, ownerId)){
             result.addMessage("League could not be created", ResultType.INVALID);
         }
 
         return result;
     }
 
-    public Result<?> updateLeague(League league){
+    public Result<?> updateLeague(League league, int ownerId){
         Result<?> result = validateLeague(league);
 
         League oldLeague = repository.findLeagueById(league.getLeagueId());
 
         if (oldLeague == null) {
             result.addMessage("Cannot update null league", ResultType.INVALID);
+            return result;
+        }
+
+        if (oldLeague.getOwnerId() != ownerId){
+            result.addMessage("You must own the league to update it", ResultType.INVALID);
             return result;
         }
 
@@ -76,8 +81,19 @@ public class LeagueService {
         return result;
     }
 
-    public Result<?> deleteLeagueById(int leagueId){
+    public Result<?> deleteLeagueById(int leagueId, int ownerId){
         Result<?> result = new Result<>();
+        League oldLeague = repository.findLeagueById(leagueId);
+        if (oldLeague == null){
+            result.addMessage("League not found", ResultType.NOT_FOUND);
+            return result;
+        }
+
+        if (oldLeague.getOwnerId() != ownerId){
+            result.addMessage("You must own the league to delete it", ResultType.INVALID);
+            return result;
+        }
+
         if (!repository.leagueIsEmpty(leagueId)){
             result.addMessage("Cannot delete league unless empty", ResultType.INVALID);
             return result;
@@ -87,6 +103,14 @@ public class LeagueService {
             result.addMessage("League not found", ResultType.NOT_FOUND);
         }
         return result;
+    }
+
+    public void addAppUserToLeague(int leagueId, int appUserId){
+        repository.addAppUserToLeague(leagueId,appUserId);
+    }
+
+    public void removeAppUserFromLeague(int leagueId, int appUserId){
+        repository.removeAppUserFromLeague(leagueId, appUserId);
     }
 
     /////////////////////////////// Validation Methods //////////////////////////////////
