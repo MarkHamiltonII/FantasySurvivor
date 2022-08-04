@@ -1,0 +1,67 @@
+@url = http://localhost:8080/api
+@token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmYW50YXN5LXN1cnZpdm9yIiwic3ViIjoiZGlhYmxvIiwiYXV0aG9yaXRpZXMiOiJST0xFX0FETUlOLFJPTEVfTEVBR1VFX09XTkVSLFJPTEVfVVNFUiIsImFwcFVzZXJJZCI6MSwiZXhwIjoxNjU5NjU0NjI1fQ.4tJU83RFKsF3aRi8IpRRQwN_WhYFgZwrBfavOY0z7NA
+
+### - admin can log in
+
+POST {{url}}/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "diablo",
+    "password": "P@ssw0rd!"
+}   
+
+### - can get all seasons
+
+GET {{url}}/season/all HTTP/1.1
+Content-Type: application/json
+
+### - can get season by id
+
+GET {{url}}/season/season42 HTTP/1.1
+Content-Type: application/json
+
+### - can't get invalid id
+
+GET {{url}}/season/season427 HTTP/1.1
+Content-Type: application/json
+
+### - can't adjust seasons if not admin
+
+POST {{url}}/season/new_season HTTP/1.1
+Content-Type: application/json
+
+{
+    "seasonId": 43,
+    "name": "Season 43"
+}
+
+### - can post
+
+POST {{url}}/season/new_season HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+{
+    "seasonId": 43,
+    "name": "Season 43"
+}
+
+### - can put
+
+PUT {{url}}/season/change_season HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+{
+    "seasonId": 43,
+    "name": "Season 43 - with theme"
+}
+
+### - can delete
+
+DELETE {{url}}/season/season43 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token}}

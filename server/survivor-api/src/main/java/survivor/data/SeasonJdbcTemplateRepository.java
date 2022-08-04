@@ -45,7 +45,7 @@ public class SeasonJdbcTemplateRepository {
 
     @Transactional
     public boolean createSeason(Season season){
-        final String sql = "insert into season(season_id, `name) values (?, ?);";
+        final String sql = "insert into season(season_id, `name`) values (?, ?);";
         return jdbcTemplate.update(sql, season.getSeasonId(), season.getName()) > 0;
     }
 
