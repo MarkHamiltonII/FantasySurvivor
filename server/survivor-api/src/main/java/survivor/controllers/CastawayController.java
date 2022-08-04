@@ -1,5 +1,6 @@
 package survivor.controllers;
 
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -56,8 +57,12 @@ public class CastawayController {
 
     @PostMapping("/season{seasonId}/castaway{castawayId}")
     public ResponseEntity<?> addCastawayToSeason(@PathVariable int seasonId, @PathVariable int castawayId){
-        Result<?> result = service.addCastawayToSeason(seasonId, castawayId);
-        return noContentOrError(result);
+        try {
+            Result<?> result = service.addCastawayToSeason(seasonId, castawayId);
+            return noContentOrError(result);
+        } catch (DuplicateKeyException ex){
+            return new ResponseEntity<>(List.of("Castaway already in season"), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/season{seasonId}/castaway{castawayId}")
