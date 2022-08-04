@@ -19,6 +19,17 @@ public class CastawayService {
         return repository.findAllCastaways();
     }
 
+    public Result<Castaway> findCastawayById(int id){
+        Result<Castaway> result = new Result<>();
+        Castaway castaway = repository.findCastawayById(id);
+        if (castaway == null){
+            result.addMessage("Cannot find castaway with ID: " + id, ResultType.INVALID);
+            return result;
+        }
+        result.setPayload(castaway);
+        return result;
+    }
+
     public Result<List<Castaway>> findCastawaysBySeason(int id) {
         List<Castaway> castaways = repository.findCastawayBySeason(id);
         Result<List<Castaway>> result = new Result<>();
@@ -42,6 +53,55 @@ public class CastawayService {
 
         result.setPayload(castaways);
 
+        return result;
+    }
+
+    public Result<?> createCastaway(Castaway castaway){
+        Result<?> result = validateCastaway(castaway);
+
+        if (!result.isSuccess()){
+            return result;
+        }
+        if (castaway.getId() > 0){
+            result.addMessage("Cannot set id during castaway creation", ResultType.INVALID);
+            return result;
+        }
+        if (!repository.createCastaway(castaway)){
+            result.addMessage("Castaway could not be created", ResultType.INVALID);
+        }
+
+        return result;
+    }
+
+    public Result<?> updateCastaway(Castaway castaway){
+        Result<?> result = validateCastaway(castaway);
+
+        if (!result.isSuccess()){
+            return result;
+        }
+
+        Castaway oldCastaway = repository.findCastawayById(castaway.getId());
+        if (oldCastaway == null){
+            result.addMessage("Castaway not found", ResultType.NOT_FOUND);
+            return result;
+        }
+
+        if (!repository.updateCastaway(castaway)){
+            result.addMessage("Castaway could not be updated", ResultType.INVALID);
+        }
+
+        return result;
+    }
+
+    public Result<?> deleteCastawayById(int castawayId){
+        Result<?> result = new Result<>();
+        if (repository.castawayInUse(castawayId)){
+            result.addMessage("Cannot delete castaway in use", ResultType.INVALID);
+            return result;
+        }
+        if (!repository.deleteCastawayById(castawayId)){
+            result.addMessage("Castaway not found", ResultType.NOT_FOUND);
+        }
         return result;
     }
 
@@ -94,6 +154,31 @@ public class CastawayService {
     }
 
     /////////////////////////////////// Validation Methods //////////////////////////////////////////
+
+    public Result<?> validateCastaway(Castaway castaway){
+        Result<?> result = new Result<>();
+
+        if (castaway == null) {
+            result.addMessage("Castaway cannot be null", ResultType.INVALID);
+            return result;
+        }
+        if (castaway.getFirstName() == null || castaway.getFirstName().isEmpty()){
+            result.addMessage("First name is required", ResultType.INVALID);
+        }
+        if (castaway.getLastName() == null || castaway.getLastName().isEmpty()){
+            result.addMessage("Last name is required", ResultType.INVALID);
+        }
+        if (castaway.getAge() < 14 || castaway.getAge() > 110){
+            result.addMessage("Invalid age", ResultType.INVALID);
+        }
+        if (castaway.getIconURL() == null || castaway.getIconURL().isBlank()){
+            result.addMessage("Icon required", ResultType.INVALID);
+        }
+        if (castaway.getPageURL() == null || castaway.getPageURL().isBlank()){
+            result.addMessage("Page link required", ResultType.INVALID);
+        }
+        return result;
+    }
 
     public Result<?> validateTribal(int seasonId, int tribalNumber, List<Castaway> castaways){
         Result<?> result = new Result<>();

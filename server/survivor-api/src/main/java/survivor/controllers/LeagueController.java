@@ -67,7 +67,7 @@ public class LeagueController {
             AppUser appUser = (AppUser) principal.getPrincipal();
             Result<?> result = service.updateLeague(league, appUser.getAppUserId());
             if (result.isSuccess()) {
-                return new ResponseEntity<>(HttpStatus.CREATED);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
             return ErrorResponse.build(result);
         } catch (DuplicateKeyException ex){

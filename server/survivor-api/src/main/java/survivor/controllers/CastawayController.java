@@ -24,6 +24,42 @@ public class CastawayController {
         return service.findAllCastaways();
     }
 
+    @GetMapping("/castaway{id}")
+    public ResponseEntity<?> findCastawayById(@PathVariable int id){
+        Result<?> result = service.findCastawayById(id);
+        if (result.isSuccess()){
+            return new ResponseEntity<>(result.getPayload(), HttpStatus.OK);
+        }
+        return ErrorResponse.build(result);
+    }
+
+    @PostMapping("/new_castaway")
+    public ResponseEntity<?> createCastaway(@RequestBody Castaway castaway){
+        Result<?> result = service.createCastaway(castaway);
+        if (result.isSuccess()){
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+        return ErrorResponse.build(result);
+    }
+
+    @PutMapping("/change_castaway")
+    public ResponseEntity<?> updateCastaway(@RequestBody Castaway castaway){
+        Result<?> result = service.updateCastaway(castaway);
+        if (result.isSuccess()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ErrorResponse.build(result);
+    }
+
+    @DeleteMapping("/castaway{id}")
+    public ResponseEntity<?> deleteCastaway(@PathVariable int id){
+        Result<?> result = service.deleteCastawayById(id);
+        if (result.isSuccess()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ErrorResponse.build(result);
+    }
+
     @GetMapping("/season{id}")
     public ResponseEntity<?> findCastawaysBySeason(@PathVariable int id) {
         Result<List<Castaway>> result = service.findCastawaysBySeason(id);

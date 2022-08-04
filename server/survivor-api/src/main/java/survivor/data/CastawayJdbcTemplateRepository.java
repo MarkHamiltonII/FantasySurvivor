@@ -39,6 +39,17 @@ public class CastawayJdbcTemplateRepository {
     }
 
     @Transactional
+    public Castaway findCastawayById(int id){
+
+        final String sql = "select c.castaway_id, c.first_name, c.last_name, c.age, c.current_residence, c.occupation, "
+                + "c.icon_url, page_url from castaway c "
+                + "where c.castaway_id = ?;";
+
+        return jdbcTemplate.query(sql, new CastawayMapper(), id).stream()
+                .findFirst().orElse(null);
+    }
+
+    @Transactional
     public List<Castaway> findCastawayByTribal(int seasonId, int tribalNumber){
 
         final String sql = "select c.castaway_id, c.first_name, c.last_name, c.age, c.current_residence, c.occupation, "
@@ -48,6 +59,53 @@ public class CastawayJdbcTemplateRepository {
 
         List<Castaway> castaways = jdbcTemplate.query(sql, new CastawayMapper(), seasonId, tribalNumber);
         return castaways;
+    }
+
+    @Transactional
+    public boolean createCastaway(Castaway castaway){
+        final String sql = "insert into castaway(first_name, last_name, age, current_residence, occupation, "
+                + "icon_url, page_url) values (?, ?, ?, ?, ?, ?, ?);";
+
+        int rowsUpdated = jdbcTemplate.update(sql,
+                castaway.getFirstName(),
+                castaway.getLastName(),
+                castaway.getAge(),
+                castaway.getCurrentResidence(),
+                castaway.getOccupation(),
+                castaway.getIconURL(),
+                castaway.getPageURL());
+
+        return rowsUpdated > 0;
+    }
+
+    @Transactional
+    public boolean updateCastaway(Castaway castaway){
+        final String sql = "update castaway set first_name = ?, "
+                + "last_name = ?, "
+                + "age = ?, "
+                + "current_residence = ?, "
+                + "occupation = ?, "
+                + "icon_url = ?, "
+                + "page_url = ? "
+                + "where castaway_id = ?;";
+
+        int rowsUpdated = jdbcTemplate.update(sql,
+                castaway.getFirstName(),
+                castaway.getLastName(),
+                castaway.getAge(),
+                castaway.getCurrentResidence(),
+                castaway.getOccupation(),
+                castaway.getIconURL(),
+                castaway.getPageURL(),
+                castaway.getId());
+
+        return rowsUpdated > 0;
+    }
+
+    @Transactional
+    public boolean deleteCastawayById(int id){
+        jdbcTemplate.update("delete from season_castaway where castaway_id = ?;", id);
+        return jdbcTemplate.update("delete from castaway where castaway_id = ?;", id) > 0;
     }
 
     @Transactional
@@ -76,6 +134,19 @@ public class CastawayJdbcTemplateRepository {
         }
 
         return createTribal(seasonId, tribalNumber, castaways);
+    }
+
+    @Transactional
+    public boolean castawayInUse(int castawayId){
+        List<Integer> laur = jdbcTemplate.query(
+                "select laut_id from league_app_user_rating where castaway_id = ?;",
+                (rs, rowNum) -> rs.getInt("id"),
+                castawayId);
+        List<Integer> tribal = jdbcTemplate.query(
+                "select tribal_id from tribal where castaway_id = ?;",
+                (rs, rowNum) -> rs.getInt("id"),
+                castawayId);
+        return laur.size() > 0 || tribal.size() > 0;
     }
 
 }

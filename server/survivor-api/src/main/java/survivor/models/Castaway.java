@@ -43,6 +43,17 @@ public class Castaway {
         this.pageURL = pageURL;
     }
 
+    public Castaway(String firstName, String lastName, int age, String currentResidence, String occupation, String iconURL, String pageURL) {
+        this.id = 0;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.currentResidence = currentResidence;
+        this.occupation = occupation;
+        this.iconURL = iconURL;
+        this.pageURL = pageURL;
+    }
+
     public int getId() {
         return id;
     }
