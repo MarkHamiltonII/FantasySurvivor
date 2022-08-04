@@ -1,10 +1,16 @@
 @url = http://localhost:8080/api
-@token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmYW50YXN5LXN1cnZpdm9yIiwic3ViIjoiZGlhYmxvIiwiYXV0aG9yaXRpZXMiOiJST0xFX0FETUlOLFJPTEVfTEVBR1VFX09XTkVSLFJPTEVfVVNFUiIsImFwcFVzZXJJZCI6MSwiZXhwIjoxNjU5NDc3MjM5fQ.fWfna7-hK9NMqUdK1QHWI-KfHMdYF9whlaRwjUFxzWk
+@token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmYW50YXN5LXN1cnZpdm9yIiwic3ViIjoiZGlhYmxvIiwiYXV0aG9yaXRpZXMiOiJST0xFX0FETUlOLFJPTEVfTEVBR1VFX09XTkVSLFJPTEVfVVNFUiIsImFwcFVzZXJJZCI6MSwiZXhwIjoxNjU5NjQ5MzgzfQ.3PEjBlHpfkEBUFmf_j9002gJyWsBy4TtFgeBEec1r-k
 
 ### - Should get all castaways
 
 GET {{url}}/castaway/all HTTP/1.1
 Content-Type: application/json
+
+### - Should get castaway by id
+
+GET {{url}}/castaway/castaway19 HTTP/1.1
+Content-Type: application/json
+
 
 ### - Should not get future season
 
@@ -18,13 +24,77 @@ Content-Type: application/json
 
 ### - Should get castaway by tribal (no Marya or Jackson)
 
-GET {{url}}/castaway/season42/tribal3 HTTP/1.1
+GET {{url}}/castaway/season42/tribal1 HTTP/1.1
 Content-Type: application/json
 
 ### - Should Not get future tribal
 
 GET {{url}}/castaway/season42/tribal100 HTTP/1.1
 Content-Type: application/json
+
+### - should post a castaway
+
+POST {{url}}/castaway/new_castaway HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "firstName": "Jeff",
+    "lastName": "Probst",
+    "age": 25,
+    "currentResidence": "Fiji, always",
+    "occupation": "Survivor",
+    "iconURL": "https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/svr_cast_800x1000_0003_jeffprobst_0.jpg",
+    "pageURL": "https://www.cbs.com/shows/survivor/cast/216299/"
+}
+
+### - should add castaway to season
+
+POST {{url}}/castaway/season42/castaway20 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### - should remove castaway from season
+
+DELETE  {{url}}/castaway/season42/castaway20 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+### - should update a castaway
+
+PUT {{url}}/castaway/change_castaway HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "id": 19,
+    "firstName": "Jeff",
+    "lastName": "Probst",
+    "age": 52,
+    "currentResidence": "Fiji, always",
+    "occupation": "Survivor",
+    "iconURL": "https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/svr_cast_800x1000_0003_jeffprobst_0.jpg",
+    "pageURL": "https://www.cbs.com/shows/survivor/cast/216299/"
+}
+
+### - should delete a castaway
+
+DELETE {{url}}/castaway/castaway19 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "id": 19,
+    "firstName": "Jeff",
+    "lastName": "Probst",
+    "age": 52,
+    "currentResidence": "Fiji, always",
+    "occupation": "Survivor",
+    "iconURL": "https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/svr_cast_800x1000_0003_jeffprobst_0.jpg",
+    "pageURL": "https://www.cbs.com/shows/survivor/cast/216299/"
+}
+
 
 ### - Post a tribal
 

@@ -23,7 +23,7 @@ public class CastawayService {
         Result<Castaway> result = new Result<>();
         Castaway castaway = repository.findCastawayById(id);
         if (castaway == null){
-            result.addMessage("Cannot find castaway with ID: " + id, ResultType.INVALID);
+            result.addMessage("Cannot find castaway with ID: " + id, ResultType.NOT_FOUND);
             return result;
         }
         result.setPayload(castaway);
@@ -101,6 +101,22 @@ public class CastawayService {
         }
         if (!repository.deleteCastawayById(castawayId)){
             result.addMessage("Castaway not found", ResultType.NOT_FOUND);
+        }
+        return result;
+    }
+
+    public Result<?> addCastawayToSeason(int seasonId, int castawayId){
+        Result<?> result = new Result<>();
+        if (!repository.addCastawayToSeason(seasonId,castawayId)){
+            result.addMessage("Could not add castaway to season " + seasonId, ResultType.INVALID);
+        }
+        return result;
+    }
+
+    public Result<?> removeCastawayFromSeason(int seasonId, int castawayId){
+        Result<?> result = new Result<>();
+        if (!repository.removeCastawayFromSeason(seasonId,castawayId)){
+            result.addMessage("Could not remove castaway from season " + seasonId, ResultType.INVALID);
         }
         return result;
     }

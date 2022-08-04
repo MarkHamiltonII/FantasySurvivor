@@ -109,6 +109,18 @@ public class CastawayJdbcTemplateRepository {
     }
 
     @Transactional
+    public boolean addCastawayToSeason(int seasonId, int castawayId){
+        final String sql = "insert into season_castaway values (?, ?);";
+        return jdbcTemplate.update(sql, seasonId, castawayId) > 0;
+    }
+
+    @Transactional
+    public boolean removeCastawayFromSeason(int seasonId, int castawayId){
+        final String sql = "delete from season_castaway where season_id = ? and castaway_id = ?;";
+        return jdbcTemplate.update(sql, seasonId, castawayId) > 0;
+    }
+
+    @Transactional
     public boolean createTribal(int seasonId, int tribalNumber, List<Castaway> castaways){
         final String sql = "insert into tribal(tribal_number, season_id, castaway_id) values (?, ?, ?);";
         int rowsUpdated = 0;
@@ -139,7 +151,7 @@ public class CastawayJdbcTemplateRepository {
     @Transactional
     public boolean castawayInUse(int castawayId){
         List<Integer> laur = jdbcTemplate.query(
-                "select laut_id from league_app_user_rating where castaway_id = ?;",
+                "select laur_id from league_app_user_rating where castaway_id = ?;",
                 (rs, rowNum) -> rs.getInt("id"),
                 castawayId);
         List<Integer> tribal = jdbcTemplate.query(
