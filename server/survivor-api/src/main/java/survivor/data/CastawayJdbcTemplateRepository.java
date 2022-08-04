@@ -152,11 +152,11 @@ public class CastawayJdbcTemplateRepository {
     public boolean castawayInUse(int castawayId){
         List<Integer> laur = jdbcTemplate.query(
                 "select laur_id from league_app_user_rating where castaway_id = ?;",
-                (rs, rowNum) -> rs.getInt("id"),
+                (rs, rowNum) -> rs.getInt("laur_id"),
                 castawayId);
         List<Integer> tribal = jdbcTemplate.query(
                 "select tribal_id from tribal where castaway_id = ?;",
-                (rs, rowNum) -> rs.getInt("id"),
+                (rs, rowNum) -> rs.getInt("tribal_id"),
                 castawayId);
         return laur.size() > 0 || tribal.size() > 0;
     }

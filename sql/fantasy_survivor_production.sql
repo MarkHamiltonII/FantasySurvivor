@@ -40,7 +40,8 @@ create table castaway (
 
 create table season (
 	season_id int primary key,
-    `name` varchar(1024) not null
+    `name` varchar(256) not null,
+    unique (`name`)
 );
 
 create table season_castaway (

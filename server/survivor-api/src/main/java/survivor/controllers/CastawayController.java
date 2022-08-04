@@ -46,20 +46,20 @@ public class CastawayController {
     @PutMapping("/change_castaway")
     public ResponseEntity<?> updateCastaway(@RequestBody Castaway castaway){
         Result<?> result = service.updateCastaway(castaway);
-        return noContentOrError(result);
+        return ErrorResponse.noContentOrError(result);
     }
 
     @DeleteMapping("/castaway{id}")
     public ResponseEntity<?> deleteCastaway(@PathVariable int id){
         Result<?> result = service.deleteCastawayById(id);
-        return noContentOrError(result);
+        return ErrorResponse.noContentOrError(result);
     }
 
     @PostMapping("/season{seasonId}/castaway{castawayId}")
     public ResponseEntity<?> addCastawayToSeason(@PathVariable int seasonId, @PathVariable int castawayId){
         try {
             Result<?> result = service.addCastawayToSeason(seasonId, castawayId);
-            return noContentOrError(result);
+            return ErrorResponse.noContentOrError(result);
         } catch (DuplicateKeyException ex){
             return new ResponseEntity<>(List.of("Castaway already in season"), HttpStatus.BAD_REQUEST);
         }
@@ -68,7 +68,7 @@ public class CastawayController {
     @DeleteMapping("/season{seasonId}/castaway{castawayId}")
     public ResponseEntity<?> removeCastawayFromSeason(@PathVariable int seasonId, @PathVariable int castawayId){
         Result<?> result = service.removeCastawayFromSeason(seasonId, castawayId);
-        return noContentOrError(result);
+        return ErrorResponse.noContentOrError(result);
     }
 
     @GetMapping("/season{id}")
@@ -92,26 +92,19 @@ public class CastawayController {
     @PostMapping("/season{seasonId}/tribal{tribalNumber}")
     public ResponseEntity<?> createTribal(@PathVariable int seasonId, @PathVariable int tribalNumber, @RequestBody List<Castaway> castaways) {
         Result<?> result = service.createTribal(seasonId, tribalNumber, castaways);
-        return noContentOrError(result);
+        return ErrorResponse.noContentOrError(result);
     }
 
     @PutMapping("/season{seasonId}/tribal{tribalNumber}")
     public ResponseEntity<?> updateTribal(@PathVariable int seasonId, @PathVariable int tribalNumber, @RequestBody List<Castaway> castaways) {
         Result<?> result = service.updateTribal(seasonId, tribalNumber, castaways);
-        return noContentOrError(result);
+        return ErrorResponse.noContentOrError(result);
     }
 
     @DeleteMapping("/season{seasonId}/tribal{tribalNumber}")
     public ResponseEntity<?> deleteTribal(@PathVariable int seasonId, @PathVariable int tribalNumber) {
         Result<?> result = service.deleteTribal(seasonId, tribalNumber);
-        return noContentOrError(result);
+        return ErrorResponse.noContentOrError(result);
     }
 
-    /////////////////////// Helper Methods /////////////////////////
-    private ResponseEntity<?> noContentOrError(Result<?> result){
-        if (result.isSuccess()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return ErrorResponse.build(result);
-    }
 }

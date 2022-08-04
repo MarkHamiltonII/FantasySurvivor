@@ -31,4 +31,11 @@ public class ErrorResponse {
         }
         return new ResponseEntity<>(result, status);
     }
+
+    public static <T> ResponseEntity<Object> noContentOrError(Result<T> result){
+        if (result.isSuccess()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return build(result);
+    }
 }
