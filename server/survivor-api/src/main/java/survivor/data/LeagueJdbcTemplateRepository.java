@@ -85,6 +85,19 @@ public class LeagueJdbcTemplateRepository {
         jdbcTemplate.update(sql,leagueId, appUserId);
     }
 
+    //////////////////////////// FINALIZE LEAGUE ENTRY /////////////////////////////
+    @Transactional
+    public boolean finalizeLeagueRatings(int leagueId){
+        final String sql = "update league_app_user set final = 1 where league_id = ?;";
+        return jdbcTemplate.update(sql, leagueId) > 0;
+    }
+
+    @Transactional
+    public boolean unfinalizeLeagueRatings(int leagueId){
+        final String sql = "update league_app_user set final = 0 where league_id = ?;";
+        return jdbcTemplate.update(sql, leagueId) > 0;
+    }
+
 
     /////////////////////////// HELPER ADD METHODS /////////////////////////////////
     private void addAppUsers(League league){

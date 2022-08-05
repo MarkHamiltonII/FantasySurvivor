@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET,"/api/leagues/all").hasAnyRole("ADMIN")
                 .antMatchers(HttpMethod.GET,"/api/leagues/*").hasAnyRole("USER")
                 .antMatchers(HttpMethod.POST,"/api/leagues/**").hasAnyRole("LEAGUE_OWNER")
-                .antMatchers(HttpMethod.PUT, "/api/leagues/*").hasAnyRole("LEAGUE_OWNER")
+                .antMatchers(HttpMethod.PUT, "/api/leagues/**").hasAnyRole("LEAGUE_OWNER")
                 .antMatchers(HttpMethod.DELETE, "/api/leagues/**").hasAnyRole("LEAGUE_OWNER")
                 .and()
                 .addFilter(new JwtRequestFilter(authenticationManager(),converter))

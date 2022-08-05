@@ -98,7 +98,6 @@ public class LeagueController {
             return new ResponseEntity<>(List.of("User already in league"), HttpStatus.BAD_REQUEST);
         }
     }
-
     @DeleteMapping("/league{leagueId}/user{userId}")
     public ResponseEntity<?> removeAppUserFromLeague(@PathVariable int leagueId, @PathVariable int userId, UsernamePasswordAuthenticationToken principal){
         AppUser appUser = (AppUser) principal.getPrincipal();
@@ -108,4 +107,25 @@ public class LeagueController {
         }
         return ErrorResponse.build(result);
     }
+
+    @PutMapping("/league{leagueId}/finalize")
+    public ResponseEntity<?> finalizeLeagueRatings(@PathVariable int leagueId, UsernamePasswordAuthenticationToken principal){
+        AppUser appUser = (AppUser) principal.getPrincipal();
+        Result<?> result = service.finalizeLeagueRatings(leagueId, appUser.getAppUserId());
+        if (result.isSuccess()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ErrorResponse.build(result);
+    }
+
+    @PutMapping("/league{leagueId}/unfinalize")
+    public ResponseEntity<?> unfinalizeLeagueRatings(@PathVariable int leagueId, UsernamePasswordAuthenticationToken principal){
+        AppUser appUser = (AppUser) principal.getPrincipal();
+        Result<?> result = service.unfinalizeLeagueRatings(leagueId, appUser.getAppUserId());
+        if (result.isSuccess()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ErrorResponse.build(result);
+    }
+
 }

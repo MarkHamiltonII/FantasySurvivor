@@ -88,6 +88,7 @@ create table league_app_user (
 	id int primary key auto_increment,
     league_id int not null,
     user_id int not null,
+    final bit not null default(0),
     constraint fk_league_id
 		foreign key (league_id)
         references league(league_id),

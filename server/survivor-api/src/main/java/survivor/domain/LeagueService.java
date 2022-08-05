@@ -123,6 +123,32 @@ public class LeagueService {
         return result;
     }
 
+    public Result<?> finalizeLeagueRatings(int leagueId, int ownerId){
+        Result<?> result = new Result<>();
+        League oldLeague = repository.findLeagueById(leagueId);
+        validateOldLeague(oldLeague, ownerId, result);
+
+        if (!result.isSuccess()){
+            return result;
+        }
+
+        repository.finalizeLeagueRatings(leagueId);
+        return result;
+    }
+
+    public Result<?> unfinalizeLeagueRatings(int leagueId, int ownerId){
+        Result<?> result = new Result<>();
+        League oldLeague = repository.findLeagueById(leagueId);
+        validateOldLeague(oldLeague, ownerId, result);
+
+        if (!result.isSuccess()){
+            return result;
+        }
+
+        repository.unfinalizeLeagueRatings(leagueId);
+        return result;
+    }
+
     /////////////////////////////// Validation Methods //////////////////////////////////
 
     private Result<?> validateLeague(League league){
