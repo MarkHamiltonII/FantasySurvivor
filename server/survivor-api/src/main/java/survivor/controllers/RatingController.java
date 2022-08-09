@@ -25,7 +25,7 @@ public class RatingController {
     @GetMapping("/league{leagueId}/user{userId}")
     public ResponseEntity<?> findRatingByIds(@PathVariable int leagueId, @PathVariable int userId, UsernamePasswordAuthenticationToken principal){
         AppUser appUser = (AppUser) principal.getPrincipal();
-        Result<?> result = service.findRatingsByIds(leagueId, userId, appUser.getAppUserId());
+        Result<?> result = service.findRatingsByIds(leagueId, userId, appUser);
         if (result.isSuccess()){
             return new ResponseEntity<>(result.getPayload(), HttpStatus.OK);
         }
@@ -36,7 +36,7 @@ public class RatingController {
     public ResponseEntity<?> createRating(@RequestBody Rating rating, UsernamePasswordAuthenticationToken principal){
         try {
             AppUser appUser = (AppUser) principal.getPrincipal();
-            Result<?> result = service.createRating(rating, appUser.getAppUserId());
+            Result<?> result = service.createRating(rating, appUser);
             if (result.isSuccess()) {
                 return new ResponseEntity<>(HttpStatus.CREATED);
             }
@@ -50,7 +50,7 @@ public class RatingController {
     public ResponseEntity<?> updateRating(@RequestBody Rating rating, UsernamePasswordAuthenticationToken principal){
         try {
             AppUser appUser = (AppUser) principal.getPrincipal();
-            Result<?> result = service.updateRating(rating, appUser.getAppUserId());
+            Result<?> result = service.updateRating(rating, appUser);
             return ErrorResponse.noContentOrError(result);
         } catch (DuplicateKeyException ex){
             return new ResponseEntity<>(List.of("Duplicate rankings"), HttpStatus.BAD_REQUEST);

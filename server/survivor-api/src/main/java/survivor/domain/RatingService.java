@@ -2,6 +2,7 @@ package survivor.domain;
 
 import org.springframework.stereotype.Service;
 import survivor.data.RatingJdbcTemplateRepository;
+import survivor.models.AppUser;
 import survivor.models.Castaway;
 import survivor.models.Rating;
 
@@ -16,12 +17,15 @@ public class RatingService {
 
     }
 
-    public Result<?> findRatingsByIds(int leagueId, int userId, int ownerId){
+    public Result<?> findRatingsByIds(int leagueId, int userId, AppUser owner){
         Result<Rating> result = new Result<>();
 
-        if (repository.getRatingId(leagueId, ownerId) == 0){
-            result.addMessage("User must be league member to view league rankings", ResultType.INVALID);
-            return result;
+        if (!AppUser.convertAuthoritiesToRoles(owner.getAuthorities())
+                .contains("ADMIN")) {
+            if (repository.getRatingId(leagueId, owner.getAppUserId()) == 0) {
+                result.addMessage("User must be league member to view league rankings", ResultType.INVALID);
+                return result;
+            }
         }
 
         Rating rating = repository.findRatingByIds(leagueId,userId);
@@ -31,10 +35,11 @@ public class RatingService {
         }
         result.setPayload(rating);
         return result;
+
     }
 
-    public Result<?> createRating(Rating rating, int ownerId){
-        Result<?> result = validateRating(rating, ownerId);
+    public Result<?> createRating(Rating rating, AppUser owner){
+        Result<?> result = validateRating(rating, owner);
 
         if(!result.isSuccess()){
             return result;
@@ -54,8 +59,8 @@ public class RatingService {
 
     }
 
-    public Result<?> updateRating(Rating rating, int ownerId){
-        Result<?> result = validateRating(rating, ownerId);
+    public Result<?> updateRating(Rating rating, AppUser owner){
+        Result<?> result = validateRating(rating, owner);
         if (!result.isSuccess()){
             return result;
         }
@@ -87,7 +92,7 @@ public class RatingService {
 
     //////////////////////////// VALIDATION METHODS /////////////////////////
 
-    private Result<?> validateRating(Rating rating, int ownerId){
+    private Result<?> validateRating(Rating rating, AppUser owner){
         Result<?> result = new Result<>();
 
         if (rating == null){
@@ -95,13 +100,16 @@ public class RatingService {
             return result;
         }
 
-        if (repository.getRatingId(rating.getLeagueId(), rating.getUserId()) == 0){
-            result.addMessage("User must be league member", ResultType.INVALID);
-        }
+        if (!AppUser.convertAuthoritiesToRoles(owner.getAuthorities())
+                .contains("ADMIN")) {
+            if (repository.getRatingId(rating.getLeagueId(), rating.getUserId()) == 0) {
+                result.addMessage("User must be league member", ResultType.INVALID);
+            }
 
-        if (rating.getUserId() != ownerId){
-            result.addMessage("Must own team to make changes", ResultType.INVALID);
-            return result;
+            if (rating.getUserId() != owner.getAppUserId()) {
+                result.addMessage("Must own team to make changes", ResultType.INVALID);
+                return result;
+            }
         }
 
         if (rating.getCastaways() == null || rating.getCastaways().size() == 0){
