@@ -122,7 +122,7 @@ public class CastawayService {
     }
 
     public Result<?> createTribal(int seasonId, int tribalNumber, List<Castaway> castaways){
-        Result<?> result = validateTribal(seasonId,tribalNumber,castaways);
+        Result<?> result = validateTribal(seasonId,castaways);
 
         if (!result.isSuccess()){
             return result;
@@ -150,7 +150,7 @@ public class CastawayService {
     }
 
     public Result<?> updateTribal(int seasonId, int tribalNumber, List<Castaway> castaways){
-        Result<?> result = validateTribal(seasonId,tribalNumber,castaways);
+        Result<?> result = validateTribal(seasonId,castaways);
 
         if (!result.isSuccess()){
             return result;
@@ -196,7 +196,7 @@ public class CastawayService {
         return result;
     }
 
-    public Result<?> validateTribal(int seasonId, int tribalNumber, List<Castaway> castaways){
+    public Result<?> validateTribal(int seasonId, List<Castaway> castaways){
         Result<?> result = new Result<>();
 
         List<Castaway> season = repository.findCastawayBySeason(seasonId);

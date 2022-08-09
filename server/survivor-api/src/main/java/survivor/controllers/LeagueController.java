@@ -66,10 +66,7 @@ public class LeagueController {
         try {
             AppUser appUser = (AppUser) principal.getPrincipal();
             Result<?> result = service.updateLeague(league, appUser.getAppUserId());
-            if (result.isSuccess()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            return ErrorResponse.build(result);
+            return ErrorResponse.noContentOrError(result);
         } catch (DuplicateKeyException ex){
             return new ResponseEntity<>(List.of("League name/season already exists"), HttpStatus.BAD_REQUEST);
         }
@@ -79,10 +76,7 @@ public class LeagueController {
     public ResponseEntity<?> deleteLeague(@PathVariable int id, UsernamePasswordAuthenticationToken principal){
         AppUser appUser = (AppUser) principal.getPrincipal();
         Result<?> result = service.deleteLeagueById(id, appUser.getAppUserId());
-        if (result.isSuccess()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return ErrorResponse.build(result);
+        return ErrorResponse.noContentOrError(result);
     }
 
     @PostMapping("/league{leagueId}/user{userId}")
@@ -90,10 +84,7 @@ public class LeagueController {
         try {
             AppUser appUser = (AppUser) principal.getPrincipal();
             Result<?> result = service.addAppUserToLeague(leagueId, userId, appUser.getAppUserId());
-            if (result.isSuccess()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            return ErrorResponse.build(result);
+            return ErrorResponse.noContentOrError(result);
         } catch (DuplicateKeyException ex){
             return new ResponseEntity<>(List.of("User already in league"), HttpStatus.BAD_REQUEST);
         }
@@ -102,30 +93,21 @@ public class LeagueController {
     public ResponseEntity<?> removeAppUserFromLeague(@PathVariable int leagueId, @PathVariable int userId, UsernamePasswordAuthenticationToken principal){
         AppUser appUser = (AppUser) principal.getPrincipal();
         Result<?> result = service.removeAppUserFromLeague(leagueId, userId, appUser.getAppUserId());
-        if (result.isSuccess()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return ErrorResponse.build(result);
+        return ErrorResponse.noContentOrError(result);
     }
 
     @PutMapping("/league{leagueId}/finalize")
     public ResponseEntity<?> finalizeLeagueRatings(@PathVariable int leagueId, UsernamePasswordAuthenticationToken principal){
         AppUser appUser = (AppUser) principal.getPrincipal();
         Result<?> result = service.finalizeLeagueRatings(leagueId, appUser.getAppUserId());
-        if (result.isSuccess()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return ErrorResponse.build(result);
+        return ErrorResponse.noContentOrError(result);
     }
 
     @PutMapping("/league{leagueId}/unfinalize")
     public ResponseEntity<?> unfinalizeLeagueRatings(@PathVariable int leagueId, UsernamePasswordAuthenticationToken principal){
         AppUser appUser = (AppUser) principal.getPrincipal();
         Result<?> result = service.unfinalizeLeagueRatings(leagueId, appUser.getAppUserId());
-        if (result.isSuccess()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return ErrorResponse.build(result);
+        return ErrorResponse.noContentOrError(result);
     }
 
 }
