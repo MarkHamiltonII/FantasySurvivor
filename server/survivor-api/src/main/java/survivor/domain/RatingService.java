@@ -115,6 +115,10 @@ public class RatingService {
             }
         }
 
+        if (repository.isFinalized(rating.getLeagueId(), rating.getUserId())){
+            result.addMessage("League is finalized, cannot change", ResultType.INVALID);
+        }
+
         return result;
     }
 }

@@ -49,8 +49,9 @@ public class RatingJdbcTemplateRepository {
 
     @Transactional
     public boolean deleteRatingByIds(int leagueId, int userId){
-        final String sql = "delete from league_app_user_rating where league_id = ? and user_id = ?;";
-        return jdbcTemplate.update(sql, leagueId, userId) > 0;
+        int lauId = getRatingId(leagueId, userId);
+        final String sql = "delete from league_app_user_rating where lau_id = ?;";
+        return jdbcTemplate.update(sql, lauId) > 0;
     }
 
     @Transactional
@@ -68,5 +69,13 @@ public class RatingJdbcTemplateRepository {
                         (rs, rowNum) -> rs.getInt("id"),
                         leagueId, userId)
                 .stream().findFirst().orElse(0);
+    }
+
+    public boolean isFinalized(int leagueId, int userId) {
+        return jdbcTemplate.query(
+                        "select final from league_app_user where league_id = ? and user_id = ?;",
+                        (rs, rowNum) -> rs.getBoolean("final"),
+                        leagueId, userId)
+                .stream().findFirst().orElse(false);
     }
 }
