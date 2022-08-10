@@ -14,8 +14,6 @@ public class TribalPointsMapper implements RowMapper<TribalPoints> {
         tribalPoints.setId(rs.getInt("laut_id"));
         tribalPoints.setWeekPoints(rs.getDouble("tribal_points"));
         tribalPoints.setPointsToDate(rs.getDouble("points_to_date"));
-        tribalPoints.setLeagueAppUserId(rs.getInt("lau_id"));
-        tribalPoints.setTribalId(rs.getInt("tribal_id"));
 
         return tribalPoints;
     }

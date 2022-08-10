@@ -1,32 +1,55 @@
 package survivor.models;
 
+import java.util.List;
 import java.util.Objects;
 
 public class TribalPoints {
     private int id;
     private double weekPoints;
     private double pointsToDate;
-    private int leagueAppUserId;
-    private int tribalId;
 
-    public TribalPoints(int id, double weekPoints, double pointsToDate, int leagueAppUserId, int tribalId) {
+    private League league;
+
+    private int userId;
+
+    private List<Castaway> tribal;
+    private List<Castaway> castaways;
+
+    public TribalPoints(int id, double weekPoints, double pointsToDate) {
         this.id = id;
         this.weekPoints = weekPoints;
         this.pointsToDate = pointsToDate;
-        this.leagueAppUserId = leagueAppUserId;
-        this.tribalId = tribalId;
+
     }
 
-    public TribalPoints(double weekPoints, double pointsToDate, int leagueAppUserId, int tribalId) {
+    public TribalPoints(int id, double weekPoints, double pointsToDate, League league, int userId, List<Castaway> tribal, List<Castaway> castaways) {
+        this.id = id;
         this.weekPoints = weekPoints;
         this.pointsToDate = pointsToDate;
-        this.leagueAppUserId = leagueAppUserId;
-        this.tribalId = tribalId;
+        this.league = league;
+        this.userId = userId;
+        this.tribal = tribal;
+        this.castaways = castaways;
     }
 
-    public TribalPoints(int leagueAppUserId, int tribalId) {
-        this.leagueAppUserId = leagueAppUserId;
-        this.tribalId = tribalId;
+    public TribalPoints(int id, double weekPoints, double pointsToDate, League league, int userId) {
+        this.id = id;
+        this.weekPoints = weekPoints;
+        this.pointsToDate = pointsToDate;
+        this.league = league;
+        this.userId = userId;
+    }
+
+    public TribalPoints(double weekPoints, double pointsToDate, League league, int userId) {
+        this.weekPoints = weekPoints;
+        this.pointsToDate = pointsToDate;
+        this.league = league;
+        this.userId = userId;
+    }
+
+    public TribalPoints(double weekPoints, double pointsToDate) {
+        this.weekPoints = weekPoints;
+        this.pointsToDate = pointsToDate;
     }
 
     public TribalPoints() {
@@ -56,20 +79,36 @@ public class TribalPoints {
         this.pointsToDate = pointsToDate;
     }
 
-    public int getLeagueAppUserId() {
-        return leagueAppUserId;
+    public List<Castaway> getTribal() {
+        return tribal;
     }
 
-    public void setLeagueAppUserId(int leagueAppUserId) {
-        this.leagueAppUserId = leagueAppUserId;
+    public void setTribal(List<Castaway> tribal) {
+        this.tribal = tribal;
     }
 
-    public int getTribalId() {
-        return tribalId;
+    public List<Castaway> getCastaways() {
+        return castaways;
     }
 
-    public void setTribalId(int tribalId) {
-        this.tribalId = tribalId;
+    public void setCastaways(List<Castaway> castaways) {
+        this.castaways = castaways;
+    }
+
+    public League getLeague() {
+        return league;
+    }
+
+    public void setLeague(League league) {
+        this.league = league;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     @Override
@@ -77,11 +116,11 @@ public class TribalPoints {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TribalPoints that = (TribalPoints) o;
-        return id == that.id && leagueAppUserId == that.leagueAppUserId && tribalId == that.tribalId;
+        return id == that.id && userId == that.userId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, leagueAppUserId, tribalId);
+        return Objects.hash(id, userId);
     }
 }
