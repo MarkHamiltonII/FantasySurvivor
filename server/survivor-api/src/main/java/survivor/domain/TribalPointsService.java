@@ -165,7 +165,7 @@ public class TribalPointsService {
 
     private void validateTribal(int leagueId, int tribalNumber, Result<?> result){
         League league = repository.findLeagueById(leagueId);
-        if (repository.getTribalId(league,tribalNumber) == 0){
+        if (!repository.tribalInSeason(league,tribalNumber)){
             result.addMessage("Tribal number not found in season", ResultType.INVALID);
         }
     }
@@ -198,9 +198,9 @@ public class TribalPointsService {
 
         double previousPoints = 0;
 
-        if (tribalNumber > 0) {
+        if (tribalNumber > 1) {
             previousPoints = repository
-                    .findTribalPointsByUserAndTribal(leagueId,userId,tribalNumber)
+                    .findTribalPointsByUserAndTribal(leagueId,userId,tribalNumber-1)
                     .getPointsToDate();
         }
 

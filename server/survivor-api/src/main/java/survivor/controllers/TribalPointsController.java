@@ -1,5 +1,6 @@
 package survivor.controllers;
 
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -9,6 +10,8 @@ import survivor.domain.TribalPointsService;
 import survivor.models.AppUser;
 import survivor.models.League;
 import survivor.models.TribalPoints;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/points")
@@ -47,31 +50,43 @@ public class TribalPointsController {
     public ResponseEntity<?> createTribalPoints(
             @PathVariable int leagueId, @PathVariable int userId,
             @PathVariable int tribalNumber, UsernamePasswordAuthenticationToken principal){
-        AppUser appUser = (AppUser) principal.getPrincipal();
-        Result<?> result = service.createTribalPoints(leagueId,userId,tribalNumber,appUser);
-        if (result.isSuccess()){
-            return new ResponseEntity<>(HttpStatus.CREATED);
+        try {
+            AppUser appUser = (AppUser) principal.getPrincipal();
+            Result<?> result = service.createTribalPoints(leagueId, userId, tribalNumber, appUser);
+            if (result.isSuccess()) {
+                return new ResponseEntity<>(HttpStatus.CREATED);
+            }
+            return ErrorResponse.build(result);
+        } catch (DuplicateKeyException ex){
+            return new ResponseEntity<>(List.of("Duplicate tribal points"), HttpStatus.BAD_REQUEST);
         }
-        return ErrorResponse.build(result);
     }
 
     @PostMapping("/league/all/tribal{tribalNumber}")
     public ResponseEntity<?> postNewTribalPointsForLeague(
             @RequestBody League league, @PathVariable int tribalNumber,
             UsernamePasswordAuthenticationToken principal) {
-        AppUser appUser = (AppUser) principal.getPrincipal();
-        Result<?> result = service.postNewTribalPointsForLeague(league,tribalNumber,appUser);
-        if (result.isSuccess()){
-            return new ResponseEntity<>(HttpStatus.CREATED);
+        try {
+            AppUser appUser = (AppUser) principal.getPrincipal();
+            Result<?> result = service.postNewTribalPointsForLeague(league, tribalNumber, appUser);
+            if (result.isSuccess()) {
+                return new ResponseEntity<>(HttpStatus.CREATED);
+            }
+            return ErrorResponse.build(result);
+        } catch (DuplicateKeyException ex){
+            return new ResponseEntity<>(List.of("Duplicate tribal points"), HttpStatus.BAD_REQUEST);
         }
-        return ErrorResponse.build(result);
     }
 
     @PutMapping("/update_individual_points")
     public ResponseEntity<?> updateTribalPointsById(@RequestBody TribalPoints points, UsernamePasswordAuthenticationToken principal){
-        AppUser appUser = (AppUser) principal.getPrincipal();
-        Result<?> result = service.updateTribalPointsById(points, appUser);
-        return ErrorResponse.noContentOrError(result);
+        try {
+            AppUser appUser = (AppUser) principal.getPrincipal();
+            Result<?> result = service.updateTribalPointsById(points, appUser);
+            return ErrorResponse.noContentOrError(result);
+        } catch (DuplicateKeyException ex){
+            return new ResponseEntity<>(List.of("Duplicate tribal points"), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/league{leagueId}/point{pointId}")

@@ -25,6 +25,18 @@ public class AppUser extends User {
         this.appUserId = appUserId;
     }
 
+    public AppUser(int appUserId, String username){
+        super(username,"$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa",true,
+                true,true,true,
+                convertRolesToAuthorities(List.of("USER")));
+        this.appUserId = appUserId;
+    }
+    public AppUser(){
+        super("username","$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa",true,
+                true,true,true,
+                convertRolesToAuthorities(List.of("USER")));
+    }
+
     public int getAppUserId() {
         return appUserId;
     }

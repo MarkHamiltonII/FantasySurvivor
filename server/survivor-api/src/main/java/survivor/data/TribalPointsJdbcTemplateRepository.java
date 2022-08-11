@@ -50,11 +50,10 @@ public class TribalPointsJdbcTemplateRepository {
     public TribalPoints findTribalPointsByUserAndTribal(int leagueId, int userId, int tribalNumber){
         int lauId = getLauId(leagueId,userId);
         League league = findLeagueById(leagueId);
-        int tribalId = getTribalId(league, tribalNumber);
         final String sql = "select laut_id, tribal_points, points_to_date from "
-                + "league_app_user_tribal where lau_id = ? and tribal_id = ?;";
+                + "league_app_user_tribal where lau_id = ? and tribal_number = ?;";
         TribalPoints tribalPoints = jdbcTemplate.query(sql, new TribalPointsMapper(),
-                lauId, tribalId).stream()
+                lauId, tribalNumber).stream()
                 .findFirst().orElse(null);
 
         if (tribalPoints != null){
@@ -67,11 +66,10 @@ public class TribalPointsJdbcTemplateRepository {
     @Transactional
     public boolean createTribalPoints(TribalPoints points, int tribalNumber){
         int lauId = getLauId(points.getLeague().getLeagueId(), points.getUserId());
-        int tribalId = getTribalId(points.getLeague(),tribalNumber);
         final String sql = "insert into league_app_user_tribal"
-                + "(tribal_points, points_to_date, lau_id, tribal_id) "
+                + "(tribal_points, points_to_date, lau_id, tribal_number) "
                 + "values (?, ?, ?, ?);";
-        return jdbcTemplate.update(sql, points.getWeekPoints(), points.getPointsToDate(), lauId, tribalId) > 0;
+        return jdbcTemplate.update(sql, points.getWeekPoints(), points.getPointsToDate(), lauId, tribalNumber) > 0;
     }
 
     @Transactional
@@ -89,9 +87,8 @@ public class TribalPointsJdbcTemplateRepository {
 
     @Transactional
     public boolean deleteTribalPointsByTribal(League league, int tribalNumber){
-        int tribalId = getTribalId(league,tribalNumber);
-        final String sql = "delete from league_app_user_tribal where tribal id = ?;";
-        return jdbcTemplate.update(sql, tribalId) > 0;
+        final String sql = "delete from league_app_user_tribal where tribal_number = ?;";
+        return jdbcTemplate.update(sql, tribalNumber) > 0;
     }
 
     @Transactional
@@ -100,7 +97,7 @@ public class TribalPointsJdbcTemplateRepository {
                 + "tribal_points = ?, "
                 + "points_to_date = ? "
                 + "where laut_id = ?;";
-        return jdbcTemplate.update(sql, points.getWeekPoints(), points.getPointsToDate()) > 0;
+        return jdbcTemplate.update(sql, points.getWeekPoints(), points.getPointsToDate(), points.getId()) > 0;
     }
 
     //////////////// Validation Helpers ////////////////
@@ -112,12 +109,12 @@ public class TribalPointsJdbcTemplateRepository {
                 .stream().findFirst().orElse(0);
     }
 
-    public int getTribalId(League league, int tribalNumber) {
+    public boolean tribalInSeason(League league, int tribalNumber) {
         return jdbcTemplate.query(
-                        "select tribal_id from tribal where season_id = ? and tribal_number = ?;",
-                        (rs, rowNum) -> rs.getInt("tribal_id"),
+                        "select tribal_number from tribal where season_id = ? and tribal_number = ?;",
+                        (rs, rowNum) -> rs.getInt("tribal_number"),
                         league.getSeasonId(), tribalNumber)
-                .stream().findFirst().orElse(0);
+                .stream().findFirst().orElse(0) > 0;
     }
 
     //////////////// Adding castaways /////////////////

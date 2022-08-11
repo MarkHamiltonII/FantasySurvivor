@@ -1,5 +1,5 @@
 @url = http://localhost:8080/api
-@token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmYW50YXN5LXN1cnZpdm9yIiwic3ViIjoiZGlhYmxvIiwiYXV0aG9yaXRpZXMiOiJST0xFX0FETUlOLFJPTEVfTEVBR1VFX09XTkVSLFJPTEVfVVNFUiIsImFwcFVzZXJJZCI6MSwiZXhwIjoxNjU5NjQ5MzgzfQ.3PEjBlHpfkEBUFmf_j9002gJyWsBy4TtFgeBEec1r-k
+@token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmYW50YXN5LXN1cnZpdm9yIiwic3ViIjoiZGlhYmxvIiwiYXV0aG9yaXRpZXMiOiJST0xFX0FETUlOLFJPTEVfTEVBR1VFX09XTkVSLFJPTEVfVVNFUiIsImFwcFVzZXJJZCI6MSwiZXhwIjoxNjYwMjQyNDg4fQ.nYqJGgeNnRfgyRUFv8WayGLjso4e-xhPIcUQPNg0SM4
 
 ### - Should get all castaways
 
@@ -122,6 +122,135 @@ Authorization: Bearer {{token}}
     "occupation": "Law Clerk",
     "iconURL": "https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_04_800x1000.jpg",
     "pageURL": "https://www.cbs.com/shows/survivor/cast/216608/"
+  },
+  {
+    "id": 3,
+    "firstName": "Drea",
+    "lastName": "Wheeler",
+    "age": 35,
+    "currentResidence": "Montreal, Quebec",
+    "occupation": "Fitness Consultant",
+    "iconURL": "https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_13_800x1000.jpg",
+    "pageURL": "https://www.cbs.com/shows/survivor/cast/216609/"
+  },
+  {
+    "id": 4,
+    "firstName": "Hai",
+    "lastName": "Giang",
+    "age": 29,
+    "currentResidence": "New Orleans, LA",
+    "occupation": "Data Scientist",
+    "iconURL": "https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_05_800x1000.jpg",
+    "pageURL": "https://www.cbs.com/shows/survivor/cast/216610/"
+  },
+  {
+    "id": 7,
+    "firstName": "Jonathan",
+    "lastName": "Young",
+    "age": 29,
+    "currentResidence": "Gulfshores, AL",
+    "occupation": "Beach Service Co. Owner",
+    "iconURL": "https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_12_800x1000.jpg",
+    "pageURL": "https://www.cbs.com/shows/survivor/cast/216613/"
+  },
+  {
+    "id": 8,
+    "firstName": "Lindsay",
+    "lastName": "Dolashewich",
+    "age": 31,
+    "currentResidence": "Asbury Park, NJ",
+    "occupation": "Dietitian",
+    "iconURL": "https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_08_800x1000.jpg",
+    "pageURL": "https://www.cbs.com/shows/survivor/cast/216614/"
+  },
+  {
+    "id": 9,
+    "firstName": "Lydia",
+    "lastName": "Meredith",
+    "age": 22,
+    "currentResidence": "Santa Monica, CA",
+    "occupation": "Waitress",
+    "iconURL": "https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_03_800x1000.jpg",
+    "pageURL": "https://www.cbs.com/shows/survivor/cast/216615/"
+  },
+  {
+    "id": 11,
+    "firstName": "Maryanne",
+    "lastName": "Oketch",
+    "age": 24,
+    "currentResidence": "Ajax, Ontario",
+    "occupation": "Seminary Student",
+    "iconURL": "https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_09_800x1000.jpg",
+    "pageURL": "https://www.cbs.com/shows/survivor/cast/216617/"
+  },
+  {
+    "id": 12,
+    "firstName": "Mike",
+    "lastName": "Turner",
+    "age": 58,
+    "currentResidence": "Hoboken, NJ",
+    "occupation": "Retired Firefighter",
+    "iconURL": "https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_06_800x1000.jpg",
+    "pageURL": "https://www.cbs.com/shows/survivor/cast/216618/"
+  },
+  {
+    "id": 13,
+    "firstName": "Omar",
+    "lastName": "Zaheer",
+    "age": 31,
+    "currentResidence": "Whitby, Ontario",
+    "occupation": "Veterinarian",
+    "iconURL": "https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_11_800x1000.jpg",
+    "pageURL": "https://www.cbs.com/shows/survivor/cast/216619/"
+  },
+  {
+    "id": 14,
+    "firstName": "Rocksroy",
+    "lastName": "Bailey",
+    "age": 44,
+    "currentResidence": "Las Vegas, NV",
+    "occupation": "Stay at Home Dad",
+    "iconURL": "https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_16_800x1000.jpg",
+    "pageURL": "https://www.cbs.com/shows/survivor/cast/216620/"
+  },
+  {
+    "id": 15,
+    "firstName": "Romeo",
+    "lastName": "Escobar",
+    "age": 37,
+    "currentResidence": "Norwalk, CA",
+    "occupation": "Pageant Coach",
+    "iconURL": "https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_17_800x1000.jpg",
+    "pageURL": "https://www.cbs.com/shows/survivor/cast/216621/"
+  },
+  {
+    "id": 17,
+    "firstName": "Tori",
+    "lastName": "Meehan",
+    "age": 25,
+    "currentResidence": "Tulsa, OK",
+    "occupation": "Therapist",
+    "iconURL": "https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_14_800x1000.jpg",
+    "pageURL": "https://www.cbs.com/shows/survivor/cast/216623/"
+  }
+]
+
+### - Post a tribal
+
+POST {{url}}/castaway/season42/tribal4 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+[
+  {
+    "id": 1,
+    "firstName": "Chanelle",
+    "lastName": "Howell",
+    "age": 29,
+    "currentResidence": "Hamden, CT",
+    "occupation": "Executive Recruiter",
+    "iconURL": "https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_02_800x1000.jpg",
+    "pageURL": "https://www.cbs.com/shows/survivor/cast/216607/"
   },
   {
     "id": 3,
