@@ -1,6 +1,7 @@
 package survivor.domain;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import survivor.data.CastawayJdbcTemplateRepository;
 import survivor.data.RatingJdbcTemplateRepository;
 import survivor.data.TribalPointsJdbcTemplateRepository;
@@ -65,6 +66,46 @@ public class TribalPointsService {
 
         if (!repository.createTribalPoints(points, tribalNumber)){
             result.addMessage("Could not create tribal points", ResultType.INVALID);
+        }
+        return result;
+    }
+
+    @Transactional
+    public Result<?> postNewTribalPointsForLeague(League league, int tribalNumber, AppUser owner){
+        Result<?> result = validateOwner(owner, league.getLeagueId());
+        validateTribal(league.getLeagueId(), tribalNumber, result);
+        if (!result.isSuccess()){
+            return result;
+        }
+
+        for (AppUser member : league.getAppUsers()){
+            validateRating(league.getLeagueId(), member.getAppUserId(), result);
+            if (!result.isSuccess()){
+                return result;
+            }
+            TribalPoints points = makeTribalPoints(league.getLeagueId(), member.getAppUserId(), tribalNumber);
+            if (!repository.createTribalPoints(points,tribalNumber)){
+                result.addMessage("Could not create points for user id = "
+                        + member.getAppUserId(), ResultType.INVALID);
+                return result;
+            }
+        }
+        return result;
+    }
+
+    public Result<?> updateTribalPointsById(TribalPoints points, AppUser owner){
+        Result<?> result = validateOwner(owner, points.getLeague().getLeagueId());
+        if (!result.isSuccess()){
+            return result;
+        }
+
+        if (points == null || repository.findTribalPointsById(points.getId()) == null){
+            result.addMessage("Points not found", ResultType.NOT_FOUND);
+            return result;
+        }
+
+        if (!repository.updateTribalPoints(points)){
+            result.addMessage("Points could not be updated", ResultType.INVALID);
         }
         return result;
     }

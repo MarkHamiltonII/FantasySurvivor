@@ -37,6 +37,14 @@ public class TribalPointsJdbcTemplateRepository {
         return points;
     }
 
+    @Transactional
+    public TribalPoints findTribalPointsById(int lautId){
+        final String sql = "select laut_id, tribal_points, points_to_date from "
+                + "league_app_user_tribal where laut_id = ?;";
+        TribalPoints points = jdbcTemplate.query(sql, new TribalPointsMapper(), lautId)
+                .stream().findFirst().orElse(null);
+        return points;
+    }
 
     @Transactional
     public TribalPoints findTribalPointsByUserAndTribal(int leagueId, int userId, int tribalNumber){
