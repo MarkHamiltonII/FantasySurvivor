@@ -45,6 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/api/leagues/**").hasAnyRole("LEAGUE_OWNER")
                 .antMatchers(HttpMethod.DELETE, "/api/leagues/**").hasAnyRole("LEAGUE_OWNER")
                 .antMatchers("/api/rating/**").hasAnyRole("USER")
+                .antMatchers(HttpMethod.GET,"/api/points/**").hasAnyRole("USER")
+                .antMatchers("/api/points/**").hasAnyRole("LEAGUE_OWNER")
                 .and()
                 .addFilter(new JwtRequestFilter(authenticationManager(),converter))
                 .sessionManagement()
