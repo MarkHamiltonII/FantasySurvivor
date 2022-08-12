@@ -10,7 +10,7 @@
 
   .sidebar-icon{
     @apply relative flex items-center justify-center 
-    h-10 w-10 my-auto mx-4 bg-gray-800 text-green-600
+    h-10 w-10 my-auto mx-4 bg-gray-800 text-white
     hover:bg-green-800 hover:text-white
     rounded-3xl hover:rounded-xl 
     transition-all duration-300 ease-linear
