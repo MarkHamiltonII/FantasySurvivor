@@ -192,9 +192,18 @@ public class TribalPointsService {
         List<Castaway> tribal = castawayRepository.findCastawayByTribal(league.getSeasonId(),tribalNumber);
         int numberRemaining = tribal.size();
 
-        List<Castaway> remainingCastaways = ratingRepository.findRatingByIds(leagueId,userId)
-                .getCastaways().subList(0, numberRemaining);
-        remainingCastaways.retainAll(tribal);
+        List<Castaway> castaways = ratingRepository.findRatingByIds(leagueId,userId)
+                .getCastaways();
+
+        double pointNumerator = 0;
+
+        if (numberRemaining == 1){
+            pointNumerator = castaways.indexOf(tribal.get(0)) + 1;
+        } else {
+            List<Castaway> remainingCastaways = castaways.subList(0, numberRemaining);
+            remainingCastaways.retainAll(tribal);
+            pointNumerator = remainingCastaways.size();
+        }
 
         double previousPoints = 0;
 
@@ -204,7 +213,7 @@ public class TribalPointsService {
                     .getPointsToDate();
         }
 
-        double weekPoints = (double) remainingCastaways.size() / tribal.size() * 100;
+        double weekPoints = pointNumerator / tribal.size() * 100;
         double pointsToDate = previousPoints + weekPoints;
 
         TribalPoints newPoints = new TribalPoints();
