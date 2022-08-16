@@ -198,7 +198,7 @@ public class TribalPointsService {
         double pointNumerator = 0;
 
         if (numberRemaining == 1){
-            pointNumerator = castaways.indexOf(tribal.get(0)) + 1;
+            pointNumerator = castaways.size() - castaways.indexOf(tribal.get(0));
         } else {
             List<Castaway> remainingCastaways = castaways.subList(0, numberRemaining);
             remainingCastaways.retainAll(tribal);
