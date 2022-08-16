@@ -13,7 +13,13 @@ const NavBar = () => {
             <p className='font-survivor font-bold text-lg text-center my-auto mx-4' >FANTASY<br />SURVIVOR</p>
             <NavBarIcon icon={<FaHome size="24" />} text="Home" />
             <NavBarIcon icon={<FaTv size="24" />} text="Seasons" />
-            <NavBarIcon icon={<FaFire size="24" />} text="Leagues" />
+            {auth.user && (
+                <span className='my-auto'>
+                <Link to="/myleagues">
+                    <NavBarIcon icon={<FaFire size="24" />} text="My Leagues" />
+                </Link>
+                </span>
+            )}
             <NavBarIcon icon={<BsPlus size="28" />} text="Join" />
             <NavBarIcon icon={<BsLightningFill size="24" />} />
             <NavBarIcon icon={<FaPoo size="24" />} />
@@ -26,7 +32,7 @@ const NavBar = () => {
             {auth.user && (
                 <span className='ml-auto my-auto flex'>
                     <p className='text-lg mx-2 my-auto text-green-600'>Welcome, {auth.user.username}!</p>
-                    <Link to="/"><NavBarIcon icon={<BsDoorOpenFill size="24" onClick={()=>auth.logout()}/>} text="Logout" /></Link>
+                    <Link to="/"><NavBarIcon icon={<BsDoorOpenFill size="24" onClick={() => auth.logout()} />} text="Logout" /></Link>
                 </span>
             )}
         </div>

@@ -2,11 +2,12 @@ import jwtDecode from "jwt-decode";
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 import AuthContext from "./AuthContext";
-import Home from "./components/Home";
 
+import Home from "./components/Home";
 import Login from "./components/Login";
 import NavBar from "./components/NavBar";
 import Register from "./components/Register";
+import MyLeagues from "./components/MyLeagues";
 
 const LOCAL_STORAGE_TOKEN_KEY = 'fantasySurvivorToken';
 
@@ -71,6 +72,10 @@ function App() {
           <Route path="/register">
             <Register />
           </Route>
+          <Route path="/myleagues">
+            <MyLeagues />
+          </Route>
+
         </Switch>
       </Router>
     </AuthContext.Provider>
