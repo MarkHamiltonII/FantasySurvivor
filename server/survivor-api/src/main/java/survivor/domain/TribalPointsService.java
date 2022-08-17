@@ -215,7 +215,7 @@ public class TribalPointsService {
                     .findTribalPointsByUserAndTribal(leagueId,userId,tribalNumber-1)
                     .getPointsToDate();
         }
-        
+
         double pointsToDate = previousPoints + weekPoints;
 
         TribalPoints newPoints = new TribalPoints();
