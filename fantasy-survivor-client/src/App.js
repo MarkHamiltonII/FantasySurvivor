@@ -9,6 +9,8 @@ import NavBar from "./components/NavBar";
 import Register from "./components/Register";
 import MyLeagues from "./components/MyLeagues";
 import League from "./components/League";
+import Castaway from "./components/Castaway";
+import LeagueUser from "./components/LeagueUser";
 
 const LOCAL_STORAGE_TOKEN_KEY = 'fantasySurvivorToken';
 
@@ -78,6 +80,12 @@ function App() {
           </Route>
           <Route path="/leaderboard/league:leagueId">
             <League />
+          </Route>
+          <Route path="/castaway:castawayId">
+            <Castaway />
+          </Route>
+          <Route path="/league:leagueId/user:userId">
+            <LeagueUser />
           </Route>
 
         </Switch>
