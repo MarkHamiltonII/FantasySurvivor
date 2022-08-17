@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import AuthContext from "../AuthContext";
 import Header from "./Header";
 import LeagueList from "./LeagueList";
@@ -45,7 +46,8 @@ function MyLeagues() {
     return (
         <>
             <Header heading='My Leagues' />
-            {(leagues.length > 0) ? <LeagueList leagues={leagues}/> : <LeagueList />}            
+            {(leagues.length > 0) ? <LeagueList leagues={leagues}/>
+            : <LeagueList />}            
         </>
     )
 }

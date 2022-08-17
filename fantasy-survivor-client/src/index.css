@@ -23,4 +23,16 @@
     text-xs font-bold
     transition-all duration-100 scale-0 origin-left;
   }
+
+  .rank-0 {
+    @apply bg-yellow-300 font-bold;
+  }
+
+  .rank-1 {
+    @apply bg-slate-400 font-bold text-white;
+  }
+
+  .rank-2 {
+    @apply bg-orange-400 font-bold;
+  }
 }

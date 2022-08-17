@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-
+import org.springframework.web.bind.annotation.GetMapping;
 
 
 @EnableWebSecurity
@@ -33,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT,"/api/users/*").hasAnyRole("USER")
                 .antMatchers(HttpMethod.DELETE,"/api/users/*").hasAnyRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/api/season/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/get_current_tribal/**").permitAll()
                 .antMatchers("/api/season/**").hasAnyRole("ADMIN")
                 .antMatchers(HttpMethod.POST,"/api/castaway/**").hasAnyRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE,"/api/castaway/**").hasAnyRole("ADMIN")
