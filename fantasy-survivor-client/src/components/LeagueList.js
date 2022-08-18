@@ -18,25 +18,26 @@ const EMPTY_LEAGUES = [
 function LeagueList({ leagues = EMPTY_LEAGUES }) {
 
     return (
-        <div className="max-w-sm rounded overflow-hidden shadow-lg mx-auto hover:border-2 hover:border-green-600 hover:z-10 transition-all duration-100 ease-linear cursor-pointer" >
-            {leagues.map(league => (
-                <Link key={league.leagueId} to={league.leagueId ? `/leaderboard/league${league.leagueId}` : "/"} >
+    <>
+        {leagues.map(league => (
+                <div key={league.leagueId} className="max-w-sm border-2 rounded overflow-hidden shadow-lg mx-auto hover:border-2 hover:border-green-600 hover:z-10 transition-all duration-100 ease-linear" >
                     <div className="px-6 py-4">
-                        <div className="font-bold text-xl mb-2">{league.name}</div>
+                        <Link className=" cursor-pointer" to={league.leagueId ? `/leaderboard/league${league.leagueId}` : "/"} >
+                            <div className="font-bold text-xl mb-2 underline">{league.name}</div>
+                        </Link>
                         {league.appUsers && league.appUsers.map(user => (
-                            <Link className="w-fit group" to={`/league${league.leagueId}/user${user.appUserId}`}>
-                                <p className="text-gray-700 text-base w-fit group-hover:bg-green-600 group-hover:text-white group-hover:rounded-lg" key={user.appUserId}>
-                                    {user.username}
-                                </p>
+                            <Link key={user.appUserId} className="w-fit group " to={`/league${league.leagueId}/user${user.appUserId}`}>
+                                <p className="rounded-xl px-2 border-2 border-gray-300 text-gray-700 text-base w-fit group-hover:bg-green-600 group-hover:border-green-600 group-hover:text-white" key={user.appUserId}>{user.username}</p>
                             </Link>
                         ))}
                     </div>
                     <div className="px-6 pt-4 pb-2">
                         <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Season {league.seasonId}</span>
                     </div>
-                </Link>
-            ))}
-        </div>
+                </div>
+            ))
+        }
+    </>
     )
 }
 

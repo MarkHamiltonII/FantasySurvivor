@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function CastawayList({ castaways }) {
 
     return (
-        <div className="flex flex-col mb-10 items-center w-full">
+        <div className="flex flex-col items-center w-full">
             <h2 className=" font-survivor text-xl mb-4">Castaways</h2>
             <div className=" border-2 border-black overflow-x-auto relative shadow-md sm:rounded-lg w-full">
                 <table className="w-full text-sm text-left">

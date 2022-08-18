@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { BsPencilSquare, BsPlusCircle } from "react-icons/bs";
+
 import AuthContext from "../AuthContext";
 import CastawayList from "./CastawayList";
 import Header from "./Header";
@@ -68,7 +70,6 @@ function League() {
                         if (response.status === 200) {
                             return response.json();
                         } else {
-                            setFetchRatingAttempt(true);
                             return Promise.reject(`Unexpected status code: ${response.status}`);
                         }
                     })
@@ -86,13 +87,18 @@ function League() {
     return (
         <>
             <Header heading={`${league.name} Homepage`} />
-            <div className="flex justify-around">
+            <div className="flex justify-evenly text-center">
                 {leaderboard && fetchLeagueAttempt && <Leaderboard leaderboard={leaderboard} />}
-                {rating && fetchRatingAttempt && (
+                {(rating && fetchRatingAttempt) ? 
                     <div className="justify-center">
                         <h2 className=" font-survivor text-center text-xl mt-20">My Ranked</h2>
                         <CastawayList castaways={rating.castaways} />
-                    </div>)}
+                        <Link className="flex justify-center" to={`/league${league.leagueId}/list/edit`}>
+                            <button className="flex mb-4 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 mt-5"><BsPencilSquare className="mr-2 my-auto" />Edit</button>
+                        </Link>
+                    </div> 
+                    :
+                    <Link className="flex mt-20 justify-center" to={`/league${league.leagueId}/list/new`}><button className="flex my-auto py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 mt-5"><BsPlusCircle className="mr-2 my-auto" />Create List</button></Link>}
             </div>
 
         </>
