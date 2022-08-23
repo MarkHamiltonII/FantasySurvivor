@@ -6,6 +6,27 @@
   src: url(./fonts/survivant.ttf);
 }
 
+.rank-0 {
+  background-color: gold;
+  font-weight: bold;
+}
+.rank-1 {
+  background-color: silver;
+  font-weight: bold;
+  color:white;
+}
+.rank-2 {
+  background-color: darkorange;
+  font-weight: bold;
+}
+
+.isDragging-true{
+  background-color: lightgreen;
+}
+.isDraggingOver-true{
+  background-color: lightgray;
+}
+
 @layer components {
 
   .sidebar-icon{
@@ -24,15 +45,9 @@
     transition-all duration-100 scale-0 origin-left;
   }
 
-  .rank-0 {
-    @apply bg-yellow-300 font-bold;
+  .btn {
+    @apply relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500;
   }
 
-  .rank-1 {
-    @apply bg-slate-400 font-bold text-white;
-  }
 
-  .rank-2 {
-    @apply bg-orange-400 font-bold;
-  }
 }

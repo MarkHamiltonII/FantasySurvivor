@@ -1,4 +1,7 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import AuthContext from "../AuthContext";
+import { BsPlusCircle } from "react-icons/bs";
 
 const EMPTY_LEAGUES = [
     {
@@ -17,6 +20,8 @@ const EMPTY_LEAGUES = [
 
 function LeagueList({ leagues = EMPTY_LEAGUES }) {
 
+    const auth = useContext(AuthContext);
+
     return (
     <>
         {leagues.map(league => (
@@ -31,8 +36,9 @@ function LeagueList({ leagues = EMPTY_LEAGUES }) {
                             </Link>
                         ))}
                     </div>
-                    <div className="px-6 pt-4 pb-2">
+                    <div className="px-6 pt-4 pb-2 flex items-center justify-between">
                         <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Season {league.seasonId}</span>
+                        {(auth.user.appUserId === league.ownerId) && <Link className="" to={`/change_league/${league.leagueId}`}><button className="items-center btn"><BsPlusCircle className="mr-1" />Edit League</button></Link>}
                     </div>
                 </div>
             ))

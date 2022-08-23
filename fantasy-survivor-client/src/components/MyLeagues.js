@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import AuthContext from "../AuthContext";
 import Header from "./Header";
 import LeagueList from "./LeagueList";
@@ -8,7 +8,9 @@ function MyLeagues() {
 
     const [leagues, setLeagues] = useState([]);
     const [fetchAttempt, setFetchAttempt] = useState(false);
+    const [title, setTitle] = useState('Owned Leagues');
     const auth = useContext(AuthContext);
+    const location = useLocation();
 
     useEffect(() => {
         if (auth.user) {
@@ -19,8 +21,14 @@ function MyLeagues() {
                     'Authorization': `Bearer ${auth.user.token}`
                 },
             };
+
+            let endpont = '/api/leagues/owner';
+            if (location.pathname === '/myleagues'){
+                endpont = '/api/leagues/user';
+                setTitle('My Leagues');
+            }
             
-            fetch(`${process.env.REACT_APP_API_URL}/api/leagues/user`, init)
+            fetch(`${process.env.REACT_APP_API_URL}${endpont}`, init)
                 .then(response => {
                     if (response.status === 200) {
                         return response.json();
@@ -45,7 +53,7 @@ function MyLeagues() {
 
     return (
         <>
-            <Header heading='My Leagues' />
+            <Header heading={title} />
             {(leagues.length > 0) ? <LeagueList leagues={leagues}/>
             : <LeagueList />}            
         </>

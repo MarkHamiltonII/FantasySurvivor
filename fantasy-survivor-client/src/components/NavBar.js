@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { BsPlus, BsLightningFill, BsGearFill, BsPersonFill, BsPersonPlusFill, BsDoorOpenFill } from 'react-icons/bs';
+import { BsPlus, BsLightningFill, BsGearFill, BsPersonFill, BsPersonPlusFill, BsDoorOpenFill, BsPeopleFill } from 'react-icons/bs';
 import { FaFire, FaPoo, FaHome, FaTv } from 'react-icons/fa';
 
 import { Link } from "react-router-dom";
@@ -20,6 +20,13 @@ const NavBar = () => {
                 </Link>
                 </span>
             )}
+            {auth.user && auth.user.hasRole('ROLE_LEAGUE_OWNER') && (
+                <span className='my-auto'>
+                <Link to="/ownedleagues">
+                    <NavBarIcon icon={<BsPeopleFill size="24" />} text="My Owned Leagues" />
+                </Link>
+                </span>
+            )}
             <NavBarIcon icon={<BsPlus size="28" />} text="Join" />
             <NavBarIcon icon={<BsLightningFill size="24" />} />
             <NavBarIcon icon={<FaPoo size="24" />} />
@@ -30,7 +37,7 @@ const NavBar = () => {
                 </span>
             )}
             {auth.user && (
-                <span className='ml-auto my-auto flex'>
+                <span className='ml-auto my-auto flex mr-4'>
                     <p className='text-lg mx-2 my-auto text-green-600'>Welcome, {auth.user.username}!</p>
                     <Link to="/"><NavBarIcon icon={<BsDoorOpenFill size="24" onClick={() => auth.logout()} />} text="Logout" /></Link>
                 </span>

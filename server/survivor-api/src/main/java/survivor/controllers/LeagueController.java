@@ -45,6 +45,15 @@ public class LeagueController {
         }
         return ErrorResponse.build(result);
     }
+    @GetMapping("/owner")
+    public ResponseEntity<?> findLeaguesByOwner(UsernamePasswordAuthenticationToken principal){
+        AppUser appUser = (AppUser) principal.getPrincipal();
+        Result<?> result = service.findLeaguesByOwnerId(appUser.getAppUserId());
+        if (result.isSuccess()){
+            return new ResponseEntity<>(result.getPayload(), HttpStatus.OK);
+        }
+        return ErrorResponse.build(result);
+    }
 
     @PostMapping("/new_league")
     public ResponseEntity<?> createLeague(@RequestBody League league, UsernamePasswordAuthenticationToken principal){

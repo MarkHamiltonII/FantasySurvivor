@@ -33,6 +33,17 @@ public class LeagueService {
         return result;
     }
 
+    public Result<?> findLeaguesByOwnerId(int ownerId){
+        Result<List<League>> result = new Result<>();
+        List<League> leagues = repository.findLeaguesByOwnerId(ownerId);
+        if (leagues.size() == 0){
+            result.addMessage("Leagues not found", ResultType.INVALID);
+            return result;
+        }
+        result.setPayload(leagues);
+        return result;
+    }
+
     public Result<?> findLeaguesByAppUserId(int appUserId){
         Result<List<League>> result = new Result<>();
         List<League> leagues = repository.findLeaguesByAppUserId(appUserId);
