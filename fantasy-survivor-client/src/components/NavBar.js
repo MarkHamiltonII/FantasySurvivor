@@ -9,7 +9,7 @@ const NavBar = () => {
     const auth = useContext(AuthContext);
 
     return (
-        <div className="fixed top-0 left-0 h-16 w-screen m-0 flex bg-gray-900 text-white shadow-lg z-50">
+        <div className="nav-bar fixed top-0 left-0 h-16 w-screen m-0 flex bg-gray-900 text-white shadow-lg z-50">
             <p className='font-survivor font-bold text-lg text-center my-auto mx-4' >FANTASY<br />SURVIVOR</p>
             <NavBarIcon icon={<FaHome size="24" />} text="Home" />
             <NavBarIcon icon={<FaTv size="24" />} text="Seasons" />

@@ -12,6 +12,7 @@ import League from "./components/League";
 import Castaway from "./components/Castaway";
 import LeagueUser from "./components/LeagueUser";
 import DraggableCastawayList from "./components/DraggableCastawayList";
+import Confirmation from "./components/Confirmation";
 
 const LOCAL_STORAGE_TOKEN_KEY = 'fantasySurvivorToken';
 
@@ -66,34 +67,40 @@ function App() {
     <AuthContext.Provider value={auth}>
       <Router>
         <NavBar />
-        <Switch>
-          <Route path="/" exact>
-            <Home />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
-          <Route path={["/myleagues", "/ownedleagues"]}>
-            <MyLeagues />
-          </Route>
-          <Route path="/leaderboard/league:leagueId">
-            <League />
-          </Route>
-          <Route path="/castaway:castawayId">
-            <Castaway />
-          </Route>
-          <Route path="/league:leagueId/user:userId">
-            <LeagueUser />
-          </Route>
-          <Route path="/league:leagueId/list/:id" >
-            <DraggableCastawayList />
-          </Route>
+        <div className="main-container">
+          <Switch>
+            <Route path="/" exact>
+              <Home />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/register">
+              <Register />
+            </Route>
+            <Route path="/confirmation">
+              <Confirmation />
+            </Route>
+            <Route path={["/myleagues", "/ownedleagues"]}>
+              <MyLeagues />
+            </Route>
+            <Route path="/leaderboard/league:leagueId">
+              <League />
+            </Route>
+            <Route path="/castaway:castawayId">
+              <Castaway />
+            </Route>
+            <Route path="/league:leagueId/user:userId">
+              <LeagueUser />
+            </Route>
+            <Route path="/league:leagueId/list/:id" >
+              <DraggableCastawayList />
+            </Route>
 
-        </Switch>
+          </Switch>
+        </div>
       </Router>
+      {/* <div style={{ position: "absolute", top: "0", left: "0", backgroundImage: "url(https://images.unsplash.com/photo-1624043200446-1559c7854710?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80)", backgroundPosition: 'center', backgroundRepeat: 'no-repeat', width: "100%", height: "100%", opacity: ".8", zIndex: "-5" }}></div> */}
     </AuthContext.Provider>
   );
 }

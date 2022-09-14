@@ -44,9 +44,9 @@ const signupFields=[
     },
     {
         labelText:"Confirm Password",
-        labelFor:"confirm-password",
-        id:"confirm-password",
-        name:"confirm-password",
+        labelFor:"confirm_password",
+        id:"confirm_password",
+        name:"confirm_password",
         type:"password",
         autoComplete:"confirm-password",
         isRequired:true,
