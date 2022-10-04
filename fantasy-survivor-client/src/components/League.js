@@ -48,7 +48,7 @@ function League() {
             })
             .then(data => {
                 setLeague(data)
-                // Fetch for rankings if league successful
+                // Fetch for leaderboard if league successful
                 fetch(`${process.env.REACT_APP_API_URL}/api/leaderboard/season${data.seasonId}/league${data.leagueId}`, init)
                     .then(response => {
                         if (response.status === 200) {
@@ -64,7 +64,7 @@ function League() {
                     })
                     .catch(console.log)
 
-                // Fetch for rankings if league successful
+                // Fetch for rating if league successful
                 fetch(`${process.env.REACT_APP_API_URL}/api/rating/league${data.leagueId}/user${auth.user.appUserId}`, init)
                     .then(response => {
                         if (response.status === 200) {

@@ -13,6 +13,7 @@ import Castaway from "./components/Castaway";
 import LeagueUser from "./components/LeagueUser";
 import DraggableCastawayList from "./components/DraggableCastawayList";
 import Confirmation from "./components/Confirmation";
+import LeagueOptions from "./components/LeagueOptions";
 
 const LOCAL_STORAGE_TOKEN_KEY = 'fantasySurvivorToken';
 
@@ -83,6 +84,9 @@ function App() {
             </Route>
             <Route path={["/myleagues", "/ownedleagues"]}>
               <MyLeagues />
+            </Route>
+            <Route path="/change_league/:leagueId">
+              <LeagueOptions/>
             </Route>
             <Route path="/leaderboard/league:leagueId">
               <League />
