@@ -23,11 +23,11 @@ function MyLeagues() {
             };
 
             let endpont = '/api/leagues/owner';
-            if (location.pathname === '/myleagues'){
+            if (location.pathname === '/myleagues') {
                 endpont = '/api/leagues/user';
                 setTitle('My Leagues');
             }
-            
+
             fetch(`${process.env.REACT_APP_API_URL}${endpont}`, init)
                 .then(response => {
                     if (response.status === 200) {
@@ -45,7 +45,8 @@ function MyLeagues() {
                 })
                 .catch(console.log);
         };
-    }, [auth.user])
+    }, [auth.user, location.pathname])
+
 
     if (!fetchAttempt) {
         return null;
@@ -54,8 +55,14 @@ function MyLeagues() {
     return (
         <>
             <Header heading={title} />
-            {(leagues.length > 0) ? <LeagueList leagues={leagues}/>
-            : <LeagueList />}            
+            {(leagues.length > 0) ?
+                <LeagueList leagues={leagues} />
+                :
+                <Header
+                    paragraph={'Whoops, no leagues here!'}
+                    linkName={'Return Home'}
+                    linkUrl={'/'}
+                />}
         </>
     )
 }

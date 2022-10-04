@@ -32,8 +32,11 @@ function LeagueList({ leagues = EMPTY_LEAGUES }) {
                                 <div className="font-bold text-xl mb-2 underline text-ellipsis text-white hover:text-green-500">{league.name}</div>
                             </Link>
                             <div className="flex">
-                                {(auth.user.appUserId === league.ownerId) && <Link className="" to={`/change_league/${league.leagueId}`}><button className="btn-blue p-2 w-fit"><BsPencilSquare /></button></Link>}
-                                {(auth.user.appUserId === league.ownerId) && <Link className="w-fit" to={`/delete_league/${league.leagueId}`}><button className="btn-red p-2 w-fit" ><BsTrash /></button></Link>}
+                                {(auth.user.appUserId === league.ownerId) &&
+                                    <>
+                                        <Link className="" to={`/change_league/${league.leagueId}`}><button className="btn-blue p-2 w-fit"><BsPencilSquare /></button></Link>
+                                        <Link className="w-fit" to={`/delete_league/${league.leagueId}`}><button className="btn-red p-2 w-fit" ><BsTrash /></button></Link>
+                                    </>}
                             </div>
                         </div>
                         {league.appUsers && league.appUsers.map(user => (
