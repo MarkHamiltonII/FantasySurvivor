@@ -161,4 +161,13 @@ public class CastawayJdbcTemplateRepository {
         return laur.size() > 0 || tribal.size() > 0;
     }
 
+    @Transactional
+    public List<Integer> findTribalNumbersBySeason(int seasonId){
+
+        final String sql = "select distinct tribal_number from tribal where season_id = ?;";
+
+        return jdbcTemplate.query(sql,
+        (rs, rowNum) -> rs.getInt("tribal_Number"), seasonId);
+    }
+
 }

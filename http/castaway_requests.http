@@ -32,6 +32,16 @@ Content-Type: application/json
 GET {{url}}/castaway/season42/tribal100 HTTP/1.1
 Content-Type: application/json
 
+### - Should be able to get tribal number by season
+
+GET {{url}}/castaway/tribals/season42 HTTP/1.1
+Content-Type: application/json
+
+### - Should not get invalid season
+
+GET {{url}}/castaway/tribals/season43 HTTP/1.1
+Content-Type: application/json
+
 ### - should post a castaway
 
 POST {{url}}/castaway/new_castaway HTTP/1.1

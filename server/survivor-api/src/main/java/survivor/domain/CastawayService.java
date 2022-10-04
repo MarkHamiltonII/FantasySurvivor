@@ -169,6 +169,19 @@ public class CastawayService {
         return result;
     }
 
+    public Result<List<Integer>> findTribalNumbersBySeason(int seasonId) {
+        List<Integer> tribals = repository.findTribalNumbersBySeason(seasonId);
+        Result<List<Integer>> result = new Result<>();
+        if (tribals.size() == 0){
+            result.addMessage("No tribals found", ResultType.INVALID);
+            return result;
+        }
+
+        result.setPayload(tribals);
+
+        return result;
+    }
+
     /////////////////////////////////// Validation Methods //////////////////////////////////////////
 
     public Result<?> validateCastaway(Castaway castaway){

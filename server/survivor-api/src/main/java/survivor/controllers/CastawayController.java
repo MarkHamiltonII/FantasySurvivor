@@ -107,4 +107,13 @@ public class CastawayController {
         return ErrorResponse.noContentOrError(result);
     }
 
+    @GetMapping("/tribals/season{seasonId}")
+    public ResponseEntity<?> findTribalNumbersBySeason(@PathVariable int seasonId){
+        Result<?> result = service.findTribalNumbersBySeason(seasonId);
+        if (result.isSuccess()){
+            return new ResponseEntity<>(result.getPayload(), HttpStatus.OK);
+        }
+        return ErrorResponse.build(result);
+    }
+
 }
