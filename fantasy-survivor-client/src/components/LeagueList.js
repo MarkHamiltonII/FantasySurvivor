@@ -29,7 +29,7 @@ function LeagueList({ leagues = EMPTY_LEAGUES }) {
                     <div className="px-6 py-4">
                         <div className="flex justify-between w-full">
                             <Link className="cursor-pointer" to={league.leagueId ? `/leaderboard/league${league.leagueId}` : "/"} >
-                                <div className="font-bold text-xl mb-2 underline text-ellipsis text-white hover:text-green-500">{league.name}</div>
+                                <div className="font-bold text-xl mb-4 underline text-ellipsis text-white hover:text-green-500">{league.name}</div>
                             </Link>
                             <div className="flex">
                                 {(auth.user.appUserId === league.ownerId) &&
