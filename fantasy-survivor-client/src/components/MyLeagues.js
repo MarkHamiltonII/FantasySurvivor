@@ -11,7 +11,7 @@ function MyLeagues() {
     const [title, setTitle] = useState('Owned Leagues');
     const auth = useContext(AuthContext);
     const location = useLocation();
-
+    
     useEffect(() => {
         if (auth.user) {
             const init = {
@@ -21,19 +21,23 @@ function MyLeagues() {
                     'Authorization': `Bearer ${auth.user.token}`
                 },
             };
-
-            let endpont = '/api/leagues/owner';
+            
+            let endpoint = '/api/leagues/owner';
             if (location.pathname === '/myleagues') {
-                endpont = '/api/leagues/user';
+                endpoint = '/api/leagues/user';
                 setTitle('My Leagues');
+            } else {
+                endpoint = '/api/leagues/owner';
+                setTitle('Owned Leagues');
             }
-
-            fetch(`${process.env.REACT_APP_API_URL}${endpont}`, init)
+            
+            fetch(`${process.env.REACT_APP_API_URL}${endpoint}`, init)
                 .then(response => {
                     if (response.status === 200) {
                         return response.json();
                     } else {
                         setFetchAttempt(true);
+                        setLeagues({})
                         return Promise.reject(`Unexpected status code: ${response.status}`);
                     }
                 })
@@ -45,7 +49,7 @@ function MyLeagues() {
                 })
                 .catch(console.log);
         };
-    }, [auth.user, location.pathname])
+    }, [auth.user, location])
 
 
     if (!fetchAttempt) {
