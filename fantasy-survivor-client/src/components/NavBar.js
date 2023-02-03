@@ -15,38 +15,50 @@ const NavBar = () => {
                 <Link to="/">
                     <NavBarIcon icon={<FaHome size="24" />} text="Home" />
                 </Link>
-                </span>
-            <NavBarIcon icon={<FaTv size="24" />} text="Seasons" />
-            {auth.user && (
-                <span className='my-auto'>
+            </span>
+            <span className='my-auto'>
+            <Link to="/seasons">
+                <NavBarIcon icon={<FaTv size="24" />} text="Seasons" />
+            </Link>
+        </span>
+            {
+        auth.user && (
+            <span className='my-auto'>
                 <Link to="/myleagues">
                     <NavBarIcon icon={<FaFire size="24" />} text="My Leagues" />
                 </Link>
-                </span>
-            )}
-            {auth.user && auth.user.hasRole('ROLE_LEAGUE_OWNER') && (
-                <span className='my-auto'>
+            </span>
+        )
+    }
+    {
+        auth.user && auth.user.hasRole('ROLE_LEAGUE_OWNER') && (
+            <span className='my-auto'>
                 <Link to="/ownedleagues">
                     <NavBarIcon icon={<BsPeopleFill size="24" />} text="My Owned Leagues" />
                 </Link>
-                </span>
-            )}
+            </span>
+        )
+    }
             <NavBarIcon icon={<BsPlus size="28" />} text="Join" />
             <NavBarIcon icon={<BsLightningFill size="24" />} />
             <NavBarIcon icon={<FaPoo size="24" />} />
-            {!auth.user && (
-                <span className='ml-auto my-auto flex'>
-                    <Link to="/login"><NavBarIcon icon={<BsPersonFill size="24" />} text="Login" /></Link>
-                    <Link to="/register"><NavBarIcon icon={<BsPersonPlusFill size="24" />} text="Register" /></Link>
-                </span>
-            )}
-            {auth.user && (
-                <span className='ml-auto my-auto flex mr-4'>
-                    <p className='text-lg mx-2 my-auto text-green-600'>Welcome, {auth.user.username}!</p>
-                    <Link to="/"><NavBarIcon icon={<BsDoorOpenFill size="24" onClick={() => auth.logout()} />} text="Logout" /></Link>
-                </span>
-            )}
-        </div>
+    {
+        !auth.user && (
+            <span className='ml-auto my-auto flex'>
+                <Link to="/login"><NavBarIcon icon={<BsPersonFill size="24" />} text="Login" /></Link>
+                <Link to="/register"><NavBarIcon icon={<BsPersonPlusFill size="24" />} text="Register" /></Link>
+            </span>
+        )
+    }
+    {
+        auth.user && (
+            <span className='ml-auto my-auto flex mr-4'>
+                <p className='text-lg mx-2 my-auto text-green-600'>Welcome, {auth.user.username}!</p>
+                <Link to="/"><NavBarIcon icon={<BsDoorOpenFill size="24" onClick={() => auth.logout()} />} text="Logout" /></Link>
+            </span>
+        )
+    }
+        </div >
     )
 };
 

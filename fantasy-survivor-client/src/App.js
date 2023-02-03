@@ -14,6 +14,7 @@ import LeagueUser from "./components/LeagueUser";
 import DraggableCastawayList from "./components/DraggableCastawayList";
 import Confirmation from "./components/Confirmation";
 import LeagueOptions from "./components/LeagueOptions";
+import Seasons from "./components/Seasons";
 
 const LOCAL_STORAGE_TOKEN_KEY = 'fantasySurvivorToken';
 
@@ -99,6 +100,9 @@ function App() {
             </Route>
             <Route path="/league:leagueId/list/:id" >
               <DraggableCastawayList />
+            </Route>
+            <Route path="/seasons">
+              <Seasons></Seasons>
             </Route>
 
           </Switch>
