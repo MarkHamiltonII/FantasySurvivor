@@ -91,7 +91,7 @@ public class CastawayController {
 
     @PostMapping("/season{seasonId}/tribal{tribalNumber}")
     public ResponseEntity<?> createTribal(@PathVariable int seasonId, @PathVariable int tribalNumber, @RequestBody List<Castaway> castaways) {
-        Result<?> result = service.createTribal(seasonId, tribalNumber, castaways);
+        Result<?> result = service.createTribal(seasonId, tribalNumber-1, castaways);
         return ErrorResponse.noContentOrError(result);
     }
 

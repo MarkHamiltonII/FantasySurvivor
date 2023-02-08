@@ -13,6 +13,7 @@ function Season() {
     const auth = useContext(AuthContext);
     const { seasonId } = useParams();
     const [season, setSeason] = useState({});
+    const [tribalCastaways, setTribalCastaways] = useState([])
     const [currentTribal, setCurrentTribal] = useState('Starting')
     const [tribalList, setTribalList] = useState(new Set(['Starting']))
     const [fetchSeasonAttempt, setFetchSeasonAttempt] = useState(false);
@@ -29,6 +30,7 @@ function Season() {
             })
             .then(data => {
                 setSeason(data)
+                setTribalCastaways(data.castaways)
                 setFetchSeasonAttempt(true)
             })
             .catch(console.log)
@@ -50,6 +52,26 @@ function Season() {
         setCurrentTribal(e.target.value)
     }
 
+    const onClick = () => {
+        if (season && currentTribal === 'Starting') {
+            setTribalCastaways(season.castawys)
+            return;
+        }
+
+        fetch(`${process.env.REACT_APP_API_URL}/api/castaway/season${seasonId}/tribal${currentTribal}`, { method: 'GET' })
+            .then(response => {
+                if (response.status === 200) {
+                    return response.json();
+                } else {
+                    return Promise.reject(`Unexpected status code: ${response.status}`);
+                }
+            })
+            .then(data => {
+                setTribalCastaways(data)
+            })
+            .catch(console.log)
+    }
+
     return (
         <>
             <Header heading={`Season ${seasonId} Homepage`} />
@@ -61,9 +83,9 @@ function Season() {
                             <option key={tl} value={tl}>{tl}</option>
                         ))}
                     </select>
-                    <button className="btn w-fit py-1 ml-3">Submit</button>
+                    <button className="btn w-fit py-1 ml-3" onClick={onClick}>Submit</button>
                 </div>
-                {fetchSeasonAttempt && <CastawayList castaways={season.castaways} />}
+                {fetchSeasonAttempt && <CastawayList castaways={season.castaways} tribal_castaways={tribalCastaways} />}
             </div>
         </>
     )
