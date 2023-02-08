@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AuthContext from "../AuthContext";
 import CastawayList from "./CastawayList";
-import FormAction from "./FormAction";
 import Header from "./Header";
 
 // TODO: add onClick to submit to fetch Proper tribal (Starting will just be full case again)
@@ -85,7 +84,7 @@ function Season() {
                     </select>
                     <button className="btn w-fit py-1 ml-3" onClick={onClick}>Submit</button>
                 </div>
-                {fetchSeasonAttempt && <CastawayList castaways={season.castaways} tribal_castaways={tribalCastaways} />}
+                {fetchSeasonAttempt && <CastawayList castaways={season.castaways} tribal_castaways={tribalCastaways} rank={false} />}
             </div>
         </>
     )
