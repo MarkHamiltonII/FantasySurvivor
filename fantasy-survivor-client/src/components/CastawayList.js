@@ -18,7 +18,7 @@ function CastawayList({ castaways, tribal_castaways = castaways, rank = true }) 
                     </thead>
                     <tbody>
                         {castaways.filter(c=>stillThere(c)).map((castaway, index) => (
-                            <tr className={`border-b bg-slate-100`} key={index}>
+                            <tr className={castaway.tribeColor ? `border-b bg-${castaway.tribeColor}` : `border-b bg-slate-100`} key={index}>
                                 {rank && <td className="text-center">{index + 1}</td>}
                                 <td><a href={castaway.pageURL} title={`${castaway.firstName}'s CBS page`} target="_blank" rel="noreferrer" className="flex text-center items-center" to={`/castaway${castaway.id}`}><img className="w-8 mr-2" src={castaway.iconURL} alt='Castaway Portrait' /> <span className="text-center mr-auto pr-2">{castaway.firstName + " " + castaway.lastName}</span></a></td>
                             </tr>

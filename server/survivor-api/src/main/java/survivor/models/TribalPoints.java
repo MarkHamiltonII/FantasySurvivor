@@ -12,8 +12,8 @@ public class TribalPoints {
 
     private int userId;
 
-    private List<Castaway> tribal;
-    private List<Castaway> castaways;
+    private List<SeasonCastaway> tribal;
+    private List<SeasonCastaway> castaways;
 
     public TribalPoints(int id, double weekPoints, double pointsToDate) {
         this.id = id;
@@ -22,7 +22,7 @@ public class TribalPoints {
 
     }
 
-    public TribalPoints(int id, double weekPoints, double pointsToDate, League league, int userId, List<Castaway> tribal, List<Castaway> castaways) {
+    public TribalPoints(int id, double weekPoints, double pointsToDate, League league, int userId, List<SeasonCastaway> tribal, List<SeasonCastaway> castaways) {
         this.id = id;
         this.weekPoints = weekPoints;
         this.pointsToDate = pointsToDate;
@@ -79,19 +79,19 @@ public class TribalPoints {
         this.pointsToDate = pointsToDate;
     }
 
-    public List<Castaway> getTribal() {
+    public List<SeasonCastaway> getTribal() {
         return tribal;
     }
 
-    public void setTribal(List<Castaway> tribal) {
+    public void setTribal(List<SeasonCastaway> tribal) {
         this.tribal = tribal;
     }
 
-    public List<Castaway> getCastaways() {
+    public List<SeasonCastaway> getCastaways() {
         return castaways;
     }
 
-    public void setCastaways(List<Castaway> castaways) {
+    public void setCastaways(List<SeasonCastaway> castaways) {
         this.castaways = castaways;
     }
 

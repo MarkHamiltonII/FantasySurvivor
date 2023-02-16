@@ -4,9 +4,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import survivor.data.mappers.CastawayMapper;
+import survivor.data.mappers.SeasonCastawayMapper;
 import survivor.data.mappers.SeasonMapper;
 import survivor.models.Castaway;
 import survivor.models.Season;
+import survivor.models.SeasonCastaway;
 
 import java.util.List;
 
@@ -64,11 +66,11 @@ public class SeasonJdbcTemplateRepository {
     ///////////////////// HELPER METHODS ////////////////////
     private void addCastaways(Season season){
         final String sql = "select c.castaway_id, c.first_name, c.last_name, c.age, c.current_residence, c.occupation, "
-                + "c.icon_url, page_url from castaway c "
+                + "c.icon_url, page_url, sc.tribe, sc.tribe_color from castaway c "
                 + "inner join season_castaway sc on c.castaway_id = sc.castaway_id "
                 + "where sc.season_id = ?;";
-        List<Castaway> castaways = jdbcTemplate.query(sql,
-                new CastawayMapper(), season.getSeasonId());
+        List<SeasonCastaway> castaways = jdbcTemplate.query(sql,
+                new SeasonCastawayMapper(), season.getSeasonId());
         season.setCastaways(castaways);
     }
 

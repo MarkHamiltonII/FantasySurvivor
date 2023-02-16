@@ -189,10 +189,10 @@ public class TribalPointsService {
     //////////////////////// MAKE TRIBAL POINTS ///////////////////////////
     private TribalPoints makeTribalPoints(int leagueId, int userId, int tribalNumber){
         League league = repository.findLeagueById(leagueId);
-        List<Castaway> tribal = castawayRepository.findCastawayByTribal(league.getSeasonId(),tribalNumber);
+        List<SeasonCastaway> tribal = castawayRepository.findCastawayByTribal(league.getSeasonId(),tribalNumber);
         int numberRemaining = tribal.size();
 
-        List<Castaway> castaways = ratingRepository.findRatingByIds(leagueId,userId)
+        List<SeasonCastaway> castaways = ratingRepository.findRatingByIds(leagueId,userId)
                 .getCastaways();
 
         double pointNumerator = 0;
@@ -202,7 +202,7 @@ public class TribalPointsService {
             pointNumerator = castaways.size() - castaways.indexOf(tribal.get(0));
             weekPoints = pointNumerator / castaways.size() * 100;
         } else {
-            List<Castaway> remainingCastaways = castaways.subList(0, numberRemaining);
+            List<SeasonCastaway> remainingCastaways = castaways.subList(0, numberRemaining);
             remainingCastaways.retainAll(tribal);
             pointNumerator = remainingCastaways.size();
             weekPoints = pointNumerator / tribal.size() * 100;

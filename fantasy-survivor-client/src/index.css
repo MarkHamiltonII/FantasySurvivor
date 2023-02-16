@@ -7,7 +7,7 @@
 }
 
 body {
-  background-color: rgb(208, 255, 212);
+  background-color: rgb(213, 253, 247);
 }
 
 .rank-0 {
@@ -23,9 +23,18 @@ body {
   background-color: darkorange;
   font-weight: bold;
 }
+.bg-Green {
+  background-color: lightgreen;
+}
+.bg-Blue {
+  background-color: cornflowerblue;
+}
+.bg-Orange {
+  background-color: orange;
+}
 
 .isDragging-true{
-  background-color: lightgreen;
+  background-color: snow;
 }
 .isDraggingOver-true{
   background-color: lightgray;

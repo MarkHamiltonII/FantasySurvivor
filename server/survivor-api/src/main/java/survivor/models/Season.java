@@ -6,9 +6,9 @@ import java.util.Objects;
 public class Season {
     private int seasonId;
     private String name;
-    private List<Castaway> castaways;
+    private List<SeasonCastaway> castaways;
 
-    public Season(int seasonId, String name, List<Castaway> castaways){
+    public Season(int seasonId, String name, List<SeasonCastaway> castaways){
         this.seasonId = seasonId;
         this.name = name;
         this.castaways = castaways;
@@ -39,11 +39,11 @@ public class Season {
         this.name = name;
     }
 
-    public List<Castaway> getCastaways() {
+    public List<SeasonCastaway> getCastaways() {
         return castaways;
     }
 
-    public void setCastaways(List<Castaway> castaways) {
+    public void setCastaways(List<SeasonCastaway> castaways) {
         this.castaways = castaways;
     }
 

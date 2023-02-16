@@ -46,6 +46,8 @@ function Season() {
             .catch(console.log)
     }, [])
 
+    console.log(tribalList)
+
     const handleChange = (e) => {
         console.log(e.target.value)
         setCurrentTribal(e.target.value)

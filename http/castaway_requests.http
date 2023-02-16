@@ -8,7 +8,7 @@ Content-Type: application/json
 
 ### - Should get castaway by id
 
-GET {{url}}/castaway/castaway19 HTTP/1.1
+GET {{url}}/castaway/castaway18 HTTP/1.1
 Content-Type: application/json
 
 

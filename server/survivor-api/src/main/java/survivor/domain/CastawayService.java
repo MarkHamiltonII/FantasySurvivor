@@ -3,6 +3,7 @@ package survivor.domain;
 import org.springframework.stereotype.Service;
 import survivor.data.CastawayJdbcTemplateRepository;
 import survivor.models.Castaway;
+import survivor.models.SeasonCastaway;
 
 import java.util.List;
 
@@ -30,9 +31,9 @@ public class CastawayService {
         return result;
     }
 
-    public Result<List<Castaway>> findCastawaysBySeason(int id) {
-        List<Castaway> castaways = repository.findCastawayBySeason(id);
-        Result<List<Castaway>> result = new Result<>();
+    public Result<List<SeasonCastaway>> findCastawaysBySeason(int id) {
+        List<SeasonCastaway> castaways = repository.findCastawayBySeason(id);
+        Result<List<SeasonCastaway>> result = new Result<>();
         if (castaways.size() == 0){
             result.addMessage("Season not found", ResultType.INVALID);
             return result;
@@ -43,9 +44,9 @@ public class CastawayService {
         return result;
     }
 
-    public Result<List<Castaway>> findCastawaysByTribal(int seasonId, int tribalNumber) {
-        List<Castaway> castaways = repository.findCastawayByTribal(seasonId, tribalNumber);
-        Result<List<Castaway>> result = new Result<>();
+    public Result<List<SeasonCastaway>> findCastawaysByTribal(int seasonId, int tribalNumber) {
+        List<SeasonCastaway> castaways = repository.findCastawayByTribal(seasonId, tribalNumber);
+        Result<List<SeasonCastaway>> result = new Result<>();
         if (castaways.size() == 0){
             result.addMessage("Tribal not found", ResultType.INVALID);
             return result;
@@ -128,7 +129,7 @@ public class CastawayService {
             return result;
         }
 
-        List<Castaway> oldTribal = repository.findCastawayByTribal(seasonId, tribalNumber);
+        List<SeasonCastaway> oldTribal = repository.findCastawayByTribal(seasonId, tribalNumber);
         if (oldTribal.size() != 0){
             result.addMessage("Tribal number already exists", ResultType.INVALID);
             return result;
@@ -156,7 +157,7 @@ public class CastawayService {
             return result;
         }
 
-        List<Castaway> oldTribal = repository.findCastawayByTribal(seasonId, tribalNumber);
+        List<SeasonCastaway> oldTribal = repository.findCastawayByTribal(seasonId, tribalNumber);
         if (oldTribal.size() == 0){
             result.addMessage("Tribal number does not exists, cannot update", ResultType.INVALID);
             return result;
@@ -212,7 +213,7 @@ public class CastawayService {
     public Result<?> validateTribal(int seasonId, List<Castaway> castaways){
         Result<?> result = new Result<>();
 
-        List<Castaway> season = repository.findCastawayBySeason(seasonId);
+        List<SeasonCastaway> season = repository.findCastawayBySeason(seasonId);
         if (season.size() == 0) {
             result.addMessage("Season not in system", ResultType.INVALID);
             return result;

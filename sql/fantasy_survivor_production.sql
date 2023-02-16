@@ -47,6 +47,8 @@ create table season (
 create table season_castaway (
 	season_id int not null,
 	castaway_id int not null,
+    tribe varchar(25) null,
+    tribe_color varchar(25) null,
     constraint pk_season_castaway
         primary key (season_id, castaway_id),
 	constraint fk_season_castaway_season_id
@@ -114,16 +116,14 @@ create table league_app_user_rating (
 
 create table league_app_user_tribal (
 	laut_id int primary key auto_increment,
-    tribal_points int not null,
-    points_to_date int not null,
+    tribal_points decimal(5,2) not null,
+    points_to_date decimal(7,2) not null,
     lau_id int not null,
-    tribal_id int not null,
+    tribal_number int not null,
     constraint fk_laut_lau_id 
 		foreign key (lau_id)
         references league_app_user(id),
-	constraint fk_laut_id
-		foreign key (tribal_id)
-        references tribal(tribal_id)
+	unique key laut_uniq_key (lau_id, tribal_number)
 );
 
 insert into app_user (username, password_hash, disabled) values
@@ -177,30 +177,33 @@ insert into season(season_id, `name`) values
 	(42, 'Season 42');
     
 insert into season_castaway values
-	(42,1),
-    (42,2),
-    (42,3),
-    (42,4),
-    (42,5),
-    (42,6),
-    (42,7),
-    (42,8),
-    (42,9),
-    (42,10),
-    (42,11),
-    (42,12),
-    (42,13),
-    (42,14),
-    (42,15),
-    (42,16),
-    (42,17),
-    (42,18);
+	(42,1,'Vati','Green'),
+    (42,2,'Vati','Green'),
+    (42,3,'Ika','Blue'),
+    (42,4,'Vati','Green'),
+    (42,5,'Taku','Orange'),
+    (42,6,'Vati','Green'),
+    (42,7,'Taku','Orange'),
+    (42,8,'Taku','Orange'),
+    (42,9,'Vati','Green'),
+    (42,10,'Taku','Orange'),
+    (42,11,'Taku','Orange'),
+    (42,12,'Vati','Green'),
+    (42,13,'Taku','Orange'),
+    (42,14,'Ika','Blue'),
+    (42,15,'Ika','Blue'),
+    (42,16,'Ika','Blue'),
+    (42,17,'Ika','Blue'),
+    (42,18,'Ika','Blue');
     
 insert into league(`name`, season_id, owner_id) values
 	('Our first league', 42, 1);
     
 insert into league_app_user(league_id,user_id) values
-	(1,4);
+	(1,4),
+    (1,3),
+    (1,2),
+    (1,1);
     
     -- kennedy's list 
 insert into league_app_user_rating(rating,castaway_id,lau_id) values
@@ -237,8 +240,21 @@ insert into tribal(tribal_number,season_id, castaway_id) values
     (1,42,15),
     (1,42,16),
     (1,42,17),
-    (1,42,18);
+    (2,42,1),
+    (2,42,2),
+    (2,42,3),
+    (2,42,4),
+    (2,42,7),
+    (2,42,8),
+    (2,42,9),
+    (2,42,11),
+    (2,42,12),
+    (2,42,13),
+    (2,42,14),
+    (2,42,15),
+    (2,42,16),
+    (2,42,17);
     
-insert into league_app_user_tribal(tribal_points, points_to_date, lau_id, tribal_id) values
+insert into league_app_user_tribal(tribal_points, points_to_date, lau_id, tribal_number) values
 	(100,100,1,1),
 	(93,193,1,2);

@@ -6,9 +6,9 @@ import java.util.Objects;
 public class Rating {
     private int userId;
     private int leagueId;
-    private List<Castaway> castaways;
+    private List<SeasonCastaway> castaways;
 
-    public Rating(int leagueId, int userId, List<Castaway> castaways){
+    public Rating(int leagueId, int userId, List<SeasonCastaway> castaways){
         this.leagueId = leagueId;
         this.userId = userId;
         this.castaways = castaways;
@@ -35,11 +35,11 @@ public class Rating {
         this.leagueId = leagueId;
     }
 
-    public List<Castaway> getCastaways() {
+    public List<SeasonCastaway> getCastaways() {
         return castaways;
     }
 
-    public void setCastaways(List<Castaway> castaways) {
+    public void setCastaways(List<SeasonCastaway> castaways) {
         this.castaways = castaways;
     }
 

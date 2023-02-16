@@ -173,7 +173,7 @@ function DraggableCastawayList() {
                                         {castaways.map((castaway, index) => (
                                             <Draggable draggableId={`${index}`} index={index} key={index}>
                                                 {(provided, snapshot) => (
-                                                    <tr ref={provided.innerRef} {...provided.draggableProps} className={`border-b bg-slate-100 ${'isDragging-'+snapshot.isDragging}`} key={index} >
+                                                    <tr ref={provided.innerRef} {...provided.draggableProps} className={snapshot.isDragging ? 'isDragging-'+snapshot.isDragging : `border-b bg-${castaway.tribeColor}`} key={index} >
                                                         <td className="text-center">{index + 1}</td>
                                                         <td className="px-2 text-center"><a href={castaway.pageURL} title={`${castaway.firstName}'s CBS page`} target="_blank" rel="noreferrer" className="flex text-center items-center" to={`/castaway${castaway.id}`}><img className="w-8 mr-2" src={castaway.iconURL} alt={`Portrait of ${castaway.firstName}`}/> <span className="text-center underline">{castaway.firstName + " " + castaway.lastName}</span></a></td>
                                                         <td className="px-2 text-center">{castaway.age}</td>

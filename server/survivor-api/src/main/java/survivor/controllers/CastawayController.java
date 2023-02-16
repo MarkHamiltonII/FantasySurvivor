@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import survivor.domain.CastawayService;
 import survivor.domain.Result;
 import survivor.models.Castaway;
+import survivor.models.SeasonCastaway;
 
 import java.util.List;
 
@@ -73,7 +74,7 @@ public class CastawayController {
 
     @GetMapping("/season{id}")
     public ResponseEntity<?> findCastawaysBySeason(@PathVariable int id) {
-        Result<List<Castaway>> result = service.findCastawaysBySeason(id);
+        Result<List<SeasonCastaway>> result = service.findCastawaysBySeason(id);
         if (result.isSuccess()){
             return new ResponseEntity<>(result.getPayload(), HttpStatus.OK);
         }
@@ -82,7 +83,7 @@ public class CastawayController {
 
     @GetMapping("/season{seasonId}/tribal{tribalNumber}")
     public ResponseEntity<?> findCastawaysByTribal(@PathVariable int seasonId, @PathVariable int tribalNumber) {
-        Result<List<Castaway>> result = service.findCastawaysByTribal(seasonId, tribalNumber);
+        Result<List<SeasonCastaway>> result = service.findCastawaysByTribal(seasonId, tribalNumber);
         if (result.isSuccess()){
             return new ResponseEntity<>(result.getPayload(), HttpStatus.OK);
         }

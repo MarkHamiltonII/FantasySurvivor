@@ -5,9 +5,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import survivor.data.mappers.CastawayMapper;
 import survivor.data.mappers.LeagueMapper;
+import survivor.data.mappers.SeasonCastawayMapper;
 import survivor.data.mappers.TribalPointsMapper;
 import survivor.models.Castaway;
 import survivor.models.League;
+import survivor.models.SeasonCastaway;
 import survivor.models.TribalPoints;
 
 import java.util.List;
@@ -121,22 +123,24 @@ public class TribalPointsJdbcTemplateRepository {
 
     private void addTribal(TribalPoints tribalPoints, int seasonId, int tribalNumber){
         final String sql = "select c.castaway_id, c.first_name, c.last_name, c.age, c.current_residence, c.occupation, "
-                + "c.icon_url, page_url from castaway c "
+                + "c.icon_url, page_url, sc.tribe, sc.tribe_color from castaway c "
+                + "inner join season_castaway sc on c.castaway_id = sc.castaway_id "
                 + "inner join tribal t on c.castaway_id = t.castaway_id "
                 + "where t.season_id = ? and t.tribal_number = ?;";
-        List<Castaway> tribal = jdbcTemplate.query(sql, new CastawayMapper(), seasonId, tribalNumber);
+        List<SeasonCastaway> tribal = jdbcTemplate.query(sql, new SeasonCastawayMapper(), seasonId, tribalNumber);
         tribalPoints.setTribal(tribal);
 
     }
 
     private void addCastaways(TribalPoints tribalPoints, int leagueId, int userId){
         final String sql = "select c.castaway_id, c.first_name, c.last_name, c.age, c.current_residence, "
-                + "c.occupation, c.icon_url, c.page_url from castaway c "
+                + "c.occupation, c.icon_url, c.page_url, sc.tribe, sc.tribe_color from castaway c "
+                + "inner join season_castaway sc on c.castaway_id = sc.castaway_id "
                 + "inner join league_app_user_rating laur on c.castaway_id = laur.castaway_id "
                 + "inner join league_app_user lau on laur.lau_id = lau.id "
                 + "where lau.league_id = ? and lau.user_id = ? "
                 + "order by laur.rating;";
-        List<Castaway> castaways = jdbcTemplate.query(sql, new CastawayMapper(), leagueId, userId);
+        List<SeasonCastaway> castaways = jdbcTemplate.query(sql, new SeasonCastawayMapper(), leagueId, userId);
         tribalPoints.setCastaways(castaways);
     }
 
