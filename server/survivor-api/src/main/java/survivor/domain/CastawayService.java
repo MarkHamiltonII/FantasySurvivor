@@ -3,6 +3,7 @@ package survivor.domain;
 import org.springframework.stereotype.Service;
 import survivor.data.CastawayJdbcTemplateRepository;
 import survivor.models.Castaway;
+import survivor.models.Season;
 import survivor.models.SeasonCastaway;
 
 import java.util.List;
@@ -122,7 +123,7 @@ public class CastawayService {
         return result;
     }
 
-    public Result<?> createTribal(int seasonId, int tribalNumber, List<Castaway> castaways){
+    public Result<?> createTribal(int seasonId, int tribalNumber, List<SeasonCastaway> castaways){
         Result<?> result = validateTribal(seasonId,castaways);
 
         if (!result.isSuccess()){
@@ -150,7 +151,7 @@ public class CastawayService {
         return result;
     }
 
-    public Result<?> updateTribal(int seasonId, int tribalNumber, List<Castaway> castaways){
+    public Result<?> updateTribal(int seasonId, int tribalNumber, List<SeasonCastaway> castaways){
         Result<?> result = validateTribal(seasonId,castaways);
 
         if (!result.isSuccess()){
@@ -210,7 +211,7 @@ public class CastawayService {
         return result;
     }
 
-    public Result<?> validateTribal(int seasonId, List<Castaway> castaways){
+    public Result<?> validateTribal(int seasonId, List<SeasonCastaway> castaways){
         Result<?> result = new Result<>();
 
         List<SeasonCastaway> season = repository.findCastawayBySeason(seasonId);

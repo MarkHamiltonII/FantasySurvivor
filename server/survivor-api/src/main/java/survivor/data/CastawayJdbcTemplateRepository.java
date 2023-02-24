@@ -124,7 +124,7 @@ public class CastawayJdbcTemplateRepository {
     }
 
     @Transactional
-    public boolean createTribal(int seasonId, int tribalNumber, List<Castaway> castaways){
+    public boolean createTribal(int seasonId, int tribalNumber, List<SeasonCastaway> castaways){
         final String sql = "insert into tribal(tribal_number, season_id, castaway_id) values (?, ?, ?);";
         int rowsUpdated = 0;
 
@@ -143,7 +143,7 @@ public class CastawayJdbcTemplateRepository {
     }
 
     @Transactional
-    public boolean updateTribal(int seasonId, int tribalNumber, List<Castaway> castaways){
+    public boolean updateTribal(int seasonId, int tribalNumber, List<SeasonCastaway> castaways){
         if (!deleteTribal(seasonId, tribalNumber)){
             return false;
         }

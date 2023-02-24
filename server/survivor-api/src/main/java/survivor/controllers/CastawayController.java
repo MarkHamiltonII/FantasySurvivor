@@ -91,13 +91,13 @@ public class CastawayController {
     }
 
     @PostMapping("/season{seasonId}/tribal{tribalNumber}")
-    public ResponseEntity<?> createTribal(@PathVariable int seasonId, @PathVariable int tribalNumber, @RequestBody List<Castaway> castaways) {
-        Result<?> result = service.createTribal(seasonId, tribalNumber-1, castaways);
+    public ResponseEntity<?> createTribal(@PathVariable int seasonId, @PathVariable int tribalNumber, @RequestBody List<SeasonCastaway> castaways) {
+        Result<?> result = service.createTribal(seasonId, tribalNumber, castaways);
         return ErrorResponse.noContentOrError(result);
     }
 
     @PutMapping("/season{seasonId}/tribal{tribalNumber}")
-    public ResponseEntity<?> updateTribal(@PathVariable int seasonId, @PathVariable int tribalNumber, @RequestBody List<Castaway> castaways) {
+    public ResponseEntity<?> updateTribal(@PathVariable int seasonId, @PathVariable int tribalNumber, @RequestBody List<SeasonCastaway> castaways) {
         Result<?> result = service.updateTribal(seasonId, tribalNumber, castaways);
         return ErrorResponse.noContentOrError(result);
     }
