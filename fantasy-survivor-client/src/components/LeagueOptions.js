@@ -4,7 +4,7 @@ import AuthContext from "../AuthContext";
 import EditableUserList from "./EditableUserList";
 import Errors from "./Errors";
 import Header from "./Header";
-import { BsAwardFill } from "react-icons/bs";
+import { BsAwardFill, BsLockFill, BsUnlockFill } from "react-icons/bs";
 
 function LeagueOptions() {
 
@@ -15,6 +15,7 @@ function LeagueOptions() {
     const [users, setUsers] = useState([]);
     const [searchUsers, setSearchUsers] = useState([]);
     const [leagueUsers, setLeagueUsers] = useState([]);
+    const [leagueIsFinalized, setLeagueIsFinalized] = useState(false);
     const [fetchAttempt, setFetchAttempt] = useState(false);
     const [pointsUpdated, setPointsUpdated] = useState(false);
 
@@ -61,6 +62,19 @@ function LeagueOptions() {
                 }
             })
             .catch(console.log)
+
+        fetch(`${process.env.REACT_APP_API_URL}/api/leagues/league${leagueId}/isFinalized`, init)
+            .then(response => {
+                if (response.status === 200) {
+                    return response.json();
+                } else {
+                    return Promise.reject(`Unexpected status code: ${response.status}`);
+                }
+            })
+            .then(data => {
+                setLeagueIsFinalized(data)
+            })
+            .catch(console.log)
     }, [auth.user, leagueId])
 
 
@@ -69,7 +83,7 @@ function LeagueOptions() {
     }
 
     const updateLeagueUsers = (users) => {
-        let tempLeague = {...league}
+        let tempLeague = { ...league }
         tempLeague.appUsers = users;
         setLeague(tempLeague)
     }
@@ -146,7 +160,6 @@ function LeagueOptions() {
                 } else if (response.status === 400) {
                     return response.json();
                 } else {
-                    console.log(response)
                     setErrors(response.messages)
                     return Promise.reject(`Unexpected status code: ${response.status}`);
                 }
@@ -155,14 +168,62 @@ function LeagueOptions() {
                 if (!data)
                     setPointsUpdated(true)
                 else {
-                    if(data.messages)
+                    if (data.messages)
                         setErrors(data.messages)
                     else
-                    setErrors(data)
+                        setErrors(data)
                 }
             })
             .catch(console.log)
     }
+
+    const onLock = () => {
+        fetchFinalize(true)
+        setLeagueIsFinalized(true)
+    }
+
+    const onUnlock = () => {
+        fetchFinalize(false)
+        setLeagueIsFinalized(false)
+    }
+
+    const fetchFinalize = (willFinalize) => {
+        const init = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${auth.user.token}`
+            },
+        };
+
+        let prefix = "un"
+        if (willFinalize) {
+            prefix = ""
+        }
+
+        fetch(`${process.env.REACT_APP_API_URL}/api/leagues/league${leagueId}/${prefix}finalize`, init)
+            .then(response => {
+                if (response.status === 204) {
+                    setErrors([])
+                    return null;
+                } else if (response.status === 400) {
+                    return response.json();
+                } else {
+                    setErrors(response.messages)
+                    return Promise.reject(`Unexpected status code: ${response.status}`);
+                }
+            })
+            .then(data => {
+                if (data) {
+                    if (data.messages)
+                        setErrors(data.messages)
+                    else
+                        setErrors(data)
+                }
+            })
+            .catch(console.log)
+    }
+
 
     return (
         <>
@@ -175,6 +236,10 @@ function LeagueOptions() {
                 </div>
                 <EditableUserList users={searchUsers} leage_users={leagueUsers} on_add={addUser} on_delete={removeUser} />
                 <button className={pointsUpdated ? "btn-red w-fit mx-auto py-1 mb-4" : "btn-blue w-fit mx-auto py-1 mb-4"} onClick={updatePoints}><BsAwardFill /><p className="ml-2">Update Tribal Points</p></button>
+                {leagueIsFinalized ? 
+                    <button className="btn-red w-fit mx-auto py-1 mb-4" onClick={onUnlock} ><BsUnlockFill /> <p className="ml-2">Unlock League Ratings</p></button> 
+                    : 
+                    <button className="btn w-fit mx-auto py-1 mb-4" onClick={onLock} ><BsLockFill /><p className="ml-2">Lock League Ratings</p></button>}
             </div>
         </>
     )
