@@ -160,6 +160,20 @@ public class LeagueService {
         return result;
     }
 
+    public Result<?> leagueIsFinalized(int leagueId, int ownerId){
+        Result<Boolean> result = new Result<>();
+        result.setPayload(true);
+        League oldLeague = repository.findLeagueById(leagueId);
+        validateOldLeague(oldLeague, ownerId, result);
+        List<Integer> finalized = repository.leagueIsFinalized(leagueId);
+        for (Integer isFinal : finalized){
+            if (isFinal == 0) {
+                result.setPayload(false);
+            }
+        }
+        return result;
+    }
+
     /////////////////////////////// Validation Methods //////////////////////////////////
 
     private Result<?> validateLeague(League league){

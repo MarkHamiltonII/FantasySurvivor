@@ -111,6 +111,12 @@ public class LeagueJdbcTemplateRepository {
         return jdbcTemplate.update(sql, leagueId) > 0;
     }
 
+    public List<Integer> leagueIsFinalized(int league_id){
+        return jdbcTemplate.query(
+                "select final from league_app_user where league_id = ?;",
+                (rs, rowNum) -> rs.getInt("final"),
+                league_id);
+    }
 
     /////////////////////////// HELPER ADD METHODS /////////////////////////////////
     private void addAppUsers(League league){

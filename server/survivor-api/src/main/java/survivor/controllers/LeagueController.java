@@ -119,4 +119,11 @@ public class LeagueController {
         return ErrorResponse.noContentOrError(result);
     }
 
+    @GetMapping("/league{leagueId}/isFinalized")
+    public ResponseEntity<?> leagueIsFinalized(@PathVariable int leagueId, UsernamePasswordAuthenticationToken principal){
+        AppUser appUser = (AppUser) principal.getPrincipal();
+        Result<?> result = service.leagueIsFinalized(leagueId, appUser.getAppUserId());
+        return new ResponseEntity<>(result.getPayload(),HttpStatus.OK);
+    }
+
 }
