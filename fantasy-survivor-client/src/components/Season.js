@@ -44,7 +44,7 @@ function Season() {
             })
             .then(data => data.map(d => setTribalList(tribalList.add(d))))
             .catch(console.log)
-    }, [])
+    }, [seasonId, tribalList])
 
     const handleChange = (e) => {
         setCurrentTribal(e.target.value)

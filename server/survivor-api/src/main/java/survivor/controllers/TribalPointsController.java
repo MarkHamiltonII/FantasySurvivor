@@ -78,6 +78,21 @@ public class TribalPointsController {
         }
     }
 
+    @PostMapping("/league/all")
+    public ResponseEntity<?> updateAllPointsForLeague(
+            @RequestBody League league, UsernamePasswordAuthenticationToken principal) {
+        try {
+            AppUser appUser = (AppUser) principal.getPrincipal();
+            Result<?> result = service.updateAllPointsForLeague(league, appUser);
+            if (result.isSuccess()) {
+                return new ResponseEntity<>(HttpStatus.CREATED);
+            }
+            return ErrorResponse.build(result);
+        } catch (DuplicateKeyException ex){
+            return new ResponseEntity<>(List.of("Duplicate tribal points"), HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @PutMapping("/update_individual_points")
     public ResponseEntity<?> updateTribalPointsById(@RequestBody TribalPoints points, UsernamePasswordAuthenticationToken principal){
         try {

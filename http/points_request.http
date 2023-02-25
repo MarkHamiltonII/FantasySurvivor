@@ -1,5 +1,5 @@
 @url = http://localhost:8080/api
-@admintoken = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmYW50YXN5LXN1cnZpdm9yIiwic3ViIjoiZGlhYmxvIiwiYXV0aG9yaXRpZXMiOiJST0xFX0FETUlOLFJPTEVfTEVBR1VFX09XTkVSLFJPTEVfVVNFUiIsImFwcFVzZXJJZCI6MSwiZXhwIjoxNjYwMjQyODQ0fQ.5L_tDeVoriYY_8R6W-gRVOe_SLN5MJfzeCpw9lryG4A
+@admintoken = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmYW50YXN5LXN1cnZpdm9yIiwic3ViIjoiZGlhYmxvIiwiYXV0aG9yaXRpZXMiOiJST0xFX0FETUlOLFJPTEVfTEVBR1VFX09XTkVSLFJPTEVfVVNFUiIsImFwcFVzZXJJZCI6MSwiZXhwIjoxNjc3MjkzMTcyfQ.SWa9qSSCFkQk-X69xX66bSySc4ahhJrVkHhluKezMXE
 @usertoken = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmYW50YXN5LXN1cnZpdm9yIiwic3ViIjoia2VubmVkeSIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiYXBwVXNlcklkIjo0LCJleHAiOjE2NjAyNDI4NTN9.-YfzlKB8MCp9YeiPHAz2zv_0GKQbphj180IhoR4qCCU
 @morktoken = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmYW50YXN5LXN1cnZpdm9yIiwic3ViIjoibW9yayIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTixST0xFX0xFQUdVRV9PV05FUixST0xFX1VTRVIiLCJhcHBVc2VySWQiOjIsImV4cCI6MTY2MDI0MTkyN30.kIKaMyNaa7dpB9WJw84EgdySTos5rWzzgcggr49bWKc
 
@@ -394,6 +394,37 @@ Authorization: Bearer {{admintoken}}
       "occupation": "Stay at Home Mom",
       "iconURL": "https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_07_800x1000.jpg",
       "pageURL": "https://www.cbs.com/shows/survivor/cast/216616/"
+    }
+  ]
+}
+
+###
+
+POST http://localhost:8080/api/points/league/all HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{admintoken}}
+
+{
+  "leagueId": 1,
+  "name": "Our first league",
+  "seasonId": 42,
+  "ownerId": 1,
+  "appUsers": [
+    {
+      "username": "diablo",
+      "appUserId": 1
+    },
+    {
+      "username": "mork",
+      "appUserId": 2
+    },
+    {
+      "username": "joj",
+      "appUserId": 3
+    },
+    {
+      "username": "kennedy",
+      "appUserId": 4
     }
   ]
 }

@@ -93,6 +93,38 @@ public class TribalPointsService {
         return result;
     }
 
+    @Transactional
+    public Result<?> updateAllPointsForLeague(League league, AppUser owner){
+        Result<?> result = validateOwner(owner, league.getLeagueId());
+
+        List<Integer> tribalNumbers = castawayRepository.findTribalNumbersBySeason(league.getSeasonId());
+
+        for (Integer tribalNumber : tribalNumbers) {
+            validateTribal(league.getLeagueId(), tribalNumber, result);
+            if (!result.isSuccess()) {
+                return result;
+            }
+
+            for (AppUser member : league.getAppUsers()) {
+                validateRating(league.getLeagueId(), member.getAppUserId(), result);
+                if (!result.isSuccess()) {
+                    return result;
+                }
+                TribalPoints points = makeTribalPoints(league.getLeagueId(), member.getAppUserId(), tribalNumber);
+                TribalPoints oldPoints = repository.findTribalPointsByUserAndTribal(league.getLeagueId(), member.getAppUserId(), tribalNumber);
+                if (oldPoints != null) {
+                    repository.deleteTribalPointsById(oldPoints.getId());
+                }
+                if (!repository.createTribalPoints(points, tribalNumber)) {
+                    result.addMessage("Could not create points for user id = "
+                            + member.getAppUserId(), ResultType.INVALID);
+                    return result;
+                }
+            }
+        }
+        return result;
+    }
+
     public Result<?> updateTribalPointsById(TribalPoints points, AppUser owner){
         Result<?> result = validateOwner(owner, points.getLeague().getLeagueId());
         if (!result.isSuccess()){
@@ -182,7 +214,7 @@ public class TribalPointsService {
     private void validateRating(int leagueId, int userId, Result<?> result){
         Rating rating = ratingRepository.findRatingByIds(leagueId,userId);
         if (rating == null){
-            result.addMessage("User rankings not found", ResultType.INVALID);
+            result.addMessage("User rankings not found for userID: " + userId, ResultType.INVALID);
         }
     }
 

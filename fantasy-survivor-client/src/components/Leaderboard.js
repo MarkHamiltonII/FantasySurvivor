@@ -1,5 +1,9 @@
 function Leaderboard({ leaderboard }) {
 
+    const sortedRankings = Object.entries(leaderboard.rankings)
+    .sort(([,a],[,b]) => b-a)
+    .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+
     return (
         <div className="flex flex-col mt-20 items-center mx-4">
             <h2 className=" font-survivor text-xl mb-4">{`Leaderboard for Tribal ${leaderboard.currentTribal}`} </h2>
@@ -13,7 +17,7 @@ function Leaderboard({ leaderboard }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {Object.keys(leaderboard.rankings).map((key, index) => (
+                        {Object.keys(sortedRankings).map((key, index) => (
                             <tr key={index} className={`rank-${index}`}>
                                 <td className={`rank-${index}`}>{index + 1}</td>
                                 <td>{key}</td>
