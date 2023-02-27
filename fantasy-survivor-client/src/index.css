@@ -32,6 +32,9 @@ body {
 .bg-Orange {
   background-color: orange;
 }
+.bg-Purple {
+  background-color: plum;
+}
 
 .isDragging-true{
   background-color: snow;

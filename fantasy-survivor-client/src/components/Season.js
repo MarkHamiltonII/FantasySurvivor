@@ -85,7 +85,7 @@ function Season() {
                 </div>
                 {fetchSeasonAttempt && <CastawayList castaways={season.castaways} tribal_castaways={tribalCastaways} rank={false} />}
             </div>
-            {auth.user.hasRole('ROLE_ADMIN') && <Link className="py-1 mb-4" to={`/season${seasonId}/add_tribal`} > <button className="btn w-fit mx-auto mb-4" onClick={onClick}>Add a Tribal</button></Link>}
+            {auth.user && auth.user.hasRole('ROLE_ADMIN') && <Link className="py-1 mb-4" to={`/season${seasonId}/add_tribal`} > <button className="btn w-fit mx-auto mb-4" onClick={onClick}>Add a Tribal</button></Link>}
         </>
     )
 

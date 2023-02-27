@@ -171,10 +171,29 @@ insert into castaway (first_name, last_name, age, current_residence, occupation,
     ('Romeo', 'Escobar', 37, 'Norwalk, CA', 'Pageant Coach', 'https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_17_800x1000.jpg', 'https://www.cbs.com/shows/survivor/cast/216621/'),
     ('Swati', 'Goel', 19, 'Palo Alto, Ca', 'Ivy League Student', 'https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_15_800x1000.jpg', 'https://www.cbs.com/shows/survivor/cast/216622/'),
     ('Tori', 'Meehan', 25, 'Tulsa, OK', 'Therapist', 'https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_14_800x1000.jpg', 'https://www.cbs.com/shows/survivor/cast/216623/'),
-    ('Zach', 'Wurtenberger', 22, 'St. Louis, MO', 'Student', 'https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_18_800x1000.jpg', 'https://www.cbs.com/shows/survivor/cast/216624/');
+    ('Zach', 'Wurtenberger', 22, 'St. Louis, MO', 'Student', 'https://wwwimage-tve.cbsstatic.com/thumbnails/photos/w425-q80/cast/cbb_18_800x1000.jpg', 'https://www.cbs.com/shows/survivor/cast/216624/'),
+    ('Brandon', 'Cottom', 30, 'Newton, PA', 'Security Specialist','https://static.wikia.nocookie.net/survivor/images/9/95/S44_brandon_t.png','https://survivor.fandom.com/wiki/Brandon_Cottom'),
+    ('Bruce', 'Perreault', 46, 'Warwick, RI', 'Insurance Agent', 'https://static.wikia.nocookie.net/survivor/images/c/c3/S44_bruce_t.png', 'https://survivor.fandom.com/wiki/Bruce_Perreault'),
+    ('Carolyn', 'Wiger', 35, 'North St. Paul, MN', 'Drug Councelor', 'https://static.wikia.nocookie.net/survivor/images/7/7d/S44_carolyn_t.png', 'https://survivor.fandom.com/wiki/Carolyn_Wiger'),
+    ('Caston', 'Garrett', 20, 'Atlanta, GA', 'NASA Engineering Student', 'https://static.wikia.nocookie.net/survivor/images/4/42/S44_carson_t.png', 'https://survivor.fandom.com/wiki/Carson_Garrett'),
+    ('Claire', 'Rafson', 25, 'Brooklyn, NY', 'Tech Investor', 'https://static.wikia.nocookie.net/survivor/images/9/91/S44_claire_t.png', 'https://survivor.fandom.com/wiki/Claire_Rafson'),
+    ('Danny', 'Massa', 32, 'Bronx, NY', 'NYC Firefighter', 'https://static.wikia.nocookie.net/survivor/images/9/92/S44_danny_t.png', 'https://survivor.fandom.com/wiki/Danny_Massa'),
+    ('Frannie', 'Marin', 23, 'St. Paul, MN', 'Research Coordinator', 'https://static.wikia.nocookie.net/survivor/images/3/33/S44_frannie_t.png', 'https://survivor.fandom.com/wiki/Frannie_Marin'),
+    ('Heidi', 'Lagares-Greenblatt', 43, 'Pittsburgh, PA', 'Engineering Manager', 'https://static.wikia.nocookie.net/survivor/images/1/13/S44_heidi_t.png', 'https://survivor.fandom.com/wiki/Heidi_Lagares-Greenblatt'),
+    ('Helen', 'Li', 29, 'San Fransisco, CA', 'Product Manager', 'https://static.wikia.nocookie.net/survivor/images/7/7d/S44_helen_t.png', 'https://survivor.fandom.com/wiki/Helen_Li'),
+    ('Jamie Lynn', 'Ruiz', 35, 'Mesa, AZ', 'Yogi', 'https://static.wikia.nocookie.net/survivor/images/d/da/S44_jaime_t.png', 'https://survivor.fandom.com/wiki/Jaime_Lynn_Ruiz'),
+    ('Josh', 'Wilder', 34, 'Cincinnati, OH', 'Surgical Podiatrist', 'https://static.wikia.nocookie.net/survivor/images/9/92/S44_josh_t.png', 'https://survivor.fandom.com/wiki/Josh_Wilder'),
+    ('Kane', 'Fritzler', 25, 'Moose Jaw, Canada', 'Law Student', 'https://static.wikia.nocookie.net/survivor/images/3/3b/S44_kane_t.png', 'https://survivor.fandom.com/wiki/Kane_Fritzler'),
+    ('Lauren', 'Harpe', 31, 'Mont Belvieu, TX', 'Elementary School Teacher', 'https://static.wikia.nocookie.net/survivor/images/4/4e/S44_lauren_t.png', 'https://survivor.fandom.com/wiki/Lauren_Harpe'),
+    ('Maddie', 'Pomilla', 28, 'Brooklyn, NY', 'Charity Projects Manager', 'https://static.wikia.nocookie.net/survivor/images/c/c7/S44_maddy_t.png', 'https://survivor.fandom.com/wiki/Maddy_Pomilla'),
+    ('Matt', 'Blankinship', 27, 'San Francisco, CA', 'Security Software Engineer', 'https://static.wikia.nocookie.net/survivor/images/e/ed/S44_matt_t.png', 'https://survivor.fandom.com/wiki/Matt_Blankinship'),
+    ('Matthew', 'Grinstead-Mayle', 43, 'Columbus, OH', 'Barbershop Owner', 'https://static.wikia.nocookie.net/survivor/images/b/be/S44_matthew_t.png', 'https://survivor.fandom.com/wiki/Matthew_Grinstead-Mayle'),
+    ('Sarah', 'Wade', 27, 'Chicago, IL', 'Management Consultant', 'https://static.wikia.nocookie.net/survivor/images/7/78/S44_sarah_t.png', 'https://survivor.fandom.com/wiki/Sarah_Wade'),
+    ('Yam Yam', 'Arocho', 26, 'San Juan, PR', 'Salon Owner', 'https://static.wikia.nocookie.net/survivor/images/3/38/S44_yam_yam_t.png', 'https://survivor.fandom.com/wiki/Yam_Yam_Arocho');
     
 insert into season(season_id, `name`) values
-	(42, 'Season 42');
+	(42, 'Season 42'),
+    (44, 'Season 44');
     
 insert into season_castaway values
 	(42,1,'Vati','Green'),
@@ -194,16 +213,39 @@ insert into season_castaway values
     (42,15,'Ika','Blue'),
     (42,16,'Ika','Blue'),
     (42,17,'Ika','Blue'),
-    (42,18,'Ika','Blue');
+    (42,18,'Ika','Blue'),
+    (44,19,'Ratu','Orange'),
+    (44,20,'Tika','Purple'),
+    (44,21,'Tika','Purple'),
+    (44,22,'Tika','Purple'),
+    (44,23,'Soka','Green'),
+    (44,24,'Soka','Green'),
+    (44,25,'Soka','Green'),
+    (44,26,'Soka','Green'),
+    (44,27,'Tika','Purple'),
+    (44,28,'Ratu','Orange'),
+    (44,29,'Soka','Green'),
+    (44,30,'Ratu','Orange'),
+    (44,31,'Ratu','Orange'),
+    (44,32,'Ratu','Orange'),
+    (44,33,'Soka','Green'),
+    (44,34,'Ratu','Orange'),
+    (44,35,'Tika','Purple'),
+    (44,36,'Tika','Purple');
     
 insert into league(`name`, season_id, owner_id) values
-	('Our first league', 42, 1);
+	('Our first league', 42, 1),
+    ('Fantasy Survivor: 44', 44, 1);
     
 insert into league_app_user(league_id,user_id) values
 	(1,4),
     (1,3),
     (1,2),
-    (1,1);
+    (1,1),
+    (2,1),
+    (2,2),
+    (2,3),
+    (2,4);
     
     -- kennedy's list 
 insert into league_app_user_rating(rating,castaway_id,lau_id) values

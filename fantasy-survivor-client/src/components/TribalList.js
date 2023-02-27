@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import AuthContext from "../AuthContext";
 import EditableCastawayList from "./EditableCastawayList";
 import Errors from "./Errors";
@@ -15,7 +15,7 @@ function TribalList() {
     const [errors, setErrors] = useState([])
     const [isSure, setIsSure] = useState(false)
     const [tribalCastaways, setTribalCastaways] = useState([])
-    const [currentTribal, setCurrentTribal] = useState('1')
+    const [currentTribal, setCurrentTribal] = useState(0)
     const [fetchSeasonAttempt, setFetchSeasonAttempt] = useState(false);
 
     useEffect(() => {
@@ -60,7 +60,7 @@ function TribalList() {
                     .catch(console.log)
             })
             .catch(console.log)
-    }, [])
+    }, [seasonId])
 
     const addCastaway = (castaway) => {
         let tempCastaways = [...tribalCastaways];
@@ -69,7 +69,7 @@ function TribalList() {
     }
 
     const removeCastaway = (castaway) => {
-        setTribalCastaways(tribalCastaways.filter(c => c.id != castaway.id));
+        setTribalCastaways(tribalCastaways.filter(c => c.id !== castaway.id));
     }
 
     const onClick = () => {
