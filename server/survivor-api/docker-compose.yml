@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  fantasy-survivor-api:
+    image: mhii/fantasy-survivor-api:1.0
+    environment:
+      - DB_URL=jdbc:mysql://fantasy-survivor-db.cv9gdl9ckybz.us-east-1.rds.amazonaws.com:3306/fantasy_survivor
+      - DB_USERNAME=admin
+      - DB_PASSWORD=top-secret-password
+    ports:
+      - 8080:8080
