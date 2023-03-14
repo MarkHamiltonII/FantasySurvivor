@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
-import { BsPlus, BsLightningFill, BsGearFill, BsPersonFill, BsPersonPlusFill, BsDoorOpenFill, BsPeopleFill } from 'react-icons/bs';
-import { FaFire, FaPoo, FaHome, FaTv, FaBars } from 'react-icons/fa';
+import { BsPersonFill, BsPersonPlusFill, BsDoorOpenFill, BsPeopleFill } from 'react-icons/bs';
+import { FaFire, FaHome, FaTv, FaBars, FaScroll } from 'react-icons/fa';
 
 import { Link } from "react-router-dom";
 import AuthContext from '../AuthContext';
@@ -30,11 +30,16 @@ const NavBar = () => {
                         <NavBarIcon icon={<FaTv size="24" />} text="Seasons" />
                     </Link>
                 </span>
+                <span className='my-auto'>
+                    <Link to="/rules">
+                        <NavBarIcon icon={<FaScroll size="24"/>}  text="Rules" />
+                    </Link>
+                </span>
                 {
                     auth.user && (
                         <span className='my-auto'>
                             <Link to="/myleagues">
-                                <NavBarIcon icon={<FaFire size="24" />} text="My Leagues" />
+                                <NavBarIcon icon={<FaFire size="24" text="My Leagues" />} />
                             </Link>
                         </span>
                     )
@@ -49,7 +54,6 @@ const NavBar = () => {
                     )
                 }
                 {/* <NavBarIcon icon={<BsPlus size="28" />} text="Join" />
-                <NavBarIcon icon={<BsLightningFill size="24" />} />
                 <NavBarIcon icon={<FaPoo size="24" />} /> */}
                 {
                     !auth.user && !showNavBar && (

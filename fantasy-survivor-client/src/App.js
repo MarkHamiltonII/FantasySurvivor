@@ -17,6 +17,7 @@ import LeagueOptions from "./components/LeagueOptions";
 import Seasons from "./components/Seasons";
 import Season from "./components/Season"
 import TribalList from "./components/TribalList";
+import Rules from "./components/Rules";
 
 const LOCAL_STORAGE_TOKEN_KEY = 'fantasySurvivorToken';
 
@@ -111,6 +112,9 @@ function App() {
             </Route>
             <Route path="/season:seasonId/add_tribal">
               <TribalList />
+            </Route>
+            <Route path="/rules" >
+              <Rules />
             </Route>
 
           </Switch>

@@ -1,17 +1,30 @@
 @url = http://localhost:8080/api
-@token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmYW50YXN5LXN1cnZpdm9yIiwic3ViIjoiZGlhYmxvIiwiYXV0aG9yaXRpZXMiOiJST0xFX0FETUlOLFJPTEVfTEVBR1VFX09XTkVSLFJPTEVfVVNFUiIsImFwcFVzZXJJZCI6MSwiZXhwIjoxNjc3Mjk1OTQ0fQ.Acov8OV9dDOv2xhmzEPriJrZl7S16Dd3Y4kwfNXHTL0
+@deployedURL = http://fantasy-survivor-api.us-east-1.elasticbeanstalk.com:8080/api
+@token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmYW50YXN5LXN1cnZpdm9yIiwic3ViIjoiZGF2aWQiLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sUk9MRV9MRUFHVUVfT1dORVIsUk9MRV9VU0VSIiwiYXBwVXNlcklkIjoxLCJleHAiOjE2NzgzMjk2ODR9.sINqzyRvnj7HY0KWtNJMLes26RQpyEMi1WtCmmkRhXo
 
 
-POST {{url}}/authenticate HTTP/1.1
+POST {{deployedURL}}/authenticate HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "diablo",
+    "username": "david",
     "password": "P@ssw0rd!"
 }   
 
 ###
 
-GET {{url}}/leaderboard/season42/league1 HTTP/1.1
+GET {{deployedURL}}/leaderboard/season42/league1 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### 
+
+GET {{deployedURL}}/leaderboard/season44/league2 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### 
+
+GET {{deployedURL}}/get_current_tribal/season44 HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{token}}
