@@ -1,8 +1,13 @@
 function Leaderboard({ leaderboard }) {
 
+    if (!leaderboard){
+        return null;
+    }
+    
     const sortedRankings = Object.entries(leaderboard.rankings)
     .sort(([,a],[,b]) => b-a)
     .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+
 
     return (
         <div className="flex flex-col mt-20 items-center mx-4">

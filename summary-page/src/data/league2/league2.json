@@ -1,0 +1,100 @@
+{
+    "leagueId": 2,
+    "name": "Fantasy Survivor: 44",
+    "seasonId": 44,
+    "ownerId": 1,
+    "appUsers": [
+        {
+            "username": "david",
+            "appUserId": 1
+        },
+        {
+            "username": "mark",
+            "appUserId": 2
+        },
+        {
+            "username": "jojo",
+            "appUserId": 3
+        },
+        {
+            "username": "kennedy",
+            "appUserId": 4
+        },
+        {
+            "username": "shaggy",
+            "appUserId": 5
+        },
+        {
+            "username": "pearl",
+            "appUserId": 8
+        },
+        {
+            "username": "anna",
+            "appUserId": 9
+        },
+        {
+            "username": "ashley",
+            "appUserId": 10
+        },
+        {
+            "username": "brittany",
+            "appUserId": 11
+        },
+        {
+            "username": "derek",
+            "appUserId": 13
+        },
+        {
+            "username": "jenna",
+            "appUserId": 16
+        },
+        {
+            "username": "kyle",
+            "appUserId": 18
+        },
+        {
+            "username": "dawson",
+            "appUserId": 19
+        },
+        {
+            "username": "matthew",
+            "appUserId": 20
+        },
+        {
+            "username": "mike",
+            "appUserId": 22
+        },
+        {
+            "username": "meagan",
+            "appUserId": 23
+        },
+        {
+            "username": "tena",
+            "appUserId": 25
+        },
+        {
+            "username": "vincent",
+            "appUserId": 26
+        },
+        {
+            "username": "casey",
+            "appUserId": 27
+        },
+        {
+            "username": "madison",
+            "appUserId": 28
+        },
+        {
+            "username": "kenny",
+            "appUserId": 29
+        },
+        {
+            "username": "trevor",
+            "appUserId": 32
+        },
+        {
+            "username": "tavariush",
+            "appUserId": 34
+        }
+    ]
+}

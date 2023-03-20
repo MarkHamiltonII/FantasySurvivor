@@ -9,7 +9,7 @@ POST {{url}}/authenticate HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "diablo",
+    "username": "david",
     "password": "P@ssw0rd!"
 }   
 

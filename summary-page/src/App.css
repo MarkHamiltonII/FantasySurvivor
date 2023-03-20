@@ -1,0 +1,101 @@
+.App {
+  text-align: center;
+  background-color: paleturquoise;
+  min-height: 100vh;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 15vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "SURVIVANT";
+  font-size: calc(5px + 5vmin);
+  color: white;
+}
+
+.data-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.item-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 20px;
+  margin-left: 4em;
+  margin-right: 4em;
+  margin-bottom: 2em;
+  background-color:aliceblue;
+}
+.ranking-container {
+  height: min-content;
+  padding-bottom: 0;
+}
+
+.item-container table{
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-bottom: 0;
+
+}
+.item-container td{
+  vertical-align:middle;
+}
+
+.table-heading{
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 0;
+  background-color: #282c34;
+  color: white;
+}
+.table-header{
+  padding-left: 1em;
+  padding-right: 1em;
+  background-color: #282c34;
+  color: white;
+}
+
+.rank-1{
+  background-color: gold;
+}
+.rank-2 {
+  background-color: silver;
+}
+.rank-3 {
+  background-color: darkorange;
+}
+.bg-Green {
+  background-color: lightgreen;
+}
+.bg-Blue {
+  background-color: cornflowerblue;
+}
+.bg-Orange {
+  background-color: orange;
+}
+.bg-Purple {
+  background-color: plum;
+}
+.headshot img {
+  width: 40px;
+}
