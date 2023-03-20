@@ -7,7 +7,6 @@ import Ranking from './components/Ranking';
 import Leaderboard from './components/Leaderboard';
 
 let leaderboard = require('./data/league2/leaderboard.json')
-let league = require('./data/league2/league2.json')
 
 function App() {
   return (
